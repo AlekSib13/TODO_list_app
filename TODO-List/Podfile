@@ -9,7 +9,7 @@ target 'TODO-List' do
   pod 'Alamofire'
   pod 'SnapKit', '~> 4.0'
   pod 'PromiseKit'
-  pod 'Texture'
+  pod 'Texture', '3.0.0'
 
   # Pods for TODO-List
 

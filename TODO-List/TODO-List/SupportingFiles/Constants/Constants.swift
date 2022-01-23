@@ -61,7 +61,7 @@ struct Constants {
         static let sandYellow = UIColor(red: 252/255, green: 221/255, blue: 118/255, alpha: 1.0)
         static let sunriseYellow = UIColor(red: 255/255, green: 207/255, blue: 72/255, alpha: 1.0)
         static let peachYellow = UIColor(red: 250/255, green: 223/255, blue: 173/255, alpha: 1.0)
-        static let whiteYellow = UIColor(red: 255/255, green: 226/255, blue: 183/255, alpha: 1.0)
+        static let lightYellow = UIColor(red: 253/255, green: 234/255, blue: 168/255, alpha: 1.0)
         
         static let brickBrown = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 1.0)
     }

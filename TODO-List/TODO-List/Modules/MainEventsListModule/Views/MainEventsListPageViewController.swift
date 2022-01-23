@@ -7,13 +7,16 @@
 
 import Foundation
 import UIKit
+import AsyncDisplayKit
 
 class MainEventsListPageViewController: UIPageViewController, MainEventsListPageViewControllerProtocol {
     
     let vc: MainEventsListCurrentListViewControllerProtocol
+    let vcDelegate: MainEventsListPresenterProtocol?
     
-    init() {
+    init(delegate: MainEventsListPresenterProtocol?) {
         self.vc = MainEventsListCurrentListViewController(pageIndex: 0)
+        self.vcDelegate = delegate
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
     
@@ -23,9 +26,15 @@ class MainEventsListPageViewController: UIPageViewController, MainEventsListPage
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let currentVC = vc as? UIViewController else {return}
+        setCurrentVCDataSourceAndDelegate()
+        guard let currentVC = vc as? ASDKViewController else {return}
         self.setViewControllers([currentVC], direction: .forward, animated: true, completion: nil)
         configureView()
+    }
+    
+    func setCurrentVCDataSourceAndDelegate() {
+        vc.tableNode.delegate = vcDelegate
+        vc.tableNode.dataSource = vcDelegate
     }
     
     func configureView() {
@@ -33,4 +42,5 @@ class MainEventsListPageViewController: UIPageViewController, MainEventsListPage
         view.layer.borderWidth = Constants.Size.size1
         view.layer.borderColor = Constants.Colour.defaultSystemWhite.cgColor
     }
+    
 }
