@@ -15,7 +15,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        eventsListView = MainEventsListPageViewController()
+        eventsListView = MainEventsListPageViewController(delegate: presenter)
         configureView()
         setUpConstraints()
     }
@@ -30,12 +30,18 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         view.addSubview(eventsListView.view)
 
         setDataSourceAndDelegates()
+//        setCurrentVCDataSourceAndDelegate()
     }
     
     func configureNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
+//    func setCurrentVCDataSourceAndDelegate() {
+//        guard let eventsListView = eventsListView as? UIPageViewController, let currentVC = eventsListView.viewControllers?.first else {return}
+//
+//
+//    }
     
     func setUpConstraints() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
@@ -52,4 +58,5 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         eventsListView.dataSource = presenter
         eventsListView.delegate = presenter
     }
+    
 }

@@ -7,16 +7,19 @@
 
 import Foundation
 import UIKit
+import AsyncDisplayKit
 
 protocol MainEventsListViewControllerProtocol: class {}
 
-protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate {}
+protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate {}
 
 protocol MainEventsListInteractorProtocol: class {}
 
 protocol MainEventsListRouterProtocol: class {}
 
 
-protocol MainEventsListCurrentListViewControllerProtocol {}
+protocol MainEventsListCurrentListViewControllerProtocol {
+    var tableNode: ASTableNode {get}
+}
 
 protocol MainEventsListPageViewControllerProtocol {}
