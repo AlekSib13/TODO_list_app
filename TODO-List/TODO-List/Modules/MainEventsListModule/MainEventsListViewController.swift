@@ -78,18 +78,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     @objc func addEventButtonTapped() {
         print("I am tapped")
-//        guard let eventsListView = eventsListView as? UIPageViewController else {return}
         adjustAddEventButtonContsraints()
-        
-//        UIView.animate(withDuration: 3.0, delay: .nan, options: .curveLinear, animations: {
-////            self.addEventButton.snp.makeConstraints{make in
-////                make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
-////                make.leading.equalTo(eventsListView.view)
-////                make.trailing.equalTo(eventsListView.view)
-////                make.height.equalTo(Constants.Size.size40)
-//
-//            self.addEventButton.transform = CGAffineTransform(scaleX: 3, y: 1)
-//            }, completion: nil)
+        animateAddEventButton()
     }
     
     
@@ -100,6 +90,15 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             make.leading.equalTo(eventsListView.view)
             make.trailing.equalTo(eventsListView.view)
             make.height.equalTo(Constants.Size.size40)
+        }
+    }
+    
+    func animateAddEventButton() {
+        UIView.animate(withDuration: 1.0, delay: .nan, options: .curveLinear, animations: {
+           self.addEventButton.backgroundColor = Constants.Colour.brickBrownLighter
+        }) {_ in
+            // MARK: TODO: play with animation, perhaps there are better solutions to turn "+" into "save", for instance making the "+" convert to "save" smothly but rapidly from the middle
+            UIView.animate(withDuration: 1.0, animations: {self.addEventButton.setTitle(StringsContent.EventsList.saveEvent, for: .normal)})
         }
     }
 }

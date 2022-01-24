@@ -26,5 +26,6 @@ struct StringsContent {
     
     struct EventsList {
         static let addEvent = "+"
+        static let saveEvent = "save"
     }
 }
