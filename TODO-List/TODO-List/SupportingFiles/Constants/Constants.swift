@@ -66,6 +66,7 @@ struct Constants {
         static let lightYellow = UIColor(red: 253/255, green: 234/255, blue: 168/255, alpha: 1.0)
         
         static let brickBrown = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 1.0)
+        static let brickBrownLighter = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.75)
     }
     
     struct tabBarImageInsets {
