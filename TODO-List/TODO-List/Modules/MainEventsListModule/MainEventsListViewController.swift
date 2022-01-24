@@ -78,27 +78,27 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     @objc func addEventButtonTapped() {
         print("I am tapped")
-        adjustAddEventButtonContsraints()
-        animateAddEventButton()
+        adjustAndAnimateEventButtonContsraints()
     }
     
     
-    func adjustAddEventButtonContsraints() {
+    func adjustAndAnimateEventButtonContsraints() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
-        self.addEventButton.snp.makeConstraints{make in
-            make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
-            make.leading.equalTo(eventsListView.view)
-            make.trailing.equalTo(eventsListView.view)
-            make.height.equalTo(Constants.Size.size40)
-        }
-    }
-    
-    func animateAddEventButton() {
-        UIView.animate(withDuration: 1.0, delay: .nan, options: .curveLinear, animations: {
+        
+        UIView.animate(withDuration: 1.2, delay: .nan, options: .curveLinear, animations: {
            self.addEventButton.backgroundColor = Constants.Colour.brickBrownLighter
+            
+            self.addEventButton.snp.makeConstraints{make in
+                make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
+                make.leading.equalTo(eventsListView.view)
+                make.trailing.equalTo(eventsListView.view)
+                make.height.equalTo(Constants.Size.size40)
+            }
+            
+            self.addEventButton.setTitle(StringsContent.EventsList.saveEvent, for: .normal)
         }) {_ in
+            print("do further - > open text insertion form")
             // MARK: TODO: play with animation, perhaps there are better solutions to turn "+" into "save", for instance making the "+" convert to "save" smothly but rapidly from the middle
-            UIView.animate(withDuration: 1.0, animations: {self.addEventButton.setTitle(StringsContent.EventsList.saveEvent, for: .normal)})
+           }
         }
     }
-}
