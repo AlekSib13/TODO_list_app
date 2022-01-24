@@ -23,4 +23,8 @@ struct StringsContent {
         static let events = "Events"
         static let settings = "Settings"
     }
+    
+    struct EventsList {
+        static let addEvent = "+"
+    }
 }
