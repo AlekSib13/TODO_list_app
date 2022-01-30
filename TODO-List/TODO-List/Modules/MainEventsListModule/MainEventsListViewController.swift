@@ -14,12 +14,16 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     var eventsListView: MainEventsListPageViewControllerProtocol?
     
     
+    //MARK: TODO - put views into stack
+    
     private let addEventButton: UIButton = {
        let addEventButton = UIButton()
-        addEventButton.backgroundColor = Constants.Colour.brickBrown
+//        addEventButton.backgroundColor = Constants.Colour.brickBrown
+        addEventButton.backgroundColor = Constants.Colour.mangoTangoOrange
         addEventButton.setTitle(StringsContent.EventsList.addEvent, for: .normal)
         addEventButton.setTitleColor(Constants.Colour.lightYellow, for: .normal)
-        addEventButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.FontSize.font20, weight: .bold)
+//        addEventButton.setTitleColor(Constants.Colour.brickBrown, for: .normal)
+        addEventButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.FontSize.font20, weight: .medium)
         addEventButton.titleLabel?.textAlignment = .center
         addEventButton.layer.borderColor = UIColor.white.cgColor
         addEventButton.layer.borderWidth = Constants.Size.size1
@@ -27,6 +31,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         addEventButton.addTarget(self, action: #selector(addEventButtonTapped), for: .touchUpInside)
         return addEventButton
     }()
+    
+    private let newEventView = EventFieldView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +50,10 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
         view.addSubview(eventsListView.view)
         view.addSubview(addEventButton)
-
+        view.addSubview(newEventView)
+        
+        changeEventViewVisability(hide: true)
+        
         setDataSourceAndDelegates()
     }
     
@@ -67,12 +76,22 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             make.width.equalTo(Constants.Size.size40)
             make.height.equalTo(Constants.Size.size40)
         }
+        
+        newEventView.snp.makeConstraints{make in
+            make.leading.trailing.equalTo(eventsListView.view)
+            make.top.equalTo(eventsListView.view)
+            make.height.equalTo(Constants.Size.size250)
+        }
+        
+        
     }
     
     func setDataSourceAndDelegates() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
         eventsListView.dataSource = presenter
         eventsListView.delegate = presenter
+        
+        newEventView.delegate = presenter
     }
     
     
@@ -86,19 +105,26 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
         
         UIView.animate(withDuration: 1.2, delay: .nan, options: .curveLinear, animations: {
-           self.addEventButton.backgroundColor = Constants.Colour.brickBrownLighter
+//            self.addEventButton.backgroundColor = Constants.Colour.brickBrownLighter
+            self.addEventButton.backgroundColor = Constants.Colour.mangoTangoOrangeLighter
+            self.addEventButton.setTitleColor(Constants.Colour.brickBrown, for: .normal)
             
-            self.addEventButton.snp.makeConstraints{make in
+            self.addEventButton.snp.remakeConstraints{make in
                 make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
-                make.leading.equalTo(eventsListView.view)
-                make.trailing.equalTo(eventsListView.view)
+                make.leading.trailing.equalTo(eventsListView.view)
                 make.height.equalTo(Constants.Size.size40)
             }
             
             self.addEventButton.setTitle(StringsContent.EventsList.saveEvent, for: .normal)
-        }) {_ in
+        }) {[weak self] _ in
+            guard let self = self else {return}
+            self.changeEventViewVisability(hide: false)
             print("do further - > open text insertion form")
             // MARK: TODO: play with animation, perhaps there are better solutions to turn "+" into "save", for instance making the "+" convert to "save" smothly but rapidly from the middle
-           }
         }
     }
+    
+    func changeEventViewVisability(hide: Bool) {
+        newEventView.isHidden = hide
+    }
+}

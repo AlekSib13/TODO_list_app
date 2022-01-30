@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		7C9DA51FACD70FF1D2DACD53 /* Pods_TODO_List.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087742A4BF93EE0F66ADEB3E /* Pods_TODO_List.framework */; };
+		EB2FA6B227A6A1D6001A1AE8 /* TimeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2FA6B127A6A1D6001A1AE8 /* TimeConverter.swift */; };
 		EB639673275D542600F6A00C /* MainMenuTabBarModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB639672275D542600F6A00C /* MainMenuTabBarModuleBuilder.swift */; };
 		EB639675275D548B00F6A00C /* MainMenuTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB639674275D548B00F6A00C /* MainMenuTabBarViewController.swift */; };
 		EB639677275D54B600F6A00C /* MainMenuTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB639676275D54B600F6A00C /* MainMenuTabBarPresenter.swift */; };
 		EB639679275D54F800F6A00C /* MainMenuTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB639678275D54F800F6A00C /* MainMenuTabBarRouter.swift */; };
 		EB63967B275D551B00F6A00C /* MainMenuTabBarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB63967A275D551B00F6A00C /* MainMenuTabBarInteractor.swift */; };
-		EB67C9EC279F1EC8007FA59F /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67C9EB279F1EC8007FA59F /* AddEventView.swift */; };
+		EB67C9EC279F1EC8007FA59F /* EventFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67C9EB279F1EC8007FA59F /* EventFieldView.swift */; };
 		EB88F7C127539C4B006F9A9B /* InitialLoadScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88F7C027539C4B006F9A9B /* InitialLoadScreenProtocols.swift */; };
 		EB90EC902795EFEC00F95A28 /* MainEventsListPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */; };
 		EB90EC922795F03400F95A28 /* MainEventsListCurrentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */; };
@@ -52,12 +53,13 @@
 		087742A4BF93EE0F66ADEB3E /* Pods_TODO_List.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODO_List.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A7EE842DE771B2D2876E083 /* Pods-TODO-List.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODO-List.release.xcconfig"; path = "Target Support Files/Pods-TODO-List/Pods-TODO-List.release.xcconfig"; sourceTree = "<group>"; };
 		9F7A80733FD7C4B9041C3A8E /* Pods-TODO-List.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODO-List.debug.xcconfig"; path = "Target Support Files/Pods-TODO-List/Pods-TODO-List.debug.xcconfig"; sourceTree = "<group>"; };
+		EB2FA6B127A6A1D6001A1AE8 /* TimeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConverter.swift; sourceTree = "<group>"; };
 		EB639672275D542600F6A00C /* MainMenuTabBarModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarModuleBuilder.swift; sourceTree = "<group>"; };
 		EB639674275D548B00F6A00C /* MainMenuTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarViewController.swift; sourceTree = "<group>"; };
 		EB639676275D54B600F6A00C /* MainMenuTabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarPresenter.swift; sourceTree = "<group>"; };
 		EB639678275D54F800F6A00C /* MainMenuTabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarRouter.swift; sourceTree = "<group>"; };
 		EB63967A275D551B00F6A00C /* MainMenuTabBarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarInteractor.swift; sourceTree = "<group>"; };
-		EB67C9EB279F1EC8007FA59F /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
+		EB67C9EB279F1EC8007FA59F /* EventFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFieldView.swift; sourceTree = "<group>"; };
 		EB88F7C027539C4B006F9A9B /* InitialLoadScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoadScreenProtocols.swift; sourceTree = "<group>"; };
 		EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListPageViewController.swift; sourceTree = "<group>"; };
 		EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListCurrentListViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EB2FA6B027A6A1BB001A1AE8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EB2FA6B127A6A1D6001A1AE8 /* TimeConverter.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		EB639670275D53F400F6A00C /* MainMenuTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */,
-				EB67C9EB279F1EC8007FA59F /* AddEventView.swift */,
+				EB67C9EB279F1EC8007FA59F /* EventFieldView.swift */,
 				EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */,
 			);
 			path = Views;
@@ -167,6 +177,7 @@
 		EBAA7D0127538A2F00652832 /* TODO-List */ = {
 			isa = PBXGroup;
 			children = (
+				EB2FA6B027A6A1BB001A1AE8 /* Services */,
 				EBE83B43278F303A00263805 /* Modules */,
 				EBE4D9A22753E79800844A91 /* SupportingFiles */,
 				EBAA7D0227538A2F00652832 /* AppDelegate.swift */,
@@ -403,13 +414,14 @@
 				EBE83B55278F3F0500263805 /* MainEventsListProtocols.swift in Sources */,
 				EB88F7C127539C4B006F9A9B /* InitialLoadScreenProtocols.swift in Sources */,
 				EB90EC902795EFEC00F95A28 /* MainEventsListPageViewController.swift in Sources */,
-				EB67C9EC279F1EC8007FA59F /* AddEventView.swift in Sources */,
+				EB67C9EC279F1EC8007FA59F /* EventFieldView.swift in Sources */,
 				EBAA7D1C27539A6100652832 /* InitialLoadScreenInteractor.swift in Sources */,
 				EBE83B5B278F3F7900263805 /* MainSettingsInteractor.swift in Sources */,
 				EBAA7D0327538A2F00652832 /* AppDelegate.swift in Sources */,
 				EBC208B52793230A00E6B024 /* DarkNavigationController.swift in Sources */,
 				EB90EC922795F03400F95A28 /* MainEventsListCurrentListViewController.swift in Sources */,
 				EBE83B53278F3EF500263805 /* MainEventsListModuleBuilder.swift in Sources */,
+				EB2FA6B227A6A1D6001A1AE8 /* TimeConverter.swift in Sources */,
 				EBAA7D1E27539A7700652832 /* InitialLoadScreenRouter.swift in Sources */,
 				EB639675275D548B00F6A00C /* MainMenuTabBarViewController.swift in Sources */,
 				EBE4D9A92753E84D00844A91 /* Constants.swift in Sources */,
