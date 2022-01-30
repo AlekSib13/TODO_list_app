@@ -11,7 +11,7 @@ import AsyncDisplayKit
 
 protocol MainEventsListViewControllerProtocol: class {}
 
-protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate {}
+protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol {}
 
 protocol MainEventsListInteractorProtocol: class {}
 
@@ -23,3 +23,7 @@ protocol MainEventsListCurrentListViewControllerProtocol {
 }
 
 protocol MainEventsListPageViewControllerProtocol {}
+
+protocol NewEventHandlerDelegateProtocol {
+    func saveTime(date: Date)
+}

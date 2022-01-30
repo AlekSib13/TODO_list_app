@@ -10,10 +10,11 @@ import UIKit
 import AsyncDisplayKit
 
 class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
- 
+    
     weak var view: MainEventsListViewControllerProtocol?
     let interactor: MainEventsListInteractorProtocol
     let router: MainEventsListRouterProtocol
+    let timeConverter = TimeConverterHelper()
     
     init(view: MainEventsListViewControllerProtocol, interactor: MainEventsListInteractorProtocol, router: MainEventsListRouterProtocol) {
         self.view = view
@@ -45,4 +46,10 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
     }
     
+    
+    func saveTime(date: Date) {
+        
+        let localTime = timeConverter.convertTimeToLocal(date: date)
+        print("this is local saved time: \(localTime)")
+    }
 }
