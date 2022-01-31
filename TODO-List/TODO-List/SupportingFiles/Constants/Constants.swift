@@ -21,11 +21,17 @@ struct Constants {
         static let offsetMinus15: CGFloat = -15
         static let offsetMinus10: CGFloat = -10
         static let offsetMinus5: CGFloat = -5
-
+        
+        static let offsetMinus2: CGFloat = -2
+        
+        static let offset2: CGFloat = 2
         static let offset10: CGFloat = 10
         static let offset15: CGFloat = 15
         static let offset20: CGFloat = 20
+        static let offset25: CGFloat = 25
+        
         static let offset30: CGFloat = 30
+        
         static let offset35: CGFloat = 35
         
         static let offset40: CGFloat = 40
@@ -61,6 +67,9 @@ struct Constants {
         static let size250: CGFloat = 250
         
         static let size270: CGFloat = 270
+        
+        static let multipliedBy05: CGFloat = 1/2
+        static let multipliedBy1Point2: CGFloat = 1.2
     }
     
     struct Colour {

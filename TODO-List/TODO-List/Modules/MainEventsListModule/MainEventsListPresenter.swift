@@ -52,4 +52,8 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         let localTime = timeConverter.convertTimeToLocal(date: date)
         print("this is local saved time: \(localTime)")
     }
+    
+    func openCalendar() {
+        router.openCalendarModule()
+    }
 }

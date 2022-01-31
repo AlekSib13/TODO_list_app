@@ -32,6 +32,12 @@
 		EBC208B52793230A00E6B024 /* DarkNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC208B42793230A00E6B024 /* DarkNavigationController.swift */; };
 		EBC208B82793272500E6B024 /* Images+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC208B72793272500E6B024 /* Images+Assets.swift */; };
 		EBC208BB2793344900E6B024 /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC208BA2793344900E6B024 /* BasicViewController.swift */; };
+		EBDF6D1827A86F3100EE0213 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D1727A86F3100EE0213 /* CalendarViewController.swift */; };
+		EBDF6D1B27A88B7D00EE0213 /* CalendarModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D1A27A88B7D00EE0213 /* CalendarModuleBuilder.swift */; };
+		EBDF6D1D27A88B8A00EE0213 /* CalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D1C27A88B8A00EE0213 /* CalendarPresenter.swift */; };
+		EBDF6D1F27A88B9B00EE0213 /* CalenderInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D1E27A88B9B00EE0213 /* CalenderInteractor.swift */; };
+		EBDF6D2127A88BA600EE0213 /* CalendarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D2027A88BA600EE0213 /* CalendarRouter.swift */; };
+		EBDF6D2327A88BB600EE0213 /* CalendarProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D2227A88BB600EE0213 /* CalendarProtocols.swift */; };
 		EBE4D9A62753E7E400844A91 /* StringsContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE4D9A52753E7E400844A91 /* StringsContent.swift */; };
 		EBE4D9A92753E84D00844A91 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE4D9A82753E84D00844A91 /* Constants.swift */; };
 		EBE83B46278F31AD00263805 /* MainMenuTabBarProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE83B45278F31AD00263805 /* MainMenuTabBarProtocols.swift */; };
@@ -79,6 +85,12 @@
 		EBC208B42793230A00E6B024 /* DarkNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkNavigationController.swift; sourceTree = "<group>"; };
 		EBC208B72793272500E6B024 /* Images+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Images+Assets.swift"; sourceTree = "<group>"; };
 		EBC208BA2793344900E6B024 /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
+		EBDF6D1727A86F3100EE0213 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		EBDF6D1A27A88B7D00EE0213 /* CalendarModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModuleBuilder.swift; sourceTree = "<group>"; };
+		EBDF6D1C27A88B8A00EE0213 /* CalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPresenter.swift; sourceTree = "<group>"; };
+		EBDF6D1E27A88B9B00EE0213 /* CalenderInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderInteractor.swift; sourceTree = "<group>"; };
+		EBDF6D2027A88BA600EE0213 /* CalendarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRouter.swift; sourceTree = "<group>"; };
+		EBDF6D2227A88BB600EE0213 /* CalendarProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocols.swift; sourceTree = "<group>"; };
 		EBE4D9A52753E7E400844A91 /* StringsContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsContent.swift; sourceTree = "<group>"; };
 		EBE4D9A82753E84D00844A91 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EBE83B45278F31AD00263805 /* MainMenuTabBarProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarProtocols.swift; sourceTree = "<group>"; };
@@ -221,6 +233,19 @@
 			path = Basics;
 			sourceTree = "<group>";
 		};
+		EBDF6D1927A87D0300EE0213 /* CalendarSubModule */ = {
+			isa = PBXGroup;
+			children = (
+				EBDF6D1727A86F3100EE0213 /* CalendarViewController.swift */,
+				EBDF6D2027A88BA600EE0213 /* CalendarRouter.swift */,
+				EBDF6D1A27A88B7D00EE0213 /* CalendarModuleBuilder.swift */,
+				EBDF6D1C27A88B8A00EE0213 /* CalendarPresenter.swift */,
+				EBDF6D1E27A88B9B00EE0213 /* CalenderInteractor.swift */,
+				EBDF6D2227A88BB600EE0213 /* CalendarProtocols.swift */,
+			);
+			path = CalendarSubModule;
+			sourceTree = "<group>";
+		};
 		EBE4D9A22753E79800844A91 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +287,7 @@
 		EBE83B47278F3D6C00263805 /* MainEventsListModule */ = {
 			isa = PBXGroup;
 			children = (
+				EBDF6D1927A87D0300EE0213 /* CalendarSubModule */,
 				EB90EC8E2795EFB400F95A28 /* Views */,
 				EBE83B4A278F3EA400263805 /* MainEventsListViewController.swift */,
 				EBE83B4C278F3EBF00263805 /* MainEventsListPresenter.swift */,
@@ -407,6 +433,7 @@
 				EBE83B5D278F3F8800263805 /* MainSettingsRouter.swift in Sources */,
 				EB63967B275D551B00F6A00C /* MainMenuTabBarInteractor.swift in Sources */,
 				EBE83B46278F31AD00263805 /* MainMenuTabBarProtocols.swift in Sources */,
+				EBDF6D1B27A88B7D00EE0213 /* CalendarModuleBuilder.swift in Sources */,
 				EBAA7D1A27539A1500652832 /* InitialLoadScreenPresenter.swift in Sources */,
 				EBE83B4F278F3ECE00263805 /* MainEventsListInteractor.swift in Sources */,
 				EBE83B61278F3FA900263805 /* MainSettingsProtocols.swift in Sources */,
@@ -414,15 +441,18 @@
 				EBE83B55278F3F0500263805 /* MainEventsListProtocols.swift in Sources */,
 				EB88F7C127539C4B006F9A9B /* InitialLoadScreenProtocols.swift in Sources */,
 				EB90EC902795EFEC00F95A28 /* MainEventsListPageViewController.swift in Sources */,
+				EBDF6D1D27A88B8A00EE0213 /* CalendarPresenter.swift in Sources */,
 				EB67C9EC279F1EC8007FA59F /* EventFieldView.swift in Sources */,
 				EBAA7D1C27539A6100652832 /* InitialLoadScreenInteractor.swift in Sources */,
 				EBE83B5B278F3F7900263805 /* MainSettingsInteractor.swift in Sources */,
 				EBAA7D0327538A2F00652832 /* AppDelegate.swift in Sources */,
+				EBDF6D1F27A88B9B00EE0213 /* CalenderInteractor.swift in Sources */,
 				EBC208B52793230A00E6B024 /* DarkNavigationController.swift in Sources */,
 				EB90EC922795F03400F95A28 /* MainEventsListCurrentListViewController.swift in Sources */,
 				EBE83B53278F3EF500263805 /* MainEventsListModuleBuilder.swift in Sources */,
 				EB2FA6B227A6A1D6001A1AE8 /* TimeConverter.swift in Sources */,
 				EBAA7D1E27539A7700652832 /* InitialLoadScreenRouter.swift in Sources */,
+				EBDF6D1827A86F3100EE0213 /* CalendarViewController.swift in Sources */,
 				EB639675275D548B00F6A00C /* MainMenuTabBarViewController.swift in Sources */,
 				EBE4D9A92753E84D00844A91 /* Constants.swift in Sources */,
 				EBC208BB2793344900E6B024 /* BasicViewController.swift in Sources */,
@@ -434,6 +464,8 @@
 				EBE83B59278F3F6D00263805 /* MainSettingsPresenter.swift in Sources */,
 				EBC208B32793176200E6B024 /* SceneDelegate+Auth.swift in Sources */,
 				EBAA7D0527538A2F00652832 /* SceneDelegate.swift in Sources */,
+				EBDF6D2127A88BA600EE0213 /* CalendarRouter.swift in Sources */,
+				EBDF6D2327A88BB600EE0213 /* CalendarProtocols.swift in Sources */,
 				EBE4D9A62753E7E400844A91 /* StringsContent.swift in Sources */,
 				EBAA7D2227539B3500652832 /* InitialLoadScreeenViewController.swift in Sources */,
 			);

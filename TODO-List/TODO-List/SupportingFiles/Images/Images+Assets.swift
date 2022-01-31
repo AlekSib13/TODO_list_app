@@ -14,4 +14,9 @@ extension UIImage {
         static let eventsList = {UIImage(named: "toDoList")}()
         static let settings = {UIImage(named: "settings")}()
     }
+    
+    struct MainMenu {
+        static let calendarV1 = {UIImage(named: "calendar_v1")}()
+        static let calendarV2 = {UIImage(named: "calendar_v2")}()
+    }
 }
