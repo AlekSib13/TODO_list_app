@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 class MainEventsListRouter:  MainEventsListRouterProtocol {
     
     weak var view: MainEventsListViewControllerProtocol?
     
     
-    
-    
-    
+    func openCalendarModule() {
+        let vc = CalendarModuleBuilder.build(parentVC: view)
+        guard let view = view as? UIViewController else {return}
+        view.present(vc, animated: true, completion: nil)
+    }
 }

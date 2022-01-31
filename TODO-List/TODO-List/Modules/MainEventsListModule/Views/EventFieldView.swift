@@ -37,6 +37,17 @@ class EventFieldView: UIView {
         return eventDatePicker
     }()
     
+    //MARK: TODO: add animation: change button image, when pressed
+    let calendarButton: UIButton = {
+        let calendarButton = UIButton()
+        calendarButton.setImage(UIImage.MainMenu.calendarV2, for: .normal)
+        return calendarButton
+    }()
+    
+    //MARK: TODO: add field nearby calendar, which takes the chosen date from calendar as soon as user closes the calendar
+    
+//    let calendarVC = CalendarViewController()
+    
     // alternative version of Save Button
 //    let saveButton: UIButton = {
 //        let saveButton = UIButton()
@@ -62,7 +73,6 @@ class EventFieldView: UIView {
     
     
     func configureView() {
-//        self.backgroundColor = Constants.Colour.brickBrownLighter
         self.backgroundColor = Constants.Colour.mangoTangoOrangeLighter
         self.layer.borderWidth = Constants.Size.size1
         self.layer.borderColor = UIColor.white.cgColor
@@ -70,22 +80,42 @@ class EventFieldView: UIView {
             
         self.addSubview(eventTextField)
         self.addSubview(eventDatePicker)
+        self.addSubview(calendarButton)
+        //MARK: TODO - think about it: perhaps calendar should be the complete submodule with its presenter, interactor, router
+//        self.addSubview(calendarVC.view)
 //        self.addSubview(saveButton)
+//        calendarVC.delegate = calendarDelegate
         
+        setEventDatePicker()
+        setCalendarButton()
+    }
+    
+    func setEventDatePicker() {
         eventDatePicker.addTarget(self, action: #selector(timeChanged), for: .editingDidEnd)
     }
+    
+    func setCalendarButton() {
+        calendarButton.transform = CGAffineTransform(scaleX: Constants.Size.multipliedBy1Point2, y:  Constants.Size.multipliedBy1Point2)
+        calendarButton.addTarget(self, action: #selector(calendarButtonTapped), for: .touchUpInside)
+    }
+    
     
     func setUpConstraints() {
         
         eventDatePicker.snp.makeConstraints{make in
-            make.top.equalToSuperview().inset(10)
-            make.leading.equalToSuperview().offset(2)
+            make.top.equalToSuperview().inset(Constants.Offset.offset10)
+            make.leading.equalToSuperview().offset(Constants.Offset.offset2)
         }
         
         eventTextField.snp.makeConstraints{make in
             make.leading.trailing.equalToSuperview().inset(Constants.Offset.offset10)
-            make.bottom.equalToSuperview().offset(20)
-            make.top.equalToSuperview().inset(70)
+            make.bottom.equalToSuperview().offset(Constants.Offset.offset20)
+            make.top.equalToSuperview().inset(Constants.Offset.offset70)
+        }
+        
+        calendarButton.snp.makeConstraints{make in
+            make.centerY.equalTo(eventDatePicker).offset(Constants.Offset.offsetMinus2)
+            make.leading.equalTo(eventDatePicker.snp.trailing).offset(Constants.Offset.offset20)
         }
         
 //        saveButton.snp.makeConstraints{make in
@@ -94,8 +124,14 @@ class EventFieldView: UIView {
 //        }
     }
     
+    
+    
     @objc func timeChanged() {
         //MARK: perhaps this is function is not needed, since it is worth of considering the time, when user tappes save button
         delegate?.saveTime(date: eventDatePicker.date)
+    }
+    
+    @objc func calendarButtonTapped() {
+        delegate?.openCalendar()
     }
 }
