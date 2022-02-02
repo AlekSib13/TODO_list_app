@@ -9,7 +9,7 @@ import Foundation
 
 
 protocol CalendarViewControllerProtocol: class {
-    
+    var calendar: Calendar {get}
 }
 
 protocol CalendarPresenterProtocol: class {

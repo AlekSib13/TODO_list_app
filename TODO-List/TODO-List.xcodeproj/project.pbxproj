@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7C9DA51FACD70FF1D2DACD53 /* Pods_TODO_List.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087742A4BF93EE0F66ADEB3E /* Pods_TODO_List.framework */; };
 		EB2FA6B227A6A1D6001A1AE8 /* TimeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2FA6B127A6A1D6001A1AE8 /* TimeConverter.swift */; };
+		EB32817927AB3FBA0090993E /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB32817827AB3FBA0090993E /* Day.swift */; };
+		EB32817B27AB41F20090993E /* MonthMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB32817A27AB41F20090993E /* MonthMetaData.swift */; };
+		EB32817E27AB4A460090993E /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB32817D27AB4A460090993E /* Errors.swift */; };
 		EB639673275D542600F6A00C /* MainMenuTabBarModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB639672275D542600F6A00C /* MainMenuTabBarModuleBuilder.swift */; };
 		EB639675275D548B00F6A00C /* MainMenuTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB639674275D548B00F6A00C /* MainMenuTabBarViewController.swift */; };
 		EB639677275D54B600F6A00C /* MainMenuTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB639676275D54B600F6A00C /* MainMenuTabBarPresenter.swift */; };
@@ -60,6 +63,9 @@
 		0A7EE842DE771B2D2876E083 /* Pods-TODO-List.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODO-List.release.xcconfig"; path = "Target Support Files/Pods-TODO-List/Pods-TODO-List.release.xcconfig"; sourceTree = "<group>"; };
 		9F7A80733FD7C4B9041C3A8E /* Pods-TODO-List.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODO-List.debug.xcconfig"; path = "Target Support Files/Pods-TODO-List/Pods-TODO-List.debug.xcconfig"; sourceTree = "<group>"; };
 		EB2FA6B127A6A1D6001A1AE8 /* TimeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConverter.swift; sourceTree = "<group>"; };
+		EB32817827AB3FBA0090993E /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		EB32817A27AB41F20090993E /* MonthMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthMetaData.swift; sourceTree = "<group>"; };
+		EB32817D27AB4A460090993E /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		EB639672275D542600F6A00C /* MainMenuTabBarModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarModuleBuilder.swift; sourceTree = "<group>"; };
 		EB639674275D548B00F6A00C /* MainMenuTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarViewController.swift; sourceTree = "<group>"; };
 		EB639676275D54B600F6A00C /* MainMenuTabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarPresenter.swift; sourceTree = "<group>"; };
@@ -145,6 +151,31 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		EB32817627AB3F9B0090993E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EB32817727AB3FA50090993E /* Calendar */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EB32817727AB3FA50090993E /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				EB32817827AB3FBA0090993E /* Day.swift */,
+				EB32817A27AB41F20090993E /* MonthMetaData.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		EB32817C27AB4A370090993E /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				EB32817D27AB4A460090993E /* Errors.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		EB639670275D53F400F6A00C /* MainMenuTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +220,7 @@
 		EBAA7D0127538A2F00652832 /* TODO-List */ = {
 			isa = PBXGroup;
 			children = (
+				EB32817627AB3F9B0090993E /* Models */,
 				EB2FA6B027A6A1BB001A1AE8 /* Services */,
 				EBE83B43278F303A00263805 /* Modules */,
 				EBE4D9A22753E79800844A91 /* SupportingFiles */,
@@ -249,6 +281,7 @@
 		EBE4D9A22753E79800844A91 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				EB32817C27AB4A370090993E /* Errors */,
 				EBC208B92793343000E6B024 /* Basics */,
 				EBC208B62793270A00E6B024 /* Images */,
 				EBE4D9A42753E7BC00844A91 /* Constants */,
@@ -429,6 +462,7 @@
 				EBE83B51278F3EDE00263805 /* MainEventsListRouter.swift in Sources */,
 				EBE83B4D278F3EBF00263805 /* MainEventsListPresenter.swift in Sources */,
 				EBE83B4B278F3EA400263805 /* MainEventsListViewController.swift in Sources */,
+				EB32817927AB3FBA0090993E /* Day.swift in Sources */,
 				EBE83B57278F3F5E00263805 /* MainSettingsViewController.swift in Sources */,
 				EBE83B5D278F3F8800263805 /* MainSettingsRouter.swift in Sources */,
 				EB63967B275D551B00F6A00C /* MainMenuTabBarInteractor.swift in Sources */,
@@ -441,6 +475,7 @@
 				EBE83B55278F3F0500263805 /* MainEventsListProtocols.swift in Sources */,
 				EB88F7C127539C4B006F9A9B /* InitialLoadScreenProtocols.swift in Sources */,
 				EB90EC902795EFEC00F95A28 /* MainEventsListPageViewController.swift in Sources */,
+				EB32817E27AB4A460090993E /* Errors.swift in Sources */,
 				EBDF6D1D27A88B8A00EE0213 /* CalendarPresenter.swift in Sources */,
 				EB67C9EC279F1EC8007FA59F /* EventFieldView.swift in Sources */,
 				EBAA7D1C27539A6100652832 /* InitialLoadScreenInteractor.swift in Sources */,
@@ -454,6 +489,7 @@
 				EBAA7D1E27539A7700652832 /* InitialLoadScreenRouter.swift in Sources */,
 				EBDF6D1827A86F3100EE0213 /* CalendarViewController.swift in Sources */,
 				EB639675275D548B00F6A00C /* MainMenuTabBarViewController.swift in Sources */,
+				EB32817B27AB41F20090993E /* MonthMetaData.swift in Sources */,
 				EBE4D9A92753E84D00844A91 /* Constants.swift in Sources */,
 				EBC208BB2793344900E6B024 /* BasicViewController.swift in Sources */,
 				EBAA7D2027539AB300652832 /* InitialLoadScreenModuleBuilder.swift in Sources */,
