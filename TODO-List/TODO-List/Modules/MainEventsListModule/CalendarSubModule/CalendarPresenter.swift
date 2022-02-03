@@ -48,7 +48,7 @@ class CalendarPresenter: CalendarPresenterProtocol {
             let offsetInInitialRow = monthMetaData.weekFirstDayNumber
             let firstDateOfMonth = monthMetaData.monthFirstDate
             
-            let days: [Day] = (1..<(numberOfDaysInMonth + offsetInInitialRow)).map{day in
+            var days: [Day] = (1..<(numberOfDaysInMonth + offsetInInitialRow)).map{day in
                 let isWithinDisplayedMonth = day >= offsetInInitialRow
                 
                 let dayOffset = isWithinDisplayedMonth ? day - offsetInInitialRow : -(offsetInInitialRow - day)
@@ -56,6 +56,8 @@ class CalendarPresenter: CalendarPresenterProtocol {
                 return generateDay(offsetBy: dayOffset, for: firstDateOfMonth, isWithinDisplayedMonth: isWithinDisplayedMonth)
                 
             }
+        
+            days += generateStartOfNextMonth(using: firstDateOfMonth)
         
             return days
     }
