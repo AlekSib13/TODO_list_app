@@ -9,5 +9,6 @@ import Foundation
 
 
 enum CalendarError: String, Error {
-    case monthMetaDataGeneration = "Could not create metadata for month"
+    case monthMetaDataGeneration = "Calendar Error. Could not create metadata for month"
+    case couldNotDefineTheReason = "Calendar Error. Could not define the resason of the error"
 }

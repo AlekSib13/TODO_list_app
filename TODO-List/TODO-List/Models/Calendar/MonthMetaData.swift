@@ -9,6 +9,6 @@ import Foundation
 
 struct MonthMetaData {
     let numberOfDays: Int
-    let monthFirstDay: Date
-    let weekFirstDay: Int
+    let monthFirstDate: Date
+    let weekFirstDayNumber: Int
 }
