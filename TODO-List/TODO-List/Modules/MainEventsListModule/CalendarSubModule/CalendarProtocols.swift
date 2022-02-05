@@ -6,14 +6,16 @@
 //
 
 import Foundation
-
+import UIKit
 
 protocol CalendarViewControllerProtocol: class {
     var calendar: Calendar {get}
+    var calendarCollectionView: UICollectionView {get}
 }
 
 protocol CalendarPresenterProtocol: class {
     func dismissCalendar()
+    func viewDidLoad()
 }
 
 protocol CalendarInteractorProtocol: class {

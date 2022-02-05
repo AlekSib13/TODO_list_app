@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7C9DA51FACD70FF1D2DACD53 /* Pods_TODO_List.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087742A4BF93EE0F66ADEB3E /* Pods_TODO_List.framework */; };
+		EB14AE2F27AE63A000DAA8D0 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB14AE2E27AE63A000DAA8D0 /* Protocols.swift */; };
 		EB2FA6B227A6A1D6001A1AE8 /* TimeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2FA6B127A6A1D6001A1AE8 /* TimeConverter.swift */; };
 		EB32817927AB3FBA0090993E /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB32817827AB3FBA0090993E /* Day.swift */; };
 		EB32817B27AB41F20090993E /* MonthMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB32817A27AB41F20090993E /* MonthMetaData.swift */; };
@@ -63,6 +64,7 @@
 		087742A4BF93EE0F66ADEB3E /* Pods_TODO_List.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODO_List.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A7EE842DE771B2D2876E083 /* Pods-TODO-List.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODO-List.release.xcconfig"; path = "Target Support Files/Pods-TODO-List/Pods-TODO-List.release.xcconfig"; sourceTree = "<group>"; };
 		9F7A80733FD7C4B9041C3A8E /* Pods-TODO-List.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODO-List.debug.xcconfig"; path = "Target Support Files/Pods-TODO-List/Pods-TODO-List.debug.xcconfig"; sourceTree = "<group>"; };
+		EB14AE2E27AE63A000DAA8D0 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		EB2FA6B127A6A1D6001A1AE8 /* TimeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConverter.swift; sourceTree = "<group>"; };
 		EB32817827AB3FBA0090993E /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		EB32817A27AB41F20090993E /* MonthMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthMetaData.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			children = (
 				EBC208B42793230A00E6B024 /* DarkNavigationController.swift */,
 				EBC208BA2793344900E6B024 /* BasicViewController.swift */,
+				EB14AE2E27AE63A000DAA8D0 /* Protocols.swift */,
 			);
 			path = Basics;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				EB32817927AB3FBA0090993E /* Day.swift in Sources */,
 				EBE83B57278F3F5E00263805 /* MainSettingsViewController.swift in Sources */,
 				EBE83B5D278F3F8800263805 /* MainSettingsRouter.swift in Sources */,
+				EB14AE2F27AE63A000DAA8D0 /* Protocols.swift in Sources */,
 				EB63967B275D551B00F6A00C /* MainMenuTabBarInteractor.swift in Sources */,
 				EBE83B46278F31AD00263805 /* MainMenuTabBarProtocols.swift in Sources */,
 				EBDF6D1B27A88B7D00EE0213 /* CalendarModuleBuilder.swift in Sources */,

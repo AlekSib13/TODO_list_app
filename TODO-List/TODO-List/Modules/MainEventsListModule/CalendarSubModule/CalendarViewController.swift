@@ -55,6 +55,7 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
         super.viewDidLoad()
         configureView()
         setUpConstraints()
+        presenter?.viewDidLoad()
     }
     
     

@@ -9,7 +9,14 @@ import Foundation
 import UIKit
 import SnapKit
 
-class CalendarDateCell: UICollectionViewCell {
+class CalendarDateCell: UICollectionViewCell, ReusableCell {
+    static var identifier: String = StringsContent.Identifiers.calendarCellIdentifier
+    
+    var day: Day? {
+        didSet {
+            setDay()
+        }
+    }
     
     private let selectionBackGroundView: UIView = {
         let view = UIView()
@@ -48,6 +55,7 @@ class CalendarDateCell: UICollectionViewCell {
         setUpConstraints()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -55,6 +63,13 @@ class CalendarDateCell: UICollectionViewCell {
     func configureView() {
         contentView.addSubview(selectionBackGroundView)
         contentView.addSubview(numberLabel)
+    }
+    
+    private func setDay() {
+        guard let day = day else {return}
+        numberLabel.text = day.number
+        accessibilityLabel = accesibilityDateFormatter.string(from: day.date)
+        
     }
     
     func setUpConstraints() {
