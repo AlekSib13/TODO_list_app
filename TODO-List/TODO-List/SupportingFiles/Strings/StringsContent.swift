@@ -28,4 +28,8 @@ struct StringsContent {
         static let addEvent = "+"
         static let saveEvent = "save"
     }
+    
+    struct Identifiers {
+        static let calendarCellIdentifier = "CalendarCellIdentifier"
+    }
 }

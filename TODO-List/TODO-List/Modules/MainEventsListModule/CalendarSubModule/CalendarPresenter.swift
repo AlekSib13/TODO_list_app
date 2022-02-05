@@ -24,12 +24,21 @@ class CalendarPresenter: CalendarPresenterProtocol {
     //MARK: TODO - change selectedDate!
     private let selectedDate = Date()
     
-    
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
         return dateFormatter
     }()
+    
+    
+    func viewDidLoad() {
+        registerCell()
+    }
+    
+    private func registerCell() {
+        guard let collectionView = view?.calendarCollectionView else {return}
+        CalendarDateCell.registerClass(into: collectionView)
+    }
     
     
     func createMonthMetaData(for baseDate: Date) throws -> MonthMetaData {
