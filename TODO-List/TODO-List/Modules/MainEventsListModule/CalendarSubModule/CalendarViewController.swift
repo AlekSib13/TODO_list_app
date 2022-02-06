@@ -33,12 +33,17 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
         calendarCollectionView.backgroundColor = Constants.Colour.lightYellow
         calendarCollectionView.layer.cornerRadius = Constants.Size.size10
         calendarCollectionView.layer.borderWidth = Constants.Size.size1
-        calendarCollectionView.layer.borderColor = Constants.Colour.brickBrownLighter.cgColor
+        calendarCollectionView.layer.borderColor = Constants.Colour.brickBrownLighter075.cgColor
         
         return calendarCollectionView
     }()
     
     let calendar = Calendar(identifier: .gregorian)
+    
+    
+    private lazy var calendarHeaderView = CalendarHeaderView()
+//    private lazy var calendarFooterView = CalendarFooterView()
+    
     
     //MARK: TODO - change transition style - it should transition vertically from up to down from calendar button
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -63,9 +68,19 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
         view.backgroundColor = .none
         view.addSubview(backgroundView)
         backgroundView.addSubview(calendarCollectionView)
+        backgroundView.addSubview(calendarHeaderView)
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(aroundCalendarTapped))
-        view.addGestureRecognizer(tapGestureRecognizer)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(aroundCalendarTapped))
+//        view.addGestureRecognizer(tapGestureRecognizer)
+        
+        setDataSourceAndDelegates()
+    }
+    
+    func setDataSourceAndDelegates() {
+        calendarCollectionView.dataSource = presenter
+        calendarCollectionView.delegate = presenter
+        calendarHeaderView.delegate = presenter
+//        calendarFooterView.delegate = presenter
     }
     
     func setUpConstraints() {
@@ -80,12 +95,19 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
             make.top.equalToSuperview().inset(Constants.Offset.offset30)
             make.bottom.equalToSuperview().inset(Constants.Offset.offset5)
         }
+        
+        calendarHeaderView.snp.makeConstraints{make in
+            make.leading.trailing.equalToSuperview().inset(Constants.Offset.offset5)
+            make.bottom.equalTo(calendarCollectionView.snp.top).offset(Constants.Offset.offset3)
+        }
     }
     
-    @objc func aroundCalendarTapped() {
-        print("calendar is dismissed")
-        presenter?.dismissCalendar()
-    }
+    
+    //MARK: TODO - think about it: perhaps it will be worth to dismiss calendar, when users tappes anywhere but the calendar itself (not only close button on calendar)
+//    @objc func aroundCalendarTapped() {
+//        print("calendar is dismissed")
+//        presenter?.dismissCalendar()
+//    }
     
     
 }

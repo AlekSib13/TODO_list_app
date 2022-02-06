@@ -16,8 +16,10 @@ protocol ReusableCell {
 extension ReusableCell where Self: UICollectionViewCell  {
     
     static func registerClass(into collection: UICollectionView) {
-        print("my identifier is \(identifier)")
         collection.register(self, forCellWithReuseIdentifier: identifier)
     }
     
+    static func load(into collection: UICollectionView, for indexPath: IndexPath) -> Self {
+        collection.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath) as! Self
+    }
 }

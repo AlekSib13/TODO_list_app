@@ -6,23 +6,29 @@
 //
 
 import Foundation
+import UIKit
 
-class CalendarPresenter: CalendarPresenterProtocol {
+class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDelegate {
     
     weak var view: CalendarViewControllerProtocol?
     let interactor: CalendarInteractorProtocol
     let router: CalendarRouterProtocol
     
-    init(view: CalendarViewControllerProtocol?,
-         interactor: CalendarInteractorProtocol,
-         router: CalendarRouterProtocol){
-        self.view = view
-        self.interactor = interactor
-        self.router = router
+    
+    private let selectedDate: Date
+//    private let selectedDateChanged: ((Date) -> Void)
+    
+    private var baseDate: Date {
+        didSet {
+            days = generateDaysInMonth(for: baseDate)
+            view?.calendarCollectionView.reloadData()
+        }
     }
     
-    //MARK: TODO - change selectedDate!
-    private let selectedDate = Date()
+    private lazy var days = generateDaysInMonth(for: baseDate)
+    private var numberOfWeeksInBaseDate: Int {
+        view?.calendar.range(of: .weekOfMonth, in: .month, for: baseDate)?.count ?? 0
+    }
     
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -31,6 +37,24 @@ class CalendarPresenter: CalendarPresenterProtocol {
     }()
     
     
+//    init(view: CalendarViewControllerProtocol?,
+//         interactor: CalendarInteractorProtocol,
+//         router: CalendarRouterProtocol, baseDate: Date, selectedDateChanged: @escaping ((Date) -> Void))
+    
+    init(view: CalendarViewControllerProtocol?,
+         interactor: CalendarInteractorProtocol,
+         router: CalendarRouterProtocol, baseDate: Date) {
+        self.view = view
+        self.interactor = interactor
+        self.router = router
+        selectedDate = baseDate
+        self.baseDate = baseDate
+//        self.selectedDateChanged = selectedDateChanged
+    }
+    
+    
+    //MARK: TODO - change selectedDate!
+   
     func viewDidLoad() {
         registerCell()
     }
@@ -38,6 +62,31 @@ class CalendarPresenter: CalendarPresenterProtocol {
     private func registerCell() {
         guard let collectionView = view?.calendarCollectionView else {return}
         CalendarDateCell.registerClass(into: collectionView)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        days.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let day = days[indexPath.row]
+        let cell = CalendarDateCell.load(into: collectionView, for: indexPath)
+        cell.configure(delegate: self, day: day)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let day = days[indexPath.row]
+//        selectedDateChanged(day.date)
+//        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = Int(collectionView.frame.width / 7)
+        let height = Int(collectionView.frame.height) / numberOfWeeksInBaseDate
+        return CGSize(width: width, height: height)
     }
     
     
@@ -93,7 +142,7 @@ class CalendarPresenter: CalendarPresenterProtocol {
     }
     
     
-    func dismissCalendar() {
+    func closeCalendar() {
         router.dismissCalendar()
     }
 }

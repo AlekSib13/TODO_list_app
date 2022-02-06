@@ -13,8 +13,7 @@ protocol CalendarViewControllerProtocol: class {
     var calendarCollectionView: UICollectionView {get}
 }
 
-protocol CalendarPresenterProtocol: class {
-    func dismissCalendar()
+protocol CalendarPresenterProtocol: class,  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CalendarDelegate {
     func viewDidLoad()
 }
 
@@ -24,5 +23,13 @@ protocol CalendarInteractorProtocol: class {
 
 protocol CalendarRouterProtocol: class {
     func dismissCalendar()
+}
+
+protocol CalendarDateCellDelegate: class {
+    
+}
+
+protocol CalendarDelegate: class {
+    func closeCalendar()
 }
 

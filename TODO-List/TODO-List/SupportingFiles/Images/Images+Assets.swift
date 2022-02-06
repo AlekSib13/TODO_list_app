@@ -19,4 +19,8 @@ extension UIImage {
         static let calendarV1 = {UIImage(named: "calendar_v1")}()
         static let calendarV2 = {UIImage(named: "calendar_v2")}()
     }
+    
+    struct Calendar {
+        static let calendarCloseButton = {UIImage(named: "calendarCloseButton")}()
+    }
 }

@@ -19,7 +19,7 @@ class EventFieldView: UIView {
         let textField = UITextView()
         textField.backgroundColor = Constants.Colour.lemonCreamYellow
         textField.layer.borderWidth = Constants.Size.size1
-        textField.layer.borderColor = Constants.Colour.brickBrownLighter.cgColor
+        textField.layer.borderColor = Constants.Colour.brickBrownLighter075.cgColor
         textField.layer.cornerRadius = Constants.Size.size10
         
         textField.layer.masksToBounds = false
