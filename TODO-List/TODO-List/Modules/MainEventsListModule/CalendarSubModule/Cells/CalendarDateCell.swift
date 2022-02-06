@@ -12,9 +12,12 @@ import SnapKit
 class CalendarDateCell: UICollectionViewCell, ReusableCell {
     static var identifier: String = StringsContent.Identifiers.calendarCellIdentifier
     
+    var delegate: CalendarDateCellDelegate?
+    
     var day: Day? {
         didSet {
             setDay()
+            updateSelectionStatus()
         }
     }
     
@@ -22,7 +25,7 @@ class CalendarDateCell: UICollectionViewCell, ReusableCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
-        view.backgroundColor = Constants.Colour.brickBrownLighter
+        view.backgroundColor = Constants.Colour.brickBrownLighter075
         
         view.layer.cornerRadius = Constants.Size.size20
         view.layer.borderWidth = Constants.Size.size1
@@ -51,6 +54,10 @@ class CalendarDateCell: UICollectionViewCell, ReusableCell {
         
         isAccessibilityElement = true
         accessibilityTraits = .button
+        assembleCell()
+    }
+    
+    func assembleCell() {
         configureView()
         setUpConstraints()
     }
@@ -81,5 +88,32 @@ class CalendarDateCell: UICollectionViewCell, ReusableCell {
             make.height.width.equalTo(Constants.Size.size40)
             make.centerX.centerY.equalToSuperview()
         }
+    }
+    
+    func configure(delegate: CalendarDateCellDelegate, day: Day) {
+        self.day = day
+        self.delegate = delegate
+    }
+    
+    func updateSelectionStatus() {
+        guard let day = day else {return}
+        day.isSelected ? applySelectedStyle() : applyDefaultStyle(isWithinDisplayedMonth: day.isWithinDisplayedMonth)
+    }
+    
+    
+    func applySelectedStyle() {
+        accessibilityTraits.insert(.selected)
+        accessibilityHint = nil
+        
+        numberLabel.textColor = Constants.Colour.sandYellow
+        selectionBackGroundView.isHidden = false
+    }
+    
+    func applyDefaultStyle(isWithinDisplayedMonth: Bool) {
+        accessibilityTraits.remove(.selected)
+        accessibilityHint = StringsContent.Hints.tapToSelect
+        
+        numberLabel.textColor = isWithinDisplayedMonth ? Constants.Colour.brickBrown : Constants.Colour.brickBrownLighter05
+        selectionBackGroundView.isHidden = true
     }
 }

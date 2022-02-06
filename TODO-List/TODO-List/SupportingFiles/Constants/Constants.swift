@@ -25,7 +25,9 @@ struct Constants {
         static let offsetMinus2: CGFloat = -2
         
         static let offset2: CGFloat = 2
+        static let offset3: CGFloat = 3
         static let offset5: CGFloat = 5
+        static let offset8: CGFloat = 8
         
         static let offset10: CGFloat = 10
         static let offset15: CGFloat = 15
@@ -87,7 +89,8 @@ struct Constants {
         static let lemonCreamYellow = UIColor(red: 255/255, green: 250/255, blue: 205/255, alpha: 1.0)
         
         static let brickBrown = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 1.0)
-        static let brickBrownLighter = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.75)
+        static let brickBrownLighter075 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.75)
+        static let brickBrownLighter05 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.5)
         
         //MARK: TODO: test various colours, to see, which look better: brown or orange tons
         

@@ -10,5 +10,4 @@ import Foundation
 class CalendarInteractor: CalendarInteractorProtocol {
     
     weak var presenter: CalendarPresenterProtocol?
-    
 }

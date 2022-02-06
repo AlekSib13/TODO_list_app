@@ -32,4 +32,8 @@ struct StringsContent {
     struct Identifiers {
         static let calendarCellIdentifier = "CalendarCellIdentifier"
     }
+    
+    struct Hints {
+        static let tapToSelect = "Tap to select"
+    }
 }
