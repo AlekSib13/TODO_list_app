@@ -27,7 +27,7 @@ class CalendarDateCell: UICollectionViewCell, ReusableCell {
         view.clipsToBounds = true
         view.backgroundColor = Constants.Colour.brickBrownLighter075
         
-        view.layer.cornerRadius = Constants.Size.size20
+        view.layer.cornerRadius = Constants.Size.size17
         view.layer.borderWidth = Constants.Size.size1
         view.layer.borderColor = UIColor.white.cgColor
         return view
@@ -85,7 +85,7 @@ class CalendarDateCell: UICollectionViewCell, ReusableCell {
         }
         
         selectionBackGroundView.snp.makeConstraints{make in
-            make.height.width.equalTo(Constants.Size.size40)
+            make.height.width.equalTo(Constants.Size.size34)
             make.centerX.centerY.equalToSuperview()
         }
     }

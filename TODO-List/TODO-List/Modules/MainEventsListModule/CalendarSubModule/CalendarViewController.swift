@@ -11,6 +11,7 @@ import SnapKit
 
 class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
     
+    
     var presenter: CalendarPresenterProtocol?
     
     
@@ -42,7 +43,7 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
     
     
     private lazy var calendarHeaderView = CalendarHeaderView()
-//    private lazy var calendarFooterView = CalendarFooterView()
+    private lazy var calendarFooterView = CalendarFooterView()
     
     
     //MARK: TODO - change transition style - it should transition vertically from up to down from calendar button
@@ -69,10 +70,10 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
         view.addSubview(backgroundView)
         backgroundView.addSubview(calendarCollectionView)
         backgroundView.addSubview(calendarHeaderView)
+        backgroundView.addSubview(calendarFooterView)
         
 //        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(aroundCalendarTapped))
 //        view.addGestureRecognizer(tapGestureRecognizer)
-        
         setDataSourceAndDelegates()
     }
     
@@ -80,25 +81,32 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
         calendarCollectionView.dataSource = presenter
         calendarCollectionView.delegate = presenter
         calendarHeaderView.delegate = presenter
-//        calendarFooterView.delegate = presenter
+        calendarFooterView.delegate = presenter
     }
     
     func setUpConstraints() {
         backgroundView.snp.makeConstraints{make in
             make.leading.trailing.equalToSuperview().inset(Constants.Offset.offset25)
-            make.centerY.equalToSuperview().offset(90)
-            make.height.equalTo(270)
+            make.centerY.equalToSuperview().offset(Constants.Offset.offset90)
+            make.height.equalTo(Constants.Size.size286)
         }
         
         calendarCollectionView.snp.makeConstraints{make in
             make.leading.trailing.equalToSuperview().inset(Constants.Offset.offset5)
-            make.top.equalToSuperview().inset(Constants.Offset.offset30)
-            make.bottom.equalToSuperview().inset(Constants.Offset.offset5)
+            make.top.equalToSuperview().inset(Constants.Offset.offset60)
+            make.bottom.equalToSuperview().inset(Constants.Offset.offset35)
         }
         
         calendarHeaderView.snp.makeConstraints{make in
             make.leading.trailing.equalToSuperview().inset(Constants.Offset.offset5)
             make.bottom.equalTo(calendarCollectionView.snp.top).offset(Constants.Offset.offset3)
+            make.top.equalToSuperview()
+        }
+        
+        calendarFooterView.snp.makeConstraints{make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(Constants.Offset.offset10)
+            make.top.equalTo(calendarCollectionView.snp.bottom)
         }
     }
     
@@ -109,5 +117,9 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
 //        presenter?.dismissCalendar()
 //    }
     
+    
+    func updateCalendarHeader(date: Date) {
+        calendarHeaderView.updateHeader(newDate: date)
+    }
     
 }

@@ -21,6 +21,7 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     private var baseDate: Date {
         didSet {
             days = generateDaysInMonth(for: baseDate)
+            view?.updateCalendarHeader(date: baseDate)
             view?.calendarCollectionView.reloadData()
         }
     }
@@ -76,12 +77,17 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let day = days[indexPath.row]
-//        selectedDateChanged(day.date)
-//        dismiss(animated: true, completion: nil)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let indexes = collectionView.numberOfItems(inSection: indexPath.section)
+
+        for index in 0...indexes {
+            guard let cell = collectionView.cellForItem(at: IndexPath(row: index, section: indexPath.section)), let calendarDateCell = cell as? CalendarDateCell else {return}
+            index == indexPath.row ? calendarDateCell.applySelectedStyle() :
+            calendarDateCell.applyDefaultStyle(isWithinDisplayedMonth: days[index].isWithinDisplayedMonth)
+        }
     }
     
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = Int(collectionView.frame.width / 7)
@@ -97,6 +103,8 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
         return MonthMetaData(numberOfDays: numberOfDaysInMonth, monthFirstDate: firstDayOfMonth, weekFirstDayNumber: firstDayOfWeek)
     }
     
+    
+    //MARK: TODO: do not forget to transfer baseDate time to local one, otherwise there are situations, when it is the new day in terms of the local time, but since Date in UTC, the date itself could be in the past
     func generateDaysInMonth(for baseDate: Date) -> [Day] {
         guard let monthMetaData = try? createMonthMetaData(for: baseDate) else {
             fatalError(CalendarError.monthMetaDataGeneration.rawValue)

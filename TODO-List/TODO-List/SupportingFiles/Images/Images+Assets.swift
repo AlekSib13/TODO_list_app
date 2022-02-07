@@ -22,5 +22,7 @@ extension UIImage {
     
     struct Calendar {
         static let calendarCloseButton = {UIImage(named: "calendarCloseButton")}()
+        static let nextMonthbutton = {UIImage(named: "nextButton")}()
+        static let previousMonthButton = {UIImage(named: "backButton")}()
     }
 }
