@@ -30,16 +30,21 @@ struct Constants {
         static let offset8: CGFloat = 8
         
         static let offset10: CGFloat = 10
+        static let offset12: CGFloat = 12
         static let offset15: CGFloat = 15
+        static let offset17: CGFloat = 17
         static let offset20: CGFloat = 20
+        
         static let offset25: CGFloat = 25
-        
         static let offset30: CGFloat = 30
-        
         static let offset35: CGFloat = 35
         
         static let offset40: CGFloat = 40
+        static let offset50: CGFloat = 50
+        static let offset60: CGFloat = 60
         static let offset70: CGFloat = 70
+        static let offset90: CGFloat = 90
+        
         static let offset150: CGFloat = 150
         static let offset200: CGFloat = 200
         static let offset225: CGFloat = 225
@@ -56,10 +61,13 @@ struct Constants {
         static let size5: CGFloat = 5
         static let size10: CGFloat = 10
         
+        static let size15: CGFloat = 15
+        static let size17: CGFloat = 17
         static let size20: CGFloat = 20
         
         static let size25: CGFloat = 25
         static let size30: CGFloat = 30
+        static let size34: CGFloat = 34
         static let size40: CGFloat = 40
         static let size50: CGFloat = 50
         static let size60: CGFloat = 60
@@ -71,6 +79,7 @@ struct Constants {
         static let size250: CGFloat = 250
         
         static let size270: CGFloat = 270
+        static let size286: CGFloat = 286
         
         static let multipliedBy05: CGFloat = 1/2
         static let multipliedBy1Point2: CGFloat = 1.2
@@ -100,5 +109,36 @@ struct Constants {
     
     struct tabBarImageInsets {
         static let tabImageInset = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+    }
+    
+    
+    enum WeekDays: String {
+        case Monday = "Mo"
+        case Tuesday = "Tu"
+        case Wednesday = "We"
+        case Thursday = "Th"
+        case Friday = "Fr"
+        case Saturday = "Sa"
+        case Sunday = "Su"
+        
+        static func returnWeekday(weekDayNumber: Int) -> String {
+            switch weekDayNumber {
+            case 1:
+                return WeekDays.Sunday.rawValue
+            case 2:
+                return WeekDays.Monday.rawValue
+            case 3:
+                return WeekDays.Tuesday.rawValue
+            case 4:
+                return WeekDays.Wednesday.rawValue
+            case 5:
+                return WeekDays.Thursday.rawValue
+            case 6:
+                return WeekDays.Friday.rawValue
+            default:
+                break
+            }
+            return WeekDays.Saturday.rawValue
+        }
     }
 }

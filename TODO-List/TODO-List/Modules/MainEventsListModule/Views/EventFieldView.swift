@@ -117,11 +117,6 @@ class EventFieldView: UIView {
             make.centerY.equalTo(eventDatePicker).offset(Constants.Offset.offsetMinus2)
             make.leading.equalTo(eventDatePicker.snp.trailing).offset(Constants.Offset.offset20)
         }
-        
-//        saveButton.snp.makeConstraints{make in
-//            make.leading.trailing.equalTo(eventTextField).inset(10)
-//            make.top.equalTo(eventTextField.snp.bottom)
-//        }
     }
     
     

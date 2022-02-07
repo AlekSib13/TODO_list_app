@@ -11,6 +11,7 @@ import UIKit
 protocol CalendarViewControllerProtocol: class {
     var calendar: Calendar {get}
     var calendarCollectionView: UICollectionView {get}
+    func updateCalendarHeader(date: Date) 
 }
 
 protocol CalendarPresenterProtocol: class,  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CalendarDelegate {

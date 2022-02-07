@@ -15,7 +15,7 @@ class CalendarHeaderView: UIView {
     private let monthLabel: UILabel = {
         let monthLabel = UILabel()
         monthLabel.font = .systemFont(ofSize: Constants.Size.size25, weight: .bold)
-        monthLabel.tintColor = Constants.Colour.brickBrown
+        monthLabel.textColor = Constants.Colour.brickBrown
         monthLabel.text = "Month"
         monthLabel.accessibilityTraits = .header
         monthLabel.isAccessibilityElement = true
@@ -26,12 +26,6 @@ class CalendarHeaderView: UIView {
         let weekDaysStackView = UIStackView()
         weekDaysStackView.distribution = .fillEqually
         return weekDaysStackView
-    }()
-    
-    private let separatorView: UIView = {
-        let separatorView = UIView()
-        separatorView.backgroundColor = .none
-        return separatorView
     }()
     
     private let dateFormatter: DateFormatter = {
@@ -48,12 +42,6 @@ class CalendarHeaderView: UIView {
         closeButton.setImage(UIImage.Calendar.calendarCloseButton, for: .normal)
         return closeButton
     }()
-    
-    private var baseDate = Date() {
-        didSet {
-            monthLabel.text = dateFormatter.string(from: baseDate)
-        }
-    }
     
     var delegate: CalendarDelegate?
     
@@ -72,24 +60,47 @@ class CalendarHeaderView: UIView {
         addSubview(monthLabel)
         addSubview(weekDaysStackView)
         addSubview(closeButton)
-        addSubview(separatorView)
         configureWeekDays()
         
+        
+        closeButton.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        monthLabel.text = dateFormatter.string(from: Date())
     }
     
     func configureWeekDays() {
-        
+        for number in 1...7 {
+            let dayOfWeek = UILabel()
+            dayOfWeek.textColor = Constants.Colour.brickBrownLighter05
+            dayOfWeek.font = .systemFont(ofSize: Constants.Size.size15, weight: .medium)
+            dayOfWeek.text = String(Constants.WeekDays.returnWeekday(weekDayNumber: number))
+            weekDaysStackView.addArrangedSubview(dayOfWeek)
+        }
     }
     
     func setUpConstraints() {
         closeButton.snp.makeConstraints{make in
-            make.trailing.equalToSuperview().inset(Constants.Offset.offset8)
+            make.trailing.equalToSuperview()
+            make.centerY.equalTo(monthLabel)
+        }
+        
+        monthLabel.snp.makeConstraints{make in
             make.top.equalToSuperview().inset(Constants.Offset.offset8)
+            make.leading.equalToSuperview().offset(Constants.Offset.offset5)
+        }
+        
+        weekDaysStackView.snp.makeConstraints{make in
+            make.leading.equalToSuperview().inset(Constants.Offset.offset12)
+            make.trailing.equalToSuperview().offset(Constants.Offset.offset17)
+            make.top.equalTo(closeButton.snp.bottom).offset(Constants.Offset.offset2)
         }
     }
     
     @objc func closeButtonTapped() {
         delegate?.closeCalendar()
+    }
+    
+    func updateHeader(newDate: Date) {
+        monthLabel.text = dateFormatter.string(from: newDate)
     }
 }
