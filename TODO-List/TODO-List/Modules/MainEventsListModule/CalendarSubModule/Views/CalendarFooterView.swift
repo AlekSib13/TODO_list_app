@@ -15,12 +15,16 @@ class CalendarFooterView: UIView {
     let nextMonthButton: UIButton = {
         let nextMonthButton = UIButton()
         nextMonthButton.setImage(UIImage.Calendar.nextMonthbutton, for: .normal)
+        nextMonthButton.addTarget(self, action: #selector(monthButtonTapped(_:)), for: .touchUpInside)
+        nextMonthButton.tag = 1
         return nextMonthButton
     }()
     
     let previousMonthButton: UIButton = {
         let previousMonthButton = UIButton()
         previousMonthButton.setImage(UIImage.Calendar.previousMonthButton, for: .normal)
+        previousMonthButton.addTarget(self, action: #selector(monthButtonTapped(_:)), for: .touchUpInside)
+        previousMonthButton.tag = 0
         return previousMonthButton
     }()
     
@@ -41,7 +45,9 @@ class CalendarFooterView: UIView {
         
         nextMonthButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         previousMonthButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        
     }
+    
     
     func setUpConstraints() {
         previousMonthButton.snp.makeConstraints{make in
@@ -52,6 +58,19 @@ class CalendarFooterView: UIView {
         nextMonthButton.snp.makeConstraints{make in
             make.bottom.equalToSuperview().inset(Constants.Offset.offset3)
             make.trailing.equalToSuperview()
+        }
+    }
+    
+    @objc func monthButtonTapped(_ sender: UIButton) {
+        switch sender.tag {
+        case 0:
+            print("previous month tapped")
+            delegate?.openPreviousMonth()
+        case 1:
+            print("next month tapped")
+            delegate?.openNextMonth()
+        default:
+            break
         }
     }
 }

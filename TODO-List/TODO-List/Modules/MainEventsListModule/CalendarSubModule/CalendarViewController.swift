@@ -71,9 +71,6 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
         backgroundView.addSubview(calendarCollectionView)
         backgroundView.addSubview(calendarHeaderView)
         backgroundView.addSubview(calendarFooterView)
-        
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(aroundCalendarTapped))
-//        view.addGestureRecognizer(tapGestureRecognizer)
         setDataSourceAndDelegates()
     }
     

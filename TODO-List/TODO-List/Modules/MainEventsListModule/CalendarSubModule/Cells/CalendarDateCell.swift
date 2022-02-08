@@ -97,7 +97,7 @@ class CalendarDateCell: UICollectionViewCell, ReusableCell {
     
     func updateSelectionStatus() {
         guard let day = day else {return}
-        day.isSelected ? applySelectedStyle() : applyDefaultStyle(isWithinDisplayedMonth: day.isWithinDisplayedMonth)
+        (day.isSelected && day.isWithinDisplayedMonth) ? applySelectedStyle() : applyDefaultStyle(isWithinDisplayedMonth: day.isWithinDisplayedMonth)
     }
     
     
