@@ -15,13 +15,13 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     let router: CalendarRouterProtocol
     
     
-    private let selectedDate: Date
-//    private let selectedDateChanged: ((Date) -> Void)
+    private var selectedDate: Date
     
     private var baseDate: Date {
         didSet {
             days = generateDaysInMonth(for: baseDate)
             view?.updateCalendarHeader(date: baseDate)
+            selectedDate = baseDate
             view?.calendarCollectionView.reloadData()
         }
     }
@@ -38,10 +38,6 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     }()
     
     
-//    init(view: CalendarViewControllerProtocol?,
-//         interactor: CalendarInteractorProtocol,
-//         router: CalendarRouterProtocol, baseDate: Date, selectedDateChanged: @escaping ((Date) -> Void))
-    
     init(view: CalendarViewControllerProtocol?,
          interactor: CalendarInteractorProtocol,
          router: CalendarRouterProtocol, baseDate: Date) {
@@ -50,7 +46,6 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
         self.router = router
         selectedDate = baseDate
         self.baseDate = baseDate
-//        self.selectedDateChanged = selectedDateChanged
     }
     
     
@@ -72,6 +67,7 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let day = days[indexPath.row]
+        print("day \(day.date), isWithinMonth \(day.isWithinDisplayedMonth)")
         let cell = CalendarDateCell.load(into: collectionView, for: indexPath)
         cell.configure(delegate: self, day: day)
         return cell
@@ -79,11 +75,17 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let indexes = collectionView.numberOfItems(inSection: indexPath.section)
-
         for index in 0...indexes {
+            
             guard let cell = collectionView.cellForItem(at: IndexPath(row: index, section: indexPath.section)), let calendarDateCell = cell as? CalendarDateCell else {return}
-            index == indexPath.row ? calendarDateCell.applySelectedStyle() :
-            calendarDateCell.applyDefaultStyle(isWithinDisplayedMonth: days[index].isWithinDisplayedMonth)
+            let newDate = days[index]
+//            print("new date \(newDate.date), isWithinDisplayedmonth \(newDate.isWithinDisplayedMonth)")
+            if index == indexPath.row {
+                calendarDateCell.applySelectedStyle()
+                selectedDate = newDate.date
+            } else {
+                calendarDateCell.applyDefaultStyle(isWithinDisplayedMonth: newDate.isWithinDisplayedMonth)
+            }
         }
     }
     
@@ -132,7 +134,9 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     func generateDay(offsetBy dayOffset: Int, for baseDate: Date, isWithinDisplayedMonth: Bool) -> Day {
         let date = view?.calendar.date(byAdding: .day, value: dayOffset, to: baseDate) ?? baseDate
         
-        return Day(date: date, number: dateFormatter.string(from: date), isSelected: view?.calendar.isDate(date, inSameDayAs: selectedDate) ?? false, isWithinDisplayedMonth: isWithinDisplayedMonth)
+        let selected = view?.calendar.component(.day, from: date) == view?.calendar.component(.day, from: selectedDate) ? true : false
+        
+        return Day(date: date, number: dateFormatter.string(from: date), isSelected: selected, isWithinDisplayedMonth: isWithinDisplayedMonth)
     }
     
     
@@ -152,5 +156,15 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     
     func closeCalendar() {
         router.dismissCalendar()
+    }
+    
+    func openNextMonth() {
+        guard let date = view?.calendar.date(byAdding: .month, value: 1, to: selectedDate) else {return}
+        baseDate = date
+    }
+    
+    func openPreviousMonth() {
+        guard let date = view?.calendar.date(byAdding: .month, value: -1, to: selectedDate) else {return}
+        baseDate = date
     }
 }
