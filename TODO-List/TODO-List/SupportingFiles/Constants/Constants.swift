@@ -10,6 +10,8 @@ import UIKit
 
 struct Constants {
     struct FontSize {
+        static let font10: CGFloat = 10
+        static let font12: CGFloat = 12
         static let font15: CGFloat = 15
         static let font17: CGFloat = 17
         static let font20: CGFloat = 20
@@ -24,8 +26,11 @@ struct Constants {
         
         static let offsetMinus2: CGFloat = -2
         
+        static let offset1: CGFloat = 1
         static let offset2: CGFloat = 2
         static let offset3: CGFloat = 3
+        static let offset4: CGFloat = 4
+        
         static let offset5: CGFloat = 5
         static let offset8: CGFloat = 8
         

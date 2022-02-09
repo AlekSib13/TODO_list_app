@@ -44,6 +44,12 @@ class EventFieldView: UIView {
         return calendarButton
     }()
     
+    let dateViewsStack: UIStackView = {
+        let dateViewsStack = UIStackView()
+        return dateViewsStack
+    }()
+    
+    
     //MARK: TODO: add field nearby calendar, which takes the chosen date from calendar as soon as user closes the calendar
     
 //    let calendarVC = CalendarViewController()
@@ -81,13 +87,13 @@ class EventFieldView: UIView {
         self.addSubview(eventTextField)
         self.addSubview(eventDatePicker)
         self.addSubview(calendarButton)
-        //MARK: TODO - think about it: perhaps calendar should be the complete submodule with its presenter, interactor, router
-//        self.addSubview(calendarVC.view)
-//        self.addSubview(saveButton)
-//        calendarVC.delegate = calendarDelegate
+        self.addSubview(dateViewsStack)
         
         setEventDatePicker()
         setCalendarButton()
+        
+        addDateViews()
+        addHorizontalSeparators()
     }
     
     func setEventDatePicker() {
@@ -100,11 +106,70 @@ class EventFieldView: UIView {
     }
     
     
+    func addHorizontalSeparators() {
+        for i in 0...1 {
+            let separator = UIView()
+            separator.backgroundColor = Constants.Colour.brickBrownLighter05
+            separator.tag = i
+            addSubview(separator)
+            
+            switch separator.tag {
+            case 0:
+                separator.snp.makeConstraints {make in
+                    make.leading.trailing.equalTo(dateViewsStack)
+                    make.height.equalTo(Constants.Size.size1)
+                    make.bottom.equalTo(calendarButton).offset(Constants.Offset.offset1)
+                }
+            case 1:
+                separator.snp.makeConstraints {make in
+                    make.leading.trailing.equalTo(dateViewsStack)
+                    make.height.equalTo(Constants.Size.size1)
+                    make.bottom.equalTo(calendarButton).inset(Constants.Offset.offset2)
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    
+    func addDateViews() {
+        for i in 0...5 {
+            if  dateViewsStack.subviews.count == 2 || dateViewsStack.subviews.count == 5 {
+                let separator = UIView()
+                separator.backgroundColor = .none
+                dateViewsStack.addArrangedSubview(separator)
+                separator.snp.makeConstraints{make in
+                    make.width.equalTo(Constants.Offset.offset3)
+                }
+            }
+            let digitView = UIView()
+            digitView.tag = i
+            digitView.backgroundColor = Constants.Colour.lemonCreamYellow
+            digitView.layer.borderColor = Constants.Colour.brickBrownLighter075.cgColor
+            digitView.layer.borderWidth = Constants.Size.size1
+            digitView.layer.cornerRadius = Constants.Size.size5
+            dateViewsStack.addArrangedSubview(digitView)
+            digitView.snp.makeConstraints{make in
+                make.width.equalTo(Constants.Size.size15)
+            }
+            let textLabel = UILabel()
+            digitView.addSubview(textLabel)
+            textLabel.snp.makeConstraints{make in
+                make.edges.equalToSuperview()
+            }
+            textLabel.textAlignment = .center
+            textLabel.font = UIFont.systemFont(ofSize: Constants.FontSize.font15, weight: .medium)
+            textLabel.textColor = .black
+        }
+    }
+    
+    
     func setUpConstraints() {
         
         eventDatePicker.snp.makeConstraints{make in
             make.top.equalToSuperview().inset(Constants.Offset.offset10)
-            make.leading.equalToSuperview().offset(Constants.Offset.offset2)
+            make.leading.equalToSuperview().offset(Constants.Offset.offset8)
         }
         
         eventTextField.snp.makeConstraints{make in
@@ -115,7 +180,13 @@ class EventFieldView: UIView {
         
         calendarButton.snp.makeConstraints{make in
             make.centerY.equalTo(eventDatePicker).offset(Constants.Offset.offsetMinus2)
-            make.leading.equalTo(eventDatePicker.snp.trailing).offset(Constants.Offset.offset20)
+            make.trailing.equalTo(dateViewsStack.snp.leading).offset(Constants.Offset.offsetMinus10)
+        }
+        
+        dateViewsStack.snp.makeConstraints {make in
+            make.top.equalTo(calendarButton)
+            make.trailing.equalTo(eventTextField).inset(Constants.Offset.offset8)
+            make.bottom.equalTo(calendarButton).inset(Constants.Offset.offset5)
         }
     }
     
