@@ -39,6 +39,7 @@
 		EBC208B52793230A00E6B024 /* DarkNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC208B42793230A00E6B024 /* DarkNavigationController.swift */; };
 		EBC208B82793272500E6B024 /* Images+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC208B72793272500E6B024 /* Images+Assets.swift */; };
 		EBC208BB2793344900E6B024 /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC208BA2793344900E6B024 /* BasicViewController.swift */; };
+		EBD95B9827BAEA4E001D7DA3 /* MainKeyBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD95B9727BAEA4E001D7DA3 /* MainKeyBoardController.swift */; };
 		EBDF6D1827A86F3100EE0213 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D1727A86F3100EE0213 /* CalendarViewController.swift */; };
 		EBDF6D1B27A88B7D00EE0213 /* CalendarModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D1A27A88B7D00EE0213 /* CalendarModuleBuilder.swift */; };
 		EBDF6D1D27A88B8A00EE0213 /* CalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF6D1C27A88B8A00EE0213 /* CalendarPresenter.swift */; };
@@ -99,6 +100,7 @@
 		EBC208B42793230A00E6B024 /* DarkNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkNavigationController.swift; sourceTree = "<group>"; };
 		EBC208B72793272500E6B024 /* Images+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Images+Assets.swift"; sourceTree = "<group>"; };
 		EBC208BA2793344900E6B024 /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
+		EBD95B9727BAEA4E001D7DA3 /* MainKeyBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainKeyBoardController.swift; sourceTree = "<group>"; };
 		EBDF6D1727A86F3100EE0213 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		EBDF6D1A27A88B7D00EE0213 /* CalendarModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModuleBuilder.swift; sourceTree = "<group>"; };
 		EBDF6D1C27A88B8A00EE0213 /* CalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPresenter.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				EBC208B42793230A00E6B024 /* DarkNavigationController.swift */,
 				EBC208BA2793344900E6B024 /* BasicViewController.swift */,
 				EB14AE2E27AE63A000DAA8D0 /* Protocols.swift */,
+				EBD95B9727BAEA4E001D7DA3 /* MainKeyBoardController.swift */,
 			);
 			path = Basics;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				EBE83B59278F3F6D00263805 /* MainSettingsPresenter.swift in Sources */,
 				EBC208B32793176200E6B024 /* SceneDelegate+Auth.swift in Sources */,
 				EBAA7D0527538A2F00652832 /* SceneDelegate.swift in Sources */,
+				EBD95B9827BAEA4E001D7DA3 /* MainKeyBoardController.swift in Sources */,
 				EBDF6D2127A88BA600EE0213 /* CalendarRouter.swift in Sources */,
 				EBDF6D2327A88BB600EE0213 /* CalendarProtocols.swift in Sources */,
 				EBE4D9A62753E7E400844A91 /* StringsContent.swift in Sources */,
@@ -684,6 +688,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7DXX42FVN9;
 				INFOPLIST_FILE = "TODO-List/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -703,6 +708,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7DXX42FVN9;
 				INFOPLIST_FILE = "TODO-List/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
