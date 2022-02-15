@@ -8,10 +8,16 @@
 import Foundation
 import UIKit
 
-class MainEventsListViewController: BasicViewController, MainEventsListViewControllerProtocol {
+class MainEventsListViewController: BasicViewController, MainEventsListViewControllerProtocol, MainKeyBoardControllerDelegate {
+    
     
     var presenter: MainEventsListPresenterProtocol?
     var eventsListView: MainEventsListPageViewControllerProtocol?
+    
+    var savedMinYForConstraints: CGFloat?
+    var savedKeyBoardOffset: CGFloat?
+    
+    var keyBoardHight: CGFloat?
     
     
     //MARK: TODO - put views into stack
@@ -33,6 +39,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     }()
     
     private let newEventView = EventFieldView()
+    private lazy var keyBoard = MainKeyBoardController(textView: newEventView.eventTextField, delegate: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +51,12 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+        keyBoard.beginListeningForKeyBoard()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyBoard.endListeningForKeyBoard()
     }
     
     func configureView() {
@@ -64,6 +77,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     func setUpConstraints() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
         eventsListView.view.snp.makeConstraints{make in
+            //MARK: TODO: Should be changed to screen proportions otherwise on the models with small screen the views may be situated closer to the bottom of the screen
             make.top.equalToSuperview().offset(Constants.Offset.offset325)
             make.left.equalToSuperview().offset(Constants.Offset.offset10)
             make.right.equalToSuperview().offset(Constants.Offset.offsetMinus10)
@@ -82,8 +96,6 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             make.top.equalTo(eventsListView.view)
             make.height.equalTo(Constants.Size.size250)
         }
-        
-        
     }
     
     func setDataSourceAndDelegates() {
@@ -126,5 +138,45 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     func changeEventViewVisability(hide: Bool) {
         newEventView.isHidden = hide
+    }
+    
+    func keyBoardControllerKeyBoardWillShow(keyBoardController: MainKeyBoardController, keyBoardFrame: CGRect) {
+        //MARK: TODO: reconsider all of the constraints: thet should anchor to the top of the screen (x:0, y:0) in order to make of the constarints consistent to each other and get rid of the supporting variables
+        
+        //MARK: TODO: eliminate the bug, which happens if the calendar was opened after the keyboard had been opened: if the calendar is closed the textview stays above and there is an extra space between it and the keyboard. This bug might be solved, should the keyboard been closed after the calendar is pushed, so that the textview restores its initial constraints before the calendar opens
+        
+        var offset: CGFloat = 0
+        
+        if savedMinYForConstraints == nil {
+            savedMinYForConstraints = addEventButton.frame.minY
+        }
+        
+        if (keyBoardHight ?? 0) < keyBoardFrame.minY {
+            offset = ((savedMinYForConstraints ?? 0) -  keyBoardFrame.minY) / 2 + Constants.Offset.offset15
+        } else {
+            guard let keyBoardHight = keyBoardHight else {return}
+            offset = ((savedMinYForConstraints ?? 0) -  keyBoardFrame.minY) / 2 - (keyBoardHight - keyBoardFrame.minY) / 2 - Constants.Offset.offset34
+        }
+        
+        keyBoardHight = keyBoardFrame.minY
+        
+        resetConstraints(verticalOffset: offset)
+    }
+    
+    
+    func resetConstraints(verticalOffset: CGFloat) {
+        guard let eventsListView = eventsListView as? UIPageViewController else {return}
+        
+        addEventButton.snp.remakeConstraints{make in
+            make.bottom.equalTo(eventsListView.view.snp.top).offset(verticalOffset)
+            make.leading.trailing.equalTo(eventsListView.view)
+            make.height.equalTo(Constants.Size.size40)
+        }
+        
+        newEventView.snp.remakeConstraints{make in
+            make.leading.trailing.equalTo(eventsListView.view)
+            make.top.equalTo(eventsListView.view).offset(verticalOffset+5)
+            make.height.equalTo(Constants.Size.size250)
+        }
     }
 }
