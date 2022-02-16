@@ -27,6 +27,7 @@ class EventFieldView: UIView {
         textField.layer.shadowOpacity = 1.0
         textField.layer.shadowOffset = CGSize(width: Constants.Size.size5, height: Constants.Size.size3)
         textField.layer.shadowRadius = Constants.Size.size10
+        //MARK: Stopped here
         return textField
     }()
     
