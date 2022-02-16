@@ -39,6 +39,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     }()
     
     private let newEventView = EventFieldView()
+    //MARK: TODO eliminate the bug: the text in the textview goes above when pressing enter
+    
     private lazy var keyBoard = MainKeyBoardController(textView: newEventView.eventTextField, delegate: self)
     
     override func viewDidLoad() {
@@ -52,6 +54,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         super.viewWillAppear(animated)
         configureNavigationBar()
         keyBoard.beginListeningForKeyBoard()
+        hideKeyBoardWhenTappedAround()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -145,6 +148,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         
         //MARK: TODO: eliminate the bug, which happens if the calendar was opened after the keyboard had been opened: if the calendar is closed the textview stays above and there is an extra space between it and the keyboard. This bug might be solved, should the keyboard been closed after the calendar is pushed, so that the textview restores its initial constraints before the calendar opens
         
+        //MARK: TODO: eliminate the bug: after entering smth into textview press return on the keyboard and then press textview: the textview will go up
         var offset: CGFloat = 0
         
         if savedMinYForConstraints == nil {
@@ -160,11 +164,19 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         
         keyBoardHight = keyBoardFrame.minY
         
-        resetConstraints(verticalOffset: offset)
+        changeConstraints(verticalOffset: offset)
     }
     
     
-    func resetConstraints(verticalOffset: CGFloat) {
+    func keyBoardControllerKeyBoardWillHide() {
+        savedMinYForConstraints = nil
+        keyBoardHight = nil
+        
+        restoreConstraints()
+    }
+    
+    
+    func changeConstraints(verticalOffset: CGFloat) {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
         
         addEventButton.snp.remakeConstraints{make in
@@ -178,5 +190,30 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             make.top.equalTo(eventsListView.view).offset(verticalOffset+5)
             make.height.equalTo(Constants.Size.size250)
         }
+    }
+    
+    func restoreConstraints() {
+        guard let eventsListView = eventsListView as? UIPageViewController else {return}
+        
+        addEventButton.snp.remakeConstraints{make in
+            make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
+            make.leading.trailing.equalTo(eventsListView.view)
+            make.height.equalTo(Constants.Size.size40)
+        }
+        
+        newEventView.snp.remakeConstraints{make in
+            make.leading.trailing.equalTo(eventsListView.view)
+            make.top.equalTo(eventsListView.view)
+            make.height.equalTo(Constants.Size.size250)
+        }
+    }
+    
+    func hideKeyBoardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func dismissKeyBoard() {
+        view.endEditing(true)
     }
 }
