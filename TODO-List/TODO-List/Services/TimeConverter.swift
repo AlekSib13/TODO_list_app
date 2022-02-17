@@ -11,6 +11,7 @@ class TimeConverterHelper {
     
     func convertTimeToLocal(date: Date) -> String  {
         let dateFormatter = DateFormatter()
+        //"HH:mm" - 24 hours format
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.calendar = .current
         

@@ -109,6 +109,7 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     func setEventDatePicker() {
         eventDatePicker.addTarget(self, action: #selector(timeChanged), for: .editingDidEnd)
+        eventDatePicker.addTarget(self, action: #selector(eventDatePickerTapped), for: .allEvents)
     }
     
     func setCalendarButton() {
@@ -209,6 +210,13 @@ class EventFieldView: UIView, UITextViewDelegate {
         }
     }
     
+    func retrieveInformationToSave() {
+        let timeConverter = TimeConverterHelper()
+        print("some text to save: \(eventTextField.text) ")
+        print("some time to save: \( timeConverter.convertTimeToLocal(date: eventDatePicker.date))")
+    }
+    
+    
     @objc func timeChanged() {
         //MARK: perhaps this is function is not needed, since it is worth of considering the time, when user tappes save button
         delegate?.saveTime(date: eventDatePicker.date)
@@ -216,5 +224,10 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     @objc func calendarButtonTapped() {
         delegate?.openCalendar()
+    }
+    
+    @objc func eventDatePickerTapped() {
+        print("date Picker Tapped")
+        //MARK: the idea is to inform ViewController, that the datepicker (not textview) had been tapped, before keyboard actions were launched.
     }
 }
