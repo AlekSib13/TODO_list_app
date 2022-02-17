@@ -107,6 +107,7 @@ struct Constants {
         static let brickBrown = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 1.0)
         static let brickBrownLighter075 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.75)
         static let brickBrownLighter05 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.5)
+        static let brickBrownLighter035 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.35)
         
         //MARK: TODO: test various colours, to see, which look better: brown or orange tons
         

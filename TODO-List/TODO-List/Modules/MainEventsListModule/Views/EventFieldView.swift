@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class EventFieldView: UIView {
+class EventFieldView: UIView, UITextViewDelegate {
     
     var delegate: NewEventHandlerDelegateProtocol?
     
@@ -27,7 +27,15 @@ class EventFieldView: UIView {
         textField.layer.shadowOpacity = 1.0
         textField.layer.shadowOffset = CGSize(width: Constants.Size.size5, height: Constants.Size.size3)
         textField.layer.shadowRadius = Constants.Size.size10
-        //MARK: Stopped here
+        
+        textField.textColor = Constants.Colour.brickBrownLighter035
+        textField.font = UIFont.systemFont(ofSize: Constants.Size.size17, weight: .medium)
+        
+        //MARK: TODO: change to localizable for language change. This commet is relevant to all of the text elements
+        textField.text = StringsContent.EventsList.insertYourReminder
+        
+        textField.textContainerInset = UIEdgeInsets(top: Constants.Offset.offset10, left: Constants.Offset.offset5, bottom: Constants.Offset.offset10, right: Constants.Offset.offset10)
+        
         return textField
     }()
     
@@ -95,6 +103,8 @@ class EventFieldView: UIView {
         
         addDateViews()
         addHorizontalSeparators()
+        
+        eventTextField.delegate = self
     }
     
     func setEventDatePicker() {
@@ -192,6 +202,12 @@ class EventFieldView: UIView {
     }
     
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if eventTextField.text == StringsContent.EventsList.insertYourReminder {
+            eventTextField.text = ""
+            eventTextField.textColor = Constants.Colour.brickBrown
+        }
+    }
     
     @objc func timeChanged() {
         //MARK: perhaps this is function is not needed, since it is worth of considering the time, when user tappes save button

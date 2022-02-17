@@ -39,10 +39,7 @@ class MainKeyBoardController: NSObject {
     private func registerForNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyBoardWillShowNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyBoardWillHideNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyBoardDidShowNotification(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyBoardDidHideNotification(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyBoardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveKeyBoardDidChangeFrame), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
     }
     
     
@@ -55,24 +52,13 @@ class MainKeyBoardController: NSObject {
     }
     
     
-//    @objc func didReceiveKeyBoardDidShowNotification(_ notification: Notification) {
-//        var mainView = self.textView?.inputAccessoryView?.superview
-//
-//
-//    }
-    
-    
-    
     @objc func didReceiveKeyBoardWillHideNotification(_ notification: Notification) {
         delegate?.keyBoardControllerKeyBoardWillHide()
     }
     
     
-//    @objc func didReceiveKeyBoardDidHideNotification(_ notification: Notification) {}
-//
+
     @objc func didReceiveKeyBoardWillChangeFrame(_ notification: Notification) {}
-//
-//    @objc func didReceiveKeyBoardDidChangeFrame(_ notification: Notification) {}
     
     
     private func unregisterForNotifications() {

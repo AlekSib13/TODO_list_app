@@ -9,7 +9,7 @@ import Foundation
 
 struct StringsContent {
     
-    //MARK: TODO - move 7 properties below to separate struct within StringsConten
+    //MARK: TODO - move 7 properties below to separate struct within StringsContent
     static let toDoLabel = "My TODO List"
     static let enterEmail = "Enter @email"
     static let enterName = "Enter name"
@@ -27,6 +27,7 @@ struct StringsContent {
     struct EventsList {
         static let addEvent = "+"
         static let saveEvent = "save"
+        static let insertYourReminder = "Insert your reminder"
     }
     
     struct Identifiers {
