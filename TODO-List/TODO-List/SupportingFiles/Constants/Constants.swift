@@ -149,4 +149,9 @@ struct Constants {
             return WeekDays.Saturday.rawValue
         }
     }
+    
+    enum addEventButtonState: Int {
+        case plusSymbol = 0
+        case saveSign = 1
+    }
 }

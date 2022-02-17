@@ -19,23 +19,25 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     var currentkeyBoardOffsetCounter = 0
     
     var keyBoardHight: CGFloat?
+    var previousKeyBoardOffsetStored: CGFloat?
+    
     
     
     //MARK: TODO - put views into stack
     
     private let addEventButton: UIButton = {
        let addEventButton = UIButton()
-//        addEventButton.backgroundColor = Constants.Colour.brickBrown
         addEventButton.backgroundColor = Constants.Colour.mangoTangoOrange
         addEventButton.setTitle(StringsContent.EventsList.addEvent, for: .normal)
         addEventButton.setTitleColor(Constants.Colour.lightYellow, for: .normal)
-//        addEventButton.setTitleColor(Constants.Colour.brickBrown, for: .normal)
         addEventButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.FontSize.font20, weight: .medium)
         addEventButton.titleLabel?.textAlignment = .center
         addEventButton.layer.borderColor = UIColor.white.cgColor
         addEventButton.layer.borderWidth = Constants.Size.size1
         addEventButton.layer.cornerRadius = Constants.Size.size20
         addEventButton.addTarget(self, action: #selector(addEventButtonTapped), for: .touchUpInside)
+        //MARK: TODO: implement to each view, where tag is used:
+        addEventButton.tag = Constants.addEventButtonState.plusSymbol.rawValue
         return addEventButton
     }()
     
@@ -112,8 +114,15 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     
     @objc func addEventButtonTapped() {
-        print("I am tapped")
-        adjustAndAnimateEventButtonContsraints()
+        switch addEventButton.tag {
+        case Constants.addEventButtonState.plusSymbol.rawValue:
+            adjustAndAnimateEventButtonContsraints()
+        case Constants.addEventButtonState.saveSign.rawValue:
+            saveEventButtonTapped()
+            addEventButton.tag = Constants.addEventButtonState.plusSymbol.rawValue
+        default:
+            break
+        }
     }
     
     
@@ -138,6 +147,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             print("do further - > open text insertion form")
             // MARK: TODO: play with animation, perhaps there are better solutions to turn "+" into "save", for instance making the "+" convert to "save" smothly but rapidly from the middle
         }
+        addEventButton.tag = Constants.addEventButtonState.saveSign.rawValue
     }
     
     func changeEventViewVisability(hide: Bool) {
@@ -150,25 +160,26 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         //MARK: TODO: eliminate the bug, which happens if the calendar was opened after the keyboard had been opened: if the calendar is closed the textview stays above and there is an extra space between it and the keyboard. This bug might be solved, should the keyboard been closed after the calendar is pushed, so that the textview restores its initial constraints before the calendar opens
         
         //MARK: TODO: eliminate the bug: after entering smth into textview press return on the keyboard and then press textview: the textview will go up
+        //MARK: TODO: eliminate bug, which happens from time to time: sometime before the first insertion of the text (after click on textview),there is extar space between keyboard and textview itself
         var offset: CGFloat = 0
         
-        if savedMinYForConstraints == nil {
-            savedMinYForConstraints = addEventButton.frame.minY
+        // first push of the textview: y : 508.0
+             // smile is pressed: y : 460
+             // when datpicker is pushed: y : 553.0
+        
+        var previousKeyBoardOffset = previousKeyBoardOffsetStored ?? 0
+        
+        if previousKeyBoardOffset == keyBoardFrame.minY {
+            return
         }
         
-        if (keyBoardHight ?? 0) < keyBoardFrame.minY {
-            currentkeyBoardOffsetCounter = 0
-            offset = ((savedMinYForConstraints ?? 0) -  keyBoardFrame.minY) / 2 + Constants.Offset.offset15
+        if previousKeyBoardOffset < keyBoardFrame.minY {
+            offset = previousKeyBoardOffset == 0 ? (previousKeyBoardOffset - keyBoardFrame.minY) / 4.8 : (previousKeyBoardOffset - keyBoardFrame.minY) * 2.2
         } else {
-            currentkeyBoardOffsetCounter += 1
-            if currentkeyBoardOffsetCounter > keyBoardAllowedNumOfExtraOffsets {
-                return
-            }
-            guard let keyBoardHight = keyBoardHight else {return}
-            offset = ((savedMinYForConstraints ?? 0) -  keyBoardFrame.minY) / 2 - (keyBoardHight - keyBoardFrame.minY) / 2 - Constants.Offset.offset34
+            offset = -(previousKeyBoardOffset - keyBoardFrame.minY) * 3.2
         }
         
-        keyBoardHight = keyBoardFrame.minY
+        previousKeyBoardOffsetStored = keyBoardFrame.minY
         
         changeConstraints(verticalOffset: offset)
     }
@@ -214,6 +225,17 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         }
     }
     
+    func saveEventButtonTapped() {
+        print("savedEventTapped")
+        dismissKeyBoard()
+        newEventView.retrieveInformationToSave()
+        
+        //MARK: TO-DO:
+        // - extarct all of the data and save it
+        // - return eventView to initial constraints aand conceal it
+        // - return saveButton to iniial constraints and to initial state ("+ sign")
+    }
+    
     func hideKeyBoardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         view.addGestureRecognizer(tap)
@@ -221,5 +243,6 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     @objc private func dismissKeyBoard() {
         view.endEditing(true)
+        previousKeyBoardOffsetStored = nil
     }
 }
