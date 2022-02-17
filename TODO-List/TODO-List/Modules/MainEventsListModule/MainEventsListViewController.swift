@@ -15,7 +15,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     var eventsListView: MainEventsListPageViewControllerProtocol?
     
     var savedMinYForConstraints: CGFloat?
-    var savedKeyBoardOffset: CGFloat?
+    var keyBoardAllowedNumOfExtraOffsets = 1
+    var currentkeyBoardOffsetCounter = 0
     
     var keyBoardHight: CGFloat?
     
@@ -156,8 +157,13 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         }
         
         if (keyBoardHight ?? 0) < keyBoardFrame.minY {
+            currentkeyBoardOffsetCounter = 0
             offset = ((savedMinYForConstraints ?? 0) -  keyBoardFrame.minY) / 2 + Constants.Offset.offset15
         } else {
+            currentkeyBoardOffsetCounter += 1
+            if currentkeyBoardOffsetCounter > keyBoardAllowedNumOfExtraOffsets {
+                return
+            }
             guard let keyBoardHight = keyBoardHight else {return}
             offset = ((savedMinYForConstraints ?? 0) -  keyBoardFrame.minY) / 2 - (keyBoardHight - keyBoardFrame.minY) / 2 - Constants.Offset.offset34
         }
