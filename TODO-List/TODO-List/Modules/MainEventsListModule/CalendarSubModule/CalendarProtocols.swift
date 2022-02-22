@@ -34,5 +34,6 @@ protocol CalendarDelegate: class {
     func closeCalendar()
     func openNextMonth()
     func openPreviousMonth()
+    func saveDate()
 }
 

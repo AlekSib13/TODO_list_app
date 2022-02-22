@@ -57,4 +57,8 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     func openCalendar() {
         router.openCalendarModule()
     }
+    
+    func saveTimeAndText(eventInfo: (String, String)) {
+        interactor.saveTimeAndText(eventInfo: eventInfo)
+    }
 }

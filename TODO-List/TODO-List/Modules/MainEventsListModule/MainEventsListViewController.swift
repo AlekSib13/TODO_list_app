@@ -14,6 +14,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     var presenter: MainEventsListPresenterProtocol?
     var eventsListView: MainEventsListPageViewControllerProtocol?
     
+    
+    //MARK: Clean, some ofth variables are excessive
     var savedMinYForConstraints: CGFloat?
     var keyBoardAllowedNumOfExtraOffsets = 1
     var currentkeyBoardOffsetCounter = 0
@@ -162,46 +164,54 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         //MARK: TODO: eliminate the bug: after entering smth into textview press return on the keyboard and then press textview: the textview will go up
         //MARK: TODO: eliminate bug, which happens from time to time: sometime before the first insertion of the text (after click on textview),there is extar space between keyboard and textview itself
         var offset: CGFloat = 0
-        
-        // first push of the textview: y : 508.0
-             // smile is pressed: y : 460
-             // when datpicker is pushed: y : 553.0
-        
+
         var previousKeyBoardOffset = previousKeyBoardOffsetStored ?? 0
         
         if previousKeyBoardOffset == keyBoardFrame.minY {
             return
         }
+
+        //MARK: TODO: play more with keyboard constraints, test it
         
-        if previousKeyBoardOffset < keyBoardFrame.minY {
-            offset = previousKeyBoardOffset == 0 ? (previousKeyBoardOffset - keyBoardFrame.minY) / 4.8 : (previousKeyBoardOffset - keyBoardFrame.minY) * 2.2
-        } else {
-            offset = -(previousKeyBoardOffset - keyBoardFrame.minY) * 3.2
+        if previousKeyBoardOffset == 0 {
+            if !newEventView.datePickerIsTapped() {
+                offset = (previousKeyBoardOffset - keyBoardFrame.minY) / 4.8} else {
+                    offset = (previousKeyBoardOffset - keyBoardFrame.minY) / 9.6
+                }
         }
-        
+        else if previousKeyBoardOffset < keyBoardFrame.minY {
+            if !newEventView.datePickerIsTapped() {
+                offset = (previousKeyBoardOffset - keyBoardFrame.minY) * 2.2} else {
+                    offset = (previousKeyBoardOffset - keyBoardFrame.minY) * 1.3
+                }
+        } else {
+            if !newEventView.datePickerIsTapped() {
+                offset = -(previousKeyBoardOffset - keyBoardFrame.minY) * 3.15} else {
+                    offset = -(previousKeyBoardOffset - keyBoardFrame.minY) * 2.3}
+                    newEventView.resetDatePickerTappedActivity()
+                }
+
         previousKeyBoardOffsetStored = keyBoardFrame.minY
-        
+
         changeConstraints(verticalOffset: offset)
     }
-    
+
     
     func keyBoardControllerKeyBoardWillHide() {
         savedMinYForConstraints = nil
-        keyBoardHight = nil
+        keyBoardHight = nil}
         
-        restoreConstraints()
-    }
     
     
     func changeConstraints(verticalOffset: CGFloat) {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
-        
+
         addEventButton.snp.remakeConstraints{make in
             make.bottom.equalTo(eventsListView.view.snp.top).offset(verticalOffset)
             make.leading.trailing.equalTo(eventsListView.view)
             make.height.equalTo(Constants.Size.size40)
         }
-        
+
         newEventView.snp.remakeConstraints{make in
             make.leading.trailing.equalTo(eventsListView.view)
             make.top.equalTo(eventsListView.view).offset(verticalOffset+5)
@@ -209,21 +219,23 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         }
     }
     
+    
     func restoreConstraints() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
-        
+
         addEventButton.snp.remakeConstraints{make in
             make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
             make.leading.trailing.equalTo(eventsListView.view)
             make.height.equalTo(Constants.Size.size40)
         }
-        
+
         newEventView.snp.remakeConstraints{make in
             make.leading.trailing.equalTo(eventsListView.view)
             make.top.equalTo(eventsListView.view)
             make.height.equalTo(Constants.Size.size250)
         }
     }
+    
     
     func saveEventButtonTapped() {
         print("savedEventTapped")
@@ -243,6 +255,6 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     @objc private func dismissKeyBoard() {
         view.endEditing(true)
-        previousKeyBoardOffsetStored = nil
+//        previousKeyBoardOffsetStored = nil
     }
 }
