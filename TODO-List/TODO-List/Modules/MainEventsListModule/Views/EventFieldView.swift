@@ -13,6 +13,9 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     var delegate: NewEventHandlerDelegateProtocol?
     
+    var datePickerTapped = false
+    
+    
     //MARK: TODO - put views into stack
     
     let eventTextField: UITextView = {
@@ -38,7 +41,7 @@ class EventFieldView: UIView, UITextViewDelegate {
         
         return textField
     }()
-    
+
     let eventDatePicker: UIDatePicker = {
         let eventDatePicker = UIDatePicker()
         eventDatePicker.datePickerMode = .time
@@ -98,19 +101,17 @@ class EventFieldView: UIView, UITextViewDelegate {
         self.addSubview(calendarButton)
         self.addSubview(dateViewsStack)
         
-        setEventDatePicker()
         setCalendarButton()
         
         addDateViews()
         addHorizontalSeparators()
         
         eventTextField.delegate = self
-    }
-    
-    func setEventDatePicker() {
+        
         eventDatePicker.addTarget(self, action: #selector(timeChanged), for: .editingDidEnd)
         eventDatePicker.addTarget(self, action: #selector(eventDatePickerTapped), for: .allEvents)
     }
+    
     
     func setCalendarButton() {
         calendarButton.transform = CGAffineTransform(scaleX: Constants.Size.multipliedBy1Point2, y:  Constants.Size.multipliedBy1Point2)
@@ -212,8 +213,11 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     func retrieveInformationToSave() {
         let timeConverter = TimeConverterHelper()
-        print("some text to save: \(eventTextField.text) ")
-        print("some time to save: \( timeConverter.convertTimeToLocal(date: eventDatePicker.date))")
+//        print("some text to save: \(eventTextField.text) ")
+//        print("some time to save: \( timeConverter.convertTimeToLocal(date: eventDatePicker.date))")
+        
+        let timeAndText = (eventTime: timeConverter.convertTimeToLocal(date: eventDatePicker.date), eventText: eventTextField.text ?? "")
+        delegate?.saveTimeAndText(eventInfo: timeAndText)
     }
     
     
@@ -228,6 +232,15 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     @objc func eventDatePickerTapped() {
         print("date Picker Tapped")
+        datePickerTapped = true
         //MARK: the idea is to inform ViewController, that the datepicker (not textview) had been tapped, before keyboard actions were launched.
+    }
+    
+    func datePickerIsTapped() -> Bool {
+        datePickerTapped
+    }
+    
+    func resetDatePickerTappedActivity() {
+        datePickerTapped = false
     }
 }

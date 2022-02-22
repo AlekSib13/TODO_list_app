@@ -17,4 +17,8 @@ class CalendarRouter: CalendarRouterProtocol {
         guard let view = view as? UIViewController else {return}
         view.dismiss(animated: true, completion: nil)
     }
+    
+    func passDate(savedDate: String) {
+        
+    }
 }

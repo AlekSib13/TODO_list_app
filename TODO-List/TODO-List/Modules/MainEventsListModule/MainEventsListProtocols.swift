@@ -13,7 +13,9 @@ protocol MainEventsListViewControllerProtocol: class {}
 
 protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol {}
 
-protocol MainEventsListInteractorProtocol: class {}
+protocol MainEventsListInteractorProtocol: class {
+    func saveTimeAndText(eventInfo: (String, String))
+}
 
 protocol MainEventsListRouterProtocol: class {
     func openCalendarModule()
@@ -27,8 +29,9 @@ protocol MainEventsListCurrentListViewControllerProtocol {
 protocol MainEventsListPageViewControllerProtocol {}
 
 protocol NewEventHandlerDelegateProtocol {
-    func saveTime(date: Date)
+    func saveTime(date: Date) // delete method
     func openCalendar()
+    func saveTimeAndText(eventInfo: (String, String))
 }
 
 protocol NewEventCalendardDelegateProtocol {

@@ -49,7 +49,8 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     }
     
     
-    //MARK: TODO - change selectedDate!
+    //MARK: TODO: change selectedDate!
+    //MARK: TODO: restrict to choose dates in past
    
     func viewDidLoad() {
         registerCell()
@@ -166,5 +167,10 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     func openPreviousMonth() {
         guard let date = view?.calendar.date(byAdding: .month, value: -1, to: selectedDate) else {return}
         baseDate = date
+    }
+    
+    func saveDate() {
+        let timeConverter = TimeConverterHelper()
+        // call Router And Pass The String
     }
 }

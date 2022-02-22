@@ -22,6 +22,7 @@
 		EB639679275D54F800F6A00C /* MainMenuTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB639678275D54F800F6A00C /* MainMenuTabBarRouter.swift */; };
 		EB63967B275D551B00F6A00C /* MainMenuTabBarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB63967A275D551B00F6A00C /* MainMenuTabBarInteractor.swift */; };
 		EB67C9EC279F1EC8007FA59F /* EventFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67C9EB279F1EC8007FA59F /* EventFieldView.swift */; };
+		EB6D7A7A27C56D030073CFA8 /* NewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6D7A7927C56D030073CFA8 /* NewEvent.swift */; };
 		EB88F7C127539C4B006F9A9B /* InitialLoadScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88F7C027539C4B006F9A9B /* InitialLoadScreenProtocols.swift */; };
 		EB90EC902795EFEC00F95A28 /* MainEventsListPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */; };
 		EB90EC922795F03400F95A28 /* MainEventsListCurrentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */; };
@@ -81,6 +82,7 @@
 		EB639678275D54F800F6A00C /* MainMenuTabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarRouter.swift; sourceTree = "<group>"; };
 		EB63967A275D551B00F6A00C /* MainMenuTabBarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarInteractor.swift; sourceTree = "<group>"; };
 		EB67C9EB279F1EC8007FA59F /* EventFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFieldView.swift; sourceTree = "<group>"; };
+		EB6D7A7927C56D030073CFA8 /* NewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEvent.swift; sourceTree = "<group>"; };
 		EB88F7C027539C4B006F9A9B /* InitialLoadScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoadScreenProtocols.swift; sourceTree = "<group>"; };
 		EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListPageViewController.swift; sourceTree = "<group>"; };
 		EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListCurrentListViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			children = (
 				EB32817827AB3FBA0090993E /* Day.swift */,
 				EB32817A27AB41F20090993E /* MonthMetaData.swift */,
+				EB6D7A7927C56D030073CFA8 /* NewEvent.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				EBAA7D0327538A2F00652832 /* AppDelegate.swift in Sources */,
 				EBDF6D1F27A88B9B00EE0213 /* CalenderInteractor.swift in Sources */,
 				EBC208B52793230A00E6B024 /* DarkNavigationController.swift in Sources */,
+				EB6D7A7A27C56D030073CFA8 /* NewEvent.swift in Sources */,
 				EB90EC922795F03400F95A28 /* MainEventsListCurrentListViewController.swift in Sources */,
 				EBE83B53278F3EF500263805 /* MainEventsListModuleBuilder.swift in Sources */,
 				EB2FA6B227A6A1D6001A1AE8 /* TimeConverter.swift in Sources */,
