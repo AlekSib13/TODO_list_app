@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 
-class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDelegate {
-    
+class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDelegate {    
+ 
     weak var view: CalendarViewControllerProtocol?
+    weak var delegate: CalendarExternalDelegate?
     let interactor: CalendarInteractorProtocol
     let router: CalendarRouterProtocol
     
@@ -80,7 +81,6 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
             
             guard let cell = collectionView.cellForItem(at: IndexPath(row: index, section: indexPath.section)), let calendarDateCell = cell as? CalendarDateCell else {return}
             let newDate = days[index]
-//            print("new date \(newDate.date), isWithinDisplayedmonth \(newDate.isWithinDisplayedMonth)")
             if index == indexPath.row {
                 calendarDateCell.applySelectedStyle()
                 selectedDate = newDate.date
@@ -156,6 +156,7 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     
     
     func closeCalendar() {
+        saveDate()
         router.dismissCalendar()
     }
     
@@ -171,6 +172,7 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     
     func saveDate() {
         let timeConverter = TimeConverterHelper()
-        // call Router And Pass The String
+        let chosenDate = timeConverter.getCurrentDate(date: selectedDate)
+        delegate?.saveCalendarDate(chosenDate: chosenDate)
     }
 }

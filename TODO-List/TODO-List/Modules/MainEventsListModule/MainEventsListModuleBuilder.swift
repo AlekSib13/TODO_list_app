@@ -19,6 +19,7 @@ class MainEventsListModulebuilder {
         vc.presenter = presenter
         interactor.presenter = presenter
         router.view = vc
+        router.presenter = presenter
         
         return vc
     }
