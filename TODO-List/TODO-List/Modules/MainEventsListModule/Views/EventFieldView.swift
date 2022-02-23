@@ -212,10 +212,7 @@ class EventFieldView: UIView, UITextViewDelegate {
     }
     
     func retrieveInformationToSave() {
-        let timeConverter = TimeConverterHelper()
-//        print("some text to save: \(eventTextField.text) ")
-//        print("some time to save: \( timeConverter.convertTimeToLocal(date: eventDatePicker.date))")
-        
+        let timeConverter = TimeConverterHelper()        
         let timeAndText = (eventTime: timeConverter.convertTimeToLocal(date: eventDatePicker.date), eventText: eventTextField.text ?? "")
         delegate?.saveTimeAndText(eventInfo: timeAndText)
     }

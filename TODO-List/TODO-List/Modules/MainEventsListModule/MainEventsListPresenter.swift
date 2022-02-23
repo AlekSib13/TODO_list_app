@@ -59,6 +59,12 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     }
     
     func saveTimeAndText(eventInfo: (String, String)) {
-        interactor.saveTimeAndText(eventInfo: eventInfo)
+        interactor.saveTimeAndText(eventInfo: eventInfo) {
+            interactor.saveNewEvent()
+        }
+    }
+    
+    func saveCalendarDate(chosenDate: String) {
+        interactor.saveCalendarDate(chosenDate: chosenDate)
     }
 }

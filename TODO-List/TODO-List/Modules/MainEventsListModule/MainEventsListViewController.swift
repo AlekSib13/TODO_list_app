@@ -240,6 +240,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     func saveEventButtonTapped() {
         print("savedEventTapped")
         dismissKeyBoard()
+        restoreConstraints()
         newEventView.retrieveInformationToSave()
         
         //MARK: TO-DO:
@@ -255,6 +256,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     @objc private func dismissKeyBoard() {
         view.endEditing(true)
-//        previousKeyBoardOffsetStored = nil
+        previousKeyBoardOffsetStored = nil
+        
     }
 }

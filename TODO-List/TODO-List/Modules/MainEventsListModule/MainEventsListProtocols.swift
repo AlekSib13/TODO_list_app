@@ -11,10 +11,12 @@ import AsyncDisplayKit
 
 protocol MainEventsListViewControllerProtocol: class {}
 
-protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol {}
+protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol, CalendarExternalDelegate {}
 
 protocol MainEventsListInteractorProtocol: class {
-    func saveTimeAndText(eventInfo: (String, String))
+    func saveTimeAndText(eventInfo: (String, String), completion: () -> ())
+    func saveCalendarDate(chosenDate: String)
+    func saveNewEvent()
 }
 
 protocol MainEventsListRouterProtocol: class {

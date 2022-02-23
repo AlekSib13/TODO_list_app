@@ -37,3 +37,7 @@ protocol CalendarDelegate: class {
     func saveDate()
 }
 
+protocol CalendarExternalDelegate: class {
+    func saveCalendarDate(chosenDate: String)
+}
+
