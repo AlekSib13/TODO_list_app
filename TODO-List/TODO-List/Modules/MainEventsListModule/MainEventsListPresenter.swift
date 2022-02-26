@@ -65,6 +65,10 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     }
     
     func saveCalendarDate(chosenDate: String) {
+        let dateFormatter = TimeConverterHelper()
+        if let chosenDateInNewFormat = dateFormatter.changeDateFormat(date: chosenDate) {
+            view?.showCalendarDate(chosenDate: chosenDateInNewFormat)
+        }
         interactor.saveCalendarDate(chosenDate: chosenDate)
     }
 }

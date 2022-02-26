@@ -157,7 +157,7 @@ class EventFieldView: UIView, UITextViewDelegate {
                 }
             }
             let digitView = UIView()
-            digitView.tag = i
+            digitView.tag = i + 1
             digitView.backgroundColor = Constants.Colour.lemonCreamYellow
             digitView.layer.borderColor = Constants.Colour.brickBrownLighter075.cgColor
             digitView.layer.borderWidth = Constants.Size.size1
