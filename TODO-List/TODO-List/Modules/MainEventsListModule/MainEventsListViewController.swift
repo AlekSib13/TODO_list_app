@@ -9,8 +9,7 @@ import Foundation
 import UIKit
 
 class MainEventsListViewController: BasicViewController, MainEventsListViewControllerProtocol, MainKeyBoardControllerDelegate {
-    
-    
+   
     var presenter: MainEventsListPresenterProtocol?
     var eventsListView: MainEventsListPageViewControllerProtocol?
     
@@ -257,6 +256,23 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     @objc private func dismissKeyBoard() {
         view.endEditing(true)
         previousKeyBoardOffsetStored = nil
-        
+    }
+    
+    func showCalendarDate(chosenDate: String) {
+        for element in newEventView.subviews {
+            if element is UIStackView {
+                let stack = element
+                for element in stack.subviews {
+                    
+                    if 1...6 ~= element.tag, element.subviews.count == 1, let label = element.subviews.first, let labelElement = label as? UILabel {
+                        print("my tag is \(element.frame) *** \(element.tag) *** subviews \(element.subviews.count)")
+                        let index = chosenDate.index(chosenDate.startIndex, offsetBy: chosenDate.count - element.tag, limitedBy: chosenDate.endIndex)
+                        guard let index = index else {return}
+                        let dateValue = chosenDate[index]
+                        labelElement.text = dateValue.description
+                    }
+                }
+            }
+        }
     }
 }

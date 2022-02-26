@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 import AsyncDisplayKit
 
-protocol MainEventsListViewControllerProtocol: class {}
+protocol MainEventsListViewControllerProtocol: class {
+    func showCalendarDate(chosenDate: String)
+}
 
 protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol, CalendarExternalDelegate {}
 
