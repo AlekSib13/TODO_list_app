@@ -66,6 +66,7 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     
     func saveCalendarDate(chosenDate: String) {
         let dateFormatter = TimeConverterHelper()
+        //MARK: maybe show new date once the user chooses it in the calendar, and not once he presses "close button"
         if let chosenDateInNewFormat = dateFormatter.changeDateFormat(date: chosenDate) {
             view?.showCalendarDate(chosenDate: chosenDateInNewFormat)
         }

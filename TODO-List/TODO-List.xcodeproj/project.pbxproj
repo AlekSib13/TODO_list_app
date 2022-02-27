@@ -26,6 +26,9 @@
 		EB88F7C127539C4B006F9A9B /* InitialLoadScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88F7C027539C4B006F9A9B /* InitialLoadScreenProtocols.swift */; };
 		EB90EC902795EFEC00F95A28 /* MainEventsListPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */; };
 		EB90EC922795F03400F95A28 /* MainEventsListCurrentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */; };
+		EB95DC8127CB613C00F5275E /* RealmDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB95DC8027CB613C00F5275E /* RealmDBManager.swift */; };
+		EB95DC8427CB63C200F5275E /* MainEventsListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB95DC8327CB63C200F5275E /* MainEventsListManager.swift */; };
+		EB95DC8627CB63D600F5275E /* MainEventsListDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB95DC8527CB63D600F5275E /* MainEventsListDBManager.swift */; };
 		EBAA7D0327538A2F00652832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA7D0227538A2F00652832 /* AppDelegate.swift */; };
 		EBAA7D0527538A2F00652832 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA7D0427538A2F00652832 /* SceneDelegate.swift */; };
 		EBAA7D0A27538A2F00652832 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBAA7D0827538A2F00652832 /* Main.storyboard */; };
@@ -86,6 +89,9 @@
 		EB88F7C027539C4B006F9A9B /* InitialLoadScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoadScreenProtocols.swift; sourceTree = "<group>"; };
 		EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListPageViewController.swift; sourceTree = "<group>"; };
 		EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListCurrentListViewController.swift; sourceTree = "<group>"; };
+		EB95DC8027CB613C00F5275E /* RealmDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDBManager.swift; sourceTree = "<group>"; };
+		EB95DC8327CB63C200F5275E /* MainEventsListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListManager.swift; sourceTree = "<group>"; };
+		EB95DC8527CB63D600F5275E /* MainEventsListDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListDBManager.swift; sourceTree = "<group>"; };
 		EBAA7CFF27538A2F00652832 /* TODO-List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TODO-List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBAA7D0227538A2F00652832 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBAA7D0427538A2F00652832 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				EB2FA6B127A6A1D6001A1AE8 /* TimeConverter.swift */,
+				EB95DC8027CB613C00F5275E /* RealmDBManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -166,6 +173,7 @@
 		EB32817627AB3F9B0090993E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EB95DC8727CB66D400F5275E /* RealmModels */,
 				EB32817727AB3FA50090993E /* Calendar */,
 			);
 			path = Models;
@@ -227,6 +235,22 @@
 				EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		EB95DC8227CB63A400F5275E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EB95DC8327CB63C200F5275E /* MainEventsListManager.swift */,
+				EB95DC8527CB63D600F5275E /* MainEventsListDBManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		EB95DC8727CB66D400F5275E /* RealmModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RealmModels;
 			sourceTree = "<group>";
 		};
 		EBAA7CF627538A2F00652832 = {
@@ -354,6 +378,7 @@
 		EBE83B47278F3D6C00263805 /* MainEventsListModule */ = {
 			isa = PBXGroup;
 			children = (
+				EB95DC8227CB63A400F5275E /* Managers */,
 				EBDF6D1927A87D0300EE0213 /* CalendarSubModule */,
 				EB90EC8E2795EFB400F95A28 /* Views */,
 				EBE83B4A278F3EA400263805 /* MainEventsListViewController.swift */,
@@ -494,6 +519,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBE83B51278F3EDE00263805 /* MainEventsListRouter.swift in Sources */,
+				EB95DC8627CB63D600F5275E /* MainEventsListDBManager.swift in Sources */,
 				EB3B935F27AFED10000F17C6 /* CalendarHeaderView.swift in Sources */,
 				EBE83B4D278F3EBF00263805 /* MainEventsListPresenter.swift in Sources */,
 				EBE83B4B278F3EA400263805 /* MainEventsListViewController.swift in Sources */,
@@ -510,6 +536,7 @@
 				EBC208B82793272500E6B024 /* Images+Assets.swift in Sources */,
 				EBE83B55278F3F0500263805 /* MainEventsListProtocols.swift in Sources */,
 				EB88F7C127539C4B006F9A9B /* InitialLoadScreenProtocols.swift in Sources */,
+				EB95DC8427CB63C200F5275E /* MainEventsListManager.swift in Sources */,
 				EB90EC902795EFEC00F95A28 /* MainEventsListPageViewController.swift in Sources */,
 				EB32817E27AB4A460090993E /* Errors.swift in Sources */,
 				EB61844427AC92AD0000F58C /* CalendarDateCell.swift in Sources */,
@@ -538,6 +565,7 @@
 				EB639679275D54F800F6A00C /* MainMenuTabBarRouter.swift in Sources */,
 				EBE83B59278F3F6D00263805 /* MainSettingsPresenter.swift in Sources */,
 				EBC208B32793176200E6B024 /* SceneDelegate+Auth.swift in Sources */,
+				EB95DC8127CB613C00F5275E /* RealmDBManager.swift in Sources */,
 				EBAA7D0527538A2F00652832 /* SceneDelegate.swift in Sources */,
 				EBD95B9827BAEA4E001D7DA3 /* MainKeyBoardController.swift in Sources */,
 				EBDF6D2127A88BA600EE0213 /* CalendarRouter.swift in Sources */,

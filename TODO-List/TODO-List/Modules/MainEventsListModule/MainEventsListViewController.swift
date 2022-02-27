@@ -266,7 +266,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
                     
                     if 1...6 ~= element.tag, element.subviews.count == 1, let label = element.subviews.first, let labelElement = label as? UILabel {
                         print("my tag is \(element.frame) *** \(element.tag) *** subviews \(element.subviews.count)")
-                        let index = chosenDate.index(chosenDate.startIndex, offsetBy: chosenDate.count - element.tag, limitedBy: chosenDate.endIndex)
+                        let index = chosenDate.index(chosenDate.startIndex, offsetBy: element.tag - 1, limitedBy: chosenDate.endIndex)
                         guard let index = index else {return}
                         let dateValue = chosenDate[index]
                         labelElement.text = dateValue.description
