@@ -263,9 +263,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             if element is UIStackView {
                 let stack = element
                 for element in stack.subviews {
-                    
+                    //MARK: TODO: optimize the code
                     if 1...6 ~= element.tag, element.subviews.count == 1, let label = element.subviews.first, let labelElement = label as? UILabel {
-                        print("my tag is \(element.frame) *** \(element.tag) *** subviews \(element.subviews.count)")
                         let index = chosenDate.index(chosenDate.startIndex, offsetBy: element.tag - 1, limitedBy: chosenDate.endIndex)
                         guard let index = index else {return}
                         let dateValue = chosenDate[index]

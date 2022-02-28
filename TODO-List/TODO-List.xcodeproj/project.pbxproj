@@ -23,6 +23,7 @@
 		EB63967B275D551B00F6A00C /* MainMenuTabBarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB63967A275D551B00F6A00C /* MainMenuTabBarInteractor.swift */; };
 		EB67C9EC279F1EC8007FA59F /* EventFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67C9EB279F1EC8007FA59F /* EventFieldView.swift */; };
 		EB6D7A7A27C56D030073CFA8 /* NewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6D7A7927C56D030073CFA8 /* NewEvent.swift */; };
+		EB6F21A927CD513200196FFC /* RMNewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F21A827CD513200196FFC /* RMNewEvent.swift */; };
 		EB88F7C127539C4B006F9A9B /* InitialLoadScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88F7C027539C4B006F9A9B /* InitialLoadScreenProtocols.swift */; };
 		EB90EC902795EFEC00F95A28 /* MainEventsListPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */; };
 		EB90EC922795F03400F95A28 /* MainEventsListCurrentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */; };
@@ -86,6 +87,7 @@
 		EB63967A275D551B00F6A00C /* MainMenuTabBarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuTabBarInteractor.swift; sourceTree = "<group>"; };
 		EB67C9EB279F1EC8007FA59F /* EventFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFieldView.swift; sourceTree = "<group>"; };
 		EB6D7A7927C56D030073CFA8 /* NewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEvent.swift; sourceTree = "<group>"; };
+		EB6F21A827CD513200196FFC /* RMNewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMNewEvent.swift; sourceTree = "<group>"; };
 		EB88F7C027539C4B006F9A9B /* InitialLoadScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoadScreenProtocols.swift; sourceTree = "<group>"; };
 		EB90EC8F2795EFEC00F95A28 /* MainEventsListPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListPageViewController.swift; sourceTree = "<group>"; };
 		EB90EC912795F03400F95A28 /* MainEventsListCurrentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventsListCurrentListViewController.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 		EB95DC8727CB66D400F5275E /* RealmModels */ = {
 			isa = PBXGroup;
 			children = (
+				EB6F21A827CD513200196FFC /* RMNewEvent.swift */,
 			);
 			path = RealmModels;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				EBDF6D1827A86F3100EE0213 /* CalendarViewController.swift in Sources */,
 				EB639675275D548B00F6A00C /* MainMenuTabBarViewController.swift in Sources */,
 				EB32817B27AB41F20090993E /* MonthMetaData.swift in Sources */,
+				EB6F21A927CD513200196FFC /* RMNewEvent.swift in Sources */,
 				EBE4D9A92753E84D00844A91 /* Constants.swift in Sources */,
 				EBC208BB2793344900E6B024 /* BasicViewController.swift in Sources */,
 				EBAA7D2027539AB300652832 /* InitialLoadScreenModuleBuilder.swift in Sources */,

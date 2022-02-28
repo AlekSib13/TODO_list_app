@@ -7,8 +7,20 @@
 
 import Foundation
 import RealmSwift
-import PromiseKit
 
-protocol MainEventsListDBManagerProtocol {}
+protocol MainEventsListDBManagerProtocol: BaseRealm {
+    func writeEventsToDB(newEvent: NewEvent, completion: @escaping (Result<NewEvent, NSError>) -> Void)
+    
+}
 
-class MainEventsListDBManager: MainEventsListDBManagerProtocol {}
+class MainEventsListDBManager: MainEventsListDBManagerProtocol {
+    func writeEventsToDB(newEvent: NewEvent, completion: @escaping (Result<NewEvent, NSError>) -> Void) {
+        let object = RMNewEvent()
+        let realmObject = object.createDbObject(newEvent: newEvent, id: 0)
+        print("realmObject date and time \(realmObject.eventDateAndTime), realmObject date: \(realmObject.date) ")
+        
+    }
+    
+    
+
+}
