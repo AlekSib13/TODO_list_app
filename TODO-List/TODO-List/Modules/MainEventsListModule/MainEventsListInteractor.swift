@@ -10,6 +10,11 @@ import Foundation
 class MainEventsListInteractor:  MainEventsListInteractorProtocol {
 
     weak var presenter: MainEventsListPresenterProtocol?
+    let manager: MainEventsListManagerProtocol
+    
+    init(manager: MainEventsListManagerProtocol = MainEventsListManager()) {
+        self.manager = manager
+    }
     
     var newEvent = NewEvent(eventTime: nil, eventDate: nil, eventText: nil, eventImportance: nil)
     
