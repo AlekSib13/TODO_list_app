@@ -8,7 +8,12 @@
 import Foundation
 import PromiseKit
 
-protocol MainEventsListManagerProtocol {}
+protocol MainEventsListManagerProtocol {
+    func saveData(newEvent: NewEvent, completion: @escaping (NewEvent) -> Void)
+    //MARK: TODO: check async code, somewhere @escpaing is not required
+}
+
+
 
 class MainEventsListManager: MainEventsListManagerProtocol {
     
@@ -18,4 +23,17 @@ class MainEventsListManager: MainEventsListManagerProtocol {
         self.dbManager = dbManager
     }
     
+    
+    func saveData(newEvent: NewEvent, completion: @escaping (NewEvent) -> Void) {
+        dbManager.writeEventsToDB(newEvent: newEvent) {result in
+            switch result {
+            case .success(let savedEvent):
+            print("savedEvent: \(savedEvent)")
+                completion(newEvent)
+            case .failure(let error):
+                //MARK: TODO develop this part of code
+                print("error")
+            }
+        }
+    }
 }

@@ -29,6 +29,8 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
     }
     
     func saveNewEvent() {
-        print("this is event, which is going to be saved: \(newEvent.eventDate), \(newEvent.eventTime), \(newEvent.eventText)")
+        manager.saveData(newEvent: newEvent) {result in
+            print("event saved")
+        }
     }
 }

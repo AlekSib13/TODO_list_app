@@ -12,6 +12,7 @@ class TimeConverterHelper {
     func convertTimeToLocal(date: Date) -> String  {
         let dateFormatter = DateFormatter()
         //"HH:mm" - 24 hours format
+        //"HH:mm:ss"
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.calendar = .current
         
@@ -31,6 +32,7 @@ class TimeConverterHelper {
     func getFullDateFromDate(day: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'h:mm a"
         
         let date = dateFormatter.date(from: day)
         return date
