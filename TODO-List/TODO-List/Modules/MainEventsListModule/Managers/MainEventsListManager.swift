@@ -11,11 +11,13 @@ import PromiseKit
 protocol MainEventsListManagerProtocol {
     func saveData(newEvent: NewEvent, completion: @escaping (NewEvent) -> Void)
     //MARK: TODO: check async code, somewhere @escpaing is not required
+    func getData(completion: @escaping ([NewEvent]) -> Void)
 }
 
 
 
 class MainEventsListManager: MainEventsListManagerProtocol {
+    
     
     let dbManager: MainEventsListDBManagerProtocol
     
@@ -30,10 +32,17 @@ class MainEventsListManager: MainEventsListManagerProtocol {
             case .success(let savedEvent):
             print("savedEvent: \(savedEvent)")
                 completion(newEvent)
+                
             case .failure(let error):
                 //MARK: TODO develop this part of code
                 print("error")
             }
+        }
+    }
+    
+    func getData(completion: @escaping ([NewEvent]) -> Void) {
+        dbManager.readEventsFromDB{result in
+            completion(result ?? [NewEvent]())
         }
     }
 }

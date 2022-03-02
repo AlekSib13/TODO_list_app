@@ -42,5 +42,4 @@ class MainEventsListPageViewController: UIPageViewController, MainEventsListPage
         view.layer.borderWidth = Constants.Size.size1
         view.layer.borderColor = Constants.Colour.defaultSystemWhite.cgColor
     }
-    
 }

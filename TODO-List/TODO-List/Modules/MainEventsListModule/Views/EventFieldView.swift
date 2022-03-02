@@ -91,7 +91,7 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     
     func configureView() {
-        self.backgroundColor = Constants.Colour.mangoTangoOrangeLighter
+        self.backgroundColor = Constants.Colour.lightOrange
         self.layer.borderWidth = Constants.Size.size1
         self.layer.borderColor = UIColor.white.cgColor
         self.layer.cornerRadius = Constants.Size.size10

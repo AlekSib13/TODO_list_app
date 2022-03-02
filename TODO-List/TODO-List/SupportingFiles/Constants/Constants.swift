@@ -113,6 +113,7 @@ struct Constants {
         
         static let mangoTangoOrange = UIColor(red: 255/255, green: 130/255, blue: 67/255, alpha: 1.0)
         static let mangoTangoOrangeLighter = UIColor(red: 255/255, green: 130/255, blue: 67/255, alpha: 0.75)
+        static let lightOrange = UIColor(red: 255/255, green: 161/255, blue: 97/255, alpha: 1.0)
     }
     
     struct tabBarImageInsets {

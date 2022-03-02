@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class CalendarDateCell: UICollectionViewCell, ReusableCell {
+class CalendarDateCell: UICollectionViewCell, ReusableCollectionCell {
     static var identifier: String = StringsContent.Identifiers.calendarCellIdentifier
     
     var delegate: CalendarDateCellDelegate?

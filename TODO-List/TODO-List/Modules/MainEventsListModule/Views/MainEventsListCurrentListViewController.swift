@@ -33,6 +33,18 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        registerNotifications()
+    }
+    
+    func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.eventsTableReadyForReload, object: nil)
+    }
+    
+    @objc func reloadData(){
+        tableNode.reloadData()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.eventsTableReadyForReload, object: nil)
     }
 }

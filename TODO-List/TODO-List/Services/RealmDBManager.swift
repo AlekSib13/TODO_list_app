@@ -28,9 +28,9 @@ class RealmDBManager {
             print("Realm: \(Realm.Configuration.defaultConfiguration.fileURL!)")
             
         } catch {
-            let error = NSError(domain: RealmErrors.description, code: RealmErrors.couldNotCreateRealm.rawValue, userInfo: [NSLocalizedDescriptionKey: RealmErrors.couldNotCreateRealm.describeError()])
+            let realmError = NSError(domain: RealmErrors.description, code: RealmErrors.couldNotCreateRealm.rawValue, userInfo: [NSLocalizedDescriptionKey: RealmErrors.couldNotCreateRealm.describeError()])
             
-            print("\(error.localizedDescription)")
+            print(realmError)
             return
         }
     }

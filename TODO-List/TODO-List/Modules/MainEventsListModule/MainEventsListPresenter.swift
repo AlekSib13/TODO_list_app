@@ -11,6 +11,7 @@ import AsyncDisplayKit
 
 class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     
+   
     weak var view: MainEventsListViewControllerProtocol?
     let interactor: MainEventsListInteractorProtocol
     let router: MainEventsListRouterProtocol
@@ -31,16 +32,18 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         return nil
     }
     
+    
     func numberOfSections(in tableNode: ASTableNode) -> Int {
-        2
+        1
     }
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        interactor.items.count
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        ASCellNode()
+        let item = interactor.items[indexPath.row]
+        return EventListCell(item: item)
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
@@ -64,6 +67,10 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         }
     }
     
+    func showPlaceHolderNoData(){
+        print("here will be placeholder call")
+    }
+    
     func saveCalendarDate(chosenDate: String) {
         let dateFormatter = TimeConverterHelper()
         //MARK: maybe show new date once the user chooses it in the calendar, and not once he presses "close button"
@@ -72,4 +79,5 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         }
         interactor.saveCalendarDate(chosenDate: chosenDate)
     }
+    
 }

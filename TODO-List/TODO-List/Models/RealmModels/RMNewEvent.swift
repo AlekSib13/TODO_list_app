@@ -20,21 +20,24 @@ class RMNewEvent: Object {
     }
     
     
-    func createDbObject(newEvent: NewEvent, id: Int) -> RMNewEvent {
+    func createDbObject(newEvent: NewEvent) -> RMNewEvent {
         let dateFormater = TimeConverterHelper()
         
-        self.id = id
+        let eventDate = dateFormater.getFullDateFromDate(day: ((newEvent.eventDate ?? "") + "T" + (newEvent.eventTime ?? ""))) ?? Date()
+        
+        self.id = Int(eventDate.timeIntervalSince1970)
         self.eventText = newEvent.eventText
         self.eventImportance = newEvent.eventImportance ?? 0
-        self.date = dateFormater.getFullDateFromDate(day: ((newEvent.eventDate ?? "") + "T" + (newEvent.eventTime ?? ""))) ?? Date()
+        self.date = eventDate
         return self
     }
     
-    func createModelObject(dBEvent: RMNewEvent) -> NewEvent {
+    
+    func createModelObject() -> NewEvent {
         let dateFormatter = TimeConverterHelper()
-        let localTime = dateFormatter.convertTimeToLocal(date: dBEvent.date)
-        let dateTimeArray = localTime.split(separator: " ")
+        let localTime = dateFormatter.convertTimeDateToLocal(date: self.date)
+        let dateTimeArray = localTime.split(separator: "T")
         
-        return NewEvent(eventTime: String(dateTimeArray[1]), eventDate: String(dateTimeArray.first ?? ""), eventText: dBEvent.eventText, eventImportance: dBEvent.eventImportance)
+        return NewEvent(eventTime: String(dateTimeArray[1]), eventDate: String(dateTimeArray.first ?? ""), eventText: self.eventText, eventImportance: self.eventImportance)
     }
 }
