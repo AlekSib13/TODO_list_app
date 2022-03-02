@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: TODO: change NewEvent name to Event
+
 class NewEvent {
     
     var eventText: String?

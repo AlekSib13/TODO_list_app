@@ -28,7 +28,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     private let addEventButton: UIButton = {
        let addEventButton = UIButton()
-        addEventButton.backgroundColor = Constants.Colour.mangoTangoOrange
+//        addEventButton.backgroundColor = Constants.Colour.mangoTangoOrange
+        addEventButton.backgroundColor = Constants.Colour.lightOrange
         addEventButton.setTitle(StringsContent.EventsList.addEvent, for: .normal)
         addEventButton.setTitleColor(Constants.Colour.lightYellow, for: .normal)
         addEventButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.FontSize.font20, weight: .medium)
@@ -131,8 +132,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
         
         UIView.animate(withDuration: 1.2, delay: .nan, options: .curveLinear, animations: {
-//            self.addEventButton.backgroundColor = Constants.Colour.brickBrownLighter
-            self.addEventButton.backgroundColor = Constants.Colour.mangoTangoOrangeLighter
+            self.addEventButton.layer.cornerRadius = Constants.Size.size10
+            self.addEventButton.backgroundColor = Constants.Colour.lightOrange
             self.addEventButton.setTitleColor(Constants.Colour.brickBrown, for: .normal)
             
             self.addEventButton.snp.remakeConstraints{make in

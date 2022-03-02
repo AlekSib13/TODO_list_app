@@ -13,12 +13,17 @@ protocol MainEventsListViewControllerProtocol: class {
     func showCalendarDate(chosenDate: String)
 }
 
-protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol, CalendarExternalDelegate {}
+protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol, CalendarExternalDelegate {
+    
+    func showPlaceHolderNoData()
+}
 
 protocol MainEventsListInteractorProtocol: class {
     func saveTimeAndText(eventInfo: (String, String), completion: () -> ())
     func saveCalendarDate(chosenDate: String)
     func saveNewEvent()
+    
+    var items: [NewEvent] {get set}
 }
 
 protocol MainEventsListRouterProtocol: class {

@@ -11,13 +11,20 @@ class TimeConverterHelper {
     
     func convertTimeToLocal(date: Date) -> String  {
         let dateFormatter = DateFormatter()
-        //"HH:mm" - 24 hours format
-        //"HH:mm:ss"
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.calendar = .current
         
         let localTime = dateFormatter.string(from: date)
         return localTime
+    }
+    
+    func convertTimeDateToLocal(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'h:mm a"
+        dateFormatter.calendar = .current
+        
+        let localTimeDate = dateFormatter.string(from: date)
+        return localTimeDate
     }
     
     func getCurrentDate(date: Date) -> String {

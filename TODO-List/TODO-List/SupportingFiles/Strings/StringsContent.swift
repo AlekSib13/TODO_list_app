@@ -32,6 +32,7 @@ struct StringsContent {
     
     struct Identifiers {
         static let calendarCellIdentifier = "CalendarCellIdentifier"
+        static let eventListIdentifier = "EventListIdentifier"
     }
     
     struct Hints {
