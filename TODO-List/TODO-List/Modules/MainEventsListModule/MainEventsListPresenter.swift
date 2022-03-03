@@ -34,21 +34,37 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     
     
     func numberOfSections(in tableNode: ASTableNode) -> Int {
-        1
+        print("dates: \(interactor.itemSections)")
+        return interactor.itemSections.count
     }
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        interactor.items.count
+        let date = interactor.itemSections[section]
+        let number = interactor.items.filter({($0.eventDate ?? "") == date}).count
+        return number
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        let item = interactor.items[indexPath.row]
+        let date = interactor.itemSections[indexPath.section]
+        let item = interactor.items.filter({($0.eventDate ?? "") == date})[indexPath.row]
         return EventListCell(item: item)
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        interactor.itemSections[section]
+    }
+    
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let sectionHeaderView: UI
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 20.0
+//    }
     
     func saveTime(date: Date) {
         

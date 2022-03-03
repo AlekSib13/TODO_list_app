@@ -46,6 +46,8 @@ class EventFieldView: UIView, UITextViewDelegate {
         let eventDatePicker = UIDatePicker()
         eventDatePicker.datePickerMode = .time
         eventDatePicker.preferredDatePickerStyle = .inline
+        //MARK: TODO, test on real device, it is required, that depending on user device there will be 12 or 24h format. That't why timeconverter should be adjusted
+//        eventDatePicker.locale = Locale(identifier: "en_GB")
         return eventDatePicker
     }()
     
@@ -108,7 +110,6 @@ class EventFieldView: UIView, UITextViewDelegate {
         
         eventTextField.delegate = self
         
-        eventDatePicker.addTarget(self, action: #selector(timeChanged), for: .editingDidEnd)
         eventDatePicker.addTarget(self, action: #selector(eventDatePickerTapped), for: .allEvents)
     }
     
@@ -218,10 +219,6 @@ class EventFieldView: UIView, UITextViewDelegate {
     }
     
     
-    @objc func timeChanged() {
-        //MARK: perhaps this is function is not needed, since it is worth of considering the time, when user tappes save button
-        delegate?.saveTime(date: eventDatePicker.date)
-    }
     
     @objc func calendarButtonTapped() {
         delegate?.openCalendar()

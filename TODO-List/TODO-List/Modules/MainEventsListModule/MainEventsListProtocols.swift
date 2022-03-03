@@ -24,6 +24,7 @@ protocol MainEventsListInteractorProtocol: class {
     func saveNewEvent()
     
     var items: [NewEvent] {get set}
+    var itemSections: [String] {get set}
 }
 
 protocol MainEventsListRouterProtocol: class {

@@ -38,6 +38,6 @@ class RMNewEvent: Object {
         let localTime = dateFormatter.convertTimeDateToLocal(date: self.date)
         let dateTimeArray = localTime.split(separator: "T")
         
-        return NewEvent(eventTime: String(dateTimeArray[1]), eventDate: String(dateTimeArray.first ?? ""), eventText: self.eventText, eventImportance: self.eventImportance)
+        return NewEvent(eventTime: String(dateTimeArray[1]), eventDate: String(dateTimeArray.first ?? ""), eventText: self.eventText, eventImportance: self.eventImportance, id: self.id)
     }
 }
