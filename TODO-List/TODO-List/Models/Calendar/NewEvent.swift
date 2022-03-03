@@ -11,16 +11,18 @@ import Foundation
 
 class NewEvent {
     
+    var id: Int?
     var eventText: String?
     var eventTime: String?
     var eventDate: String?
     var eventImportance: Int?
     
     
-    init(eventTime: String?, eventDate: String?, eventText: String?, eventImportance: Int?) {
+    init(eventTime: String?, eventDate: String?, eventText: String?, eventImportance: Int?, id: Int?) {
         self.eventTime = eventTime
         self.eventDate = eventDate
         self.eventText = eventText
         self.eventImportance = eventImportance
+        self.id = id
     }
 }

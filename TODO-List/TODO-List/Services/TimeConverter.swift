@@ -45,7 +45,10 @@ class TimeConverterHelper {
         return date
     }
     
+    
     func changeDateFormat(date: String) -> String? {
+        
+        //MARK: TODO, perhaps it would be required to change the oder of the date: right now in view date starts with the day meanwhile in tablenode it starts with the year
         let dateSubstrings = date.split(separator: "-")
         guard let year = dateSubstrings.first, let yearStartIndex = year.index(year.startIndex, offsetBy: year.count - 2, limitedBy: year.endIndex) else {return nil}
         let updatedDate = String(dateSubstrings[2]) + String(dateSubstrings[1]) + String(year[yearStartIndex...])
