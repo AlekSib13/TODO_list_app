@@ -11,7 +11,8 @@ import UIKit
 protocol CalendarViewControllerProtocol: class {
     var calendar: Calendar {get}
     var calendarCollectionView: UICollectionView {get}
-    func updateCalendarHeader(date: Date) 
+    func updateCalendarHeader(date: Date)
+    func hidePreviousMonthButton(hide: Bool)
 }
 
 protocol CalendarPresenterProtocol: class,  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CalendarDelegate {

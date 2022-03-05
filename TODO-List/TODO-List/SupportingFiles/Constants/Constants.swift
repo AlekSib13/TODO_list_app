@@ -26,6 +26,7 @@ struct Constants {
         
         static let offsetMinus2: CGFloat = -2
         
+        static let offset0: CGFloat = 0
         static let offset1: CGFloat = 1
         static let offset2: CGFloat = 2
         static let offset3: CGFloat = 3

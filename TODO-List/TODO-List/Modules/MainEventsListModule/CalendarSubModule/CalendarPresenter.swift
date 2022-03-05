@@ -14,7 +14,7 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     weak var delegate: CalendarExternalDelegate?
     let interactor: CalendarInteractorProtocol
     let router: CalendarRouterProtocol
-    
+    let timeConverter = TimeConverterHelper()
     
     private var selectedDate: Date
     
@@ -82,6 +82,9 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
             guard let cell = collectionView.cellForItem(at: IndexPath(row: index, section: indexPath.section)), let calendarDateCell = cell as? CalendarDateCell else {return}
             let newDate = days[index]
             if index == indexPath.row {
+                if let chosenDate = view?.calendar.date(byAdding: .day, value: 1, to: newDate.date), chosenDate < Date() {
+                    return
+                }
                 calendarDateCell.applySelectedStyle()
                 selectedDate = newDate.date
             } else {
@@ -162,11 +165,15 @@ class CalendarPresenter: NSObject, CalendarPresenterProtocol, CalendarDateCellDe
     
     func openNextMonth() {
         guard let date = view?.calendar.date(byAdding: .month, value: 1, to: selectedDate) else {return}
+        view?.hidePreviousMonthButton(hide: false)
         baseDate = date
     }
     
     func openPreviousMonth() {
         guard let date = view?.calendar.date(byAdding: .month, value: -1, to: selectedDate) else {return}
+        if let chosenMonth = view?.calendar.component(.month, from: date), let currentMonth = view?.calendar.component(.month, from: Date()), chosenMonth == currentMonth {
+            view?.hidePreviousMonthButton(hide: true)
+        }
         baseDate = date
     }
     

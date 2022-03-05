@@ -30,6 +30,7 @@ class TimeConverterHelper {
     func getCurrentDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = .current
+        //MARK: checkABit after 23:59 pm - it should show a new day, not the previous one, otherwise use convertTimeDateToLocal, but take only day
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         let dayMonthYear = dateFormatter.string(from: date)

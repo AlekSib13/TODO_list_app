@@ -28,9 +28,12 @@ class EventListCell: ASCellNode {
     let evenText: ASEditableTextNode = {
         let eventText = ASEditableTextNode()
         eventText.isUserInteractionEnabled = false
+        //MARK: TODO: add ellipsis for the keys, when number of lines is more, than 3
         eventText.maximumLinesToDisplay = 3
         return eventText
     }()
+    
+    
     
     let eventDay: ASTextNode = {
         let eventDay = ASTextNode()
@@ -56,12 +59,6 @@ class EventListCell: ASCellNode {
     }()
     
     
-//    let eventImportance: ASTextNode = {
-//        let eventImportance = ASTextNode()
-//        return eventImportance
-//    }()
-    
-    
     init(item: NewEvent) {
         self.item = item
         super.init()
@@ -76,13 +73,16 @@ class EventListCell: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        dateAndTimeStack.children = [eventDay,eventTime]
-        dateAndTimeStack.spacing = Constants.Offset.offset8
+        
 
-        eventInformationStack.children = [dateAndTimeStack,evenText]
-        eventInformationStack.spacing = Constants.Offset.offset20
+//        dateAndTimeStack.children = [eventTime]
+//        dateAndTimeStack.spacing = Constants.Offset.offset8
 
-        let horizontalInsetsLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: Constants.Offset.offset10, left: Constants.Offset.offset20, bottom: Constants.Offset.offset10, right: Constants.Offset.offset60), child: eventInformationStack)
+        eventInformationStack.children = [eventTime,evenText]
+        eventInformationStack.spacing = Constants.Offset.offset15
+        
+
+        let horizontalInsetsLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: Constants.Offset.offset10, left: Constants.Offset.offset25, bottom: Constants.Offset.offset10, right: Constants.Offset.offset10), child: eventInformationStack)
 
         return horizontalInsetsLayoutSpec
     }
@@ -92,8 +92,14 @@ class EventListCell: ASCellNode {
         view.backgroundColor = Constants.Colour.lightYellow
         
         evenText.attributedText = NSAttributedString(string: item.eventText ?? "", attributes: ElementsAttributes.eventTextAttributes)
-        eventDay.attributedText = NSAttributedString(string: item.eventDate ?? "", attributes: ElementsAttributes.eventDayAttributes)
+//        eventDay.attributedText = NSAttributedString(string: item.eventDate ?? "", attributes: ElementsAttributes.eventDayAttributes)
         eventTime.attributedText = NSAttributedString(string: item.eventTime ?? "", attributes: ElementsAttributes.eventTimeAttributes)
+    }
+    
+    
+    override func layout() {
+        eventTime.style.width = ASDimensionMake(UIScreen.main.bounds.width * 0.2)
+        evenText.style.width = ASDimensionMake(UIScreen.main.bounds.width * 0.6)
     }
 }
 

@@ -46,10 +46,14 @@ class CalendarFooterView: UIView {
         
         nextMonthButton.addTarget(self, action: #selector(monthButtonTapped(_:)), for: .touchUpInside)
         previousMonthButton.addTarget(self, action: #selector(monthButtonTapped(_:)), for: .touchUpInside)
+        
+        previousMonthButton.isHidden = true
     }
     
     
     func setUpConstraints() {
+        
+//        MARK: TODO right now the possibility to switch to previous month in concealed, since the user is not allowed to create events in the past, but later it should be open for instance to check how many days there were at the last month or check all of the past events
         previousMonthButton.snp.makeConstraints{make in
             make.bottom.equalToSuperview().inset(Constants.Offset.offset3)
             make.leading.bottom.equalToSuperview()
@@ -72,5 +76,10 @@ class CalendarFooterView: UIView {
         default:
             break
         }
+    }
+    
+    
+    func changePriviousMonthButtonVisibility(hide: Bool) {
+            previousMonthButton.isHidden = hide
     }
 }
