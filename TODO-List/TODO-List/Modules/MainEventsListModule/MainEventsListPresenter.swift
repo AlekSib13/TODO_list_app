@@ -53,18 +53,36 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        interactor.itemSections[section]
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        interactor.itemSections[section]
+//    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeaderView = UIView(frame: CGRect(x: Constants.Offset.offset0, y: Constants.Offset.offset0, width: tableView.frame.width, height: Constants.Size.size30))
+        
+        let dateLabel: UILabel = {
+            let dateLabel = UILabel()
+            dateLabel.text = interactor.itemSections[section]
+            dateLabel.font = UIFont.systemFont(ofSize: Constants.FontSize.font17, weight: .bold)
+            dateLabel.textColor = Constants.Colour.brickBrown
+            return dateLabel
+        }()
+        
+        sectionHeaderView.addSubview(dateLabel)
+        
+        dateLabel.snp.makeConstraints{make in
+            make.leading.equalToSuperview().offset(Constants.Offset.offset15)
+//            make.top.bottom.equalToSuperview().offset(Constants.Offset.offset5)
+            make.centerY.equalToSuperview()
+        }
+        
+        return sectionHeaderView
     }
-    
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let sectionHeaderView: UI
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 20.0
-//    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return Constants.Size.size30
+    }
     
     func saveTime(date: Date) {
         

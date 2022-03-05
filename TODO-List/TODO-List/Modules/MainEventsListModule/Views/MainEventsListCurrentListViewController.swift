@@ -13,7 +13,7 @@ import AsyncDisplayKit
 class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>,  MainEventsListCurrentListViewControllerProtocol  {
     
     let tableNode: ASTableNode = {
-       let tableNode = ASTableNode()
+        let tableNode = ASTableNode(style: .grouped)
         tableNode.backgroundColor = Constants.Colour.lightYellow
         tableNode.view.contentInsetAdjustmentBehavior = .never
         tableNode.view.separatorInset = .zero

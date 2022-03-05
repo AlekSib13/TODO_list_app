@@ -119,4 +119,8 @@ class CalendarViewController: UIViewController, CalendarViewControllerProtocol {
         calendarHeaderView.updateHeader(newDate: date)
     }
     
+    func hidePreviousMonthButton(hide: Bool) {
+        calendarFooterView.changePriviousMonthButtonVisibility(hide: hide)
+    }
+    
 }
