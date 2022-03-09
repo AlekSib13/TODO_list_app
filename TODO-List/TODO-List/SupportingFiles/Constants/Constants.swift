@@ -15,7 +15,9 @@ struct Constants {
         static let font15: CGFloat = 15
         static let font17: CGFloat = 17
         static let font20: CGFloat = 20
+        
         static let font30: CGFloat = 30
+        static let font40: CGFloat = 40
     }
     
     struct Offset {
@@ -48,9 +50,11 @@ struct Constants {
         static let offset35: CGFloat = 35
         
         static let offset40: CGFloat = 40
+        static let offset45: CGFloat = 45
         static let offset50: CGFloat = 50
         static let offset60: CGFloat = 60
         static let offset70: CGFloat = 70
+        
         static let offset90: CGFloat = 90
         
         static let offset150: CGFloat = 150

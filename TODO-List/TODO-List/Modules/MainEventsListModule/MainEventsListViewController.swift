@@ -27,8 +27,10 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     //MARK: TODO - put views into stack
     
     private let addEventButton: UIButton = {
-       let addEventButton = UIButton()
-//        addEventButton.backgroundColor = Constants.Colour.mangoTangoOrange
+//       let addEventButton = UIButton()
+        let addEventButton = UIButton(frame: CGRect(x: 10.0, y: 280, width: 40, height: 40))
+        //MARK: TODO ->  test ui on earlier iphone versions (less, than X)
+        //MARK: TODO -> rewrite this part of ui, using CGRect, where possibile, otherwise there are bugs, when it comes to animation tools with snapkit
         addEventButton.backgroundColor = Constants.Colour.lightOrange
         addEventButton.setTitle(StringsContent.EventsList.addEvent, for: .normal)
         addEventButton.setTitleColor(Constants.Colour.lightYellow, for: .normal)
@@ -39,7 +41,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         addEventButton.layer.cornerRadius = Constants.Size.size20
         addEventButton.addTarget(self, action: #selector(addEventButtonTapped), for: .touchUpInside)
         //MARK: TODO: implement to each view, where tag is used:
-        addEventButton.tag = Constants.addEventButtonState.plusSymbol.rawValue
+//        addEventButton.tag = Constants.addEventButtonState.plusSymbol.rawValue
         return addEventButton
     }()
     
@@ -73,7 +75,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         view.addSubview(addEventButton)
         view.addSubview(newEventView)
         
-        changeEventViewVisability(hide: true)
+        newEventView.isHidden = true
         
         setDataSourceAndDelegates()
     }
@@ -91,13 +93,13 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             make.right.equalToSuperview().offset(Constants.Offset.offsetMinus10)
             make.bottom.equalToSuperview().offset(Constants.Offset.offsetMinus90)
         }
-        
-        addEventButton.snp.makeConstraints{make in
-            make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
-            make.leading.equalTo(eventsListView.view)
-            make.width.equalTo(Constants.Size.size40)
-            make.height.equalTo(Constants.Size.size40)
-        }
+                
+//        addEventButton.snp.makeConstraints{make in
+//            make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
+//            make.leading.equalTo(eventsListView.view)
+//            make.width.equalTo(Constants.Size.size40)
+//            make.height.equalTo(Constants.Size.size40)
+//        }
         
         newEventView.snp.makeConstraints{make in
             make.leading.trailing.equalTo(eventsListView.view)
@@ -105,6 +107,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             make.height.equalTo(Constants.Size.size250)
         }
     }
+    
     
     func setDataSourceAndDelegates() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
@@ -118,10 +121,11 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     @objc func addEventButtonTapped() {
         switch addEventButton.tag {
         case Constants.addEventButtonState.plusSymbol.rawValue:
+            addEventButton.tag = Constants.addEventButtonState.saveSign.rawValue
             adjustAndAnimateEventButtonContsraints()
         case Constants.addEventButtonState.saveSign.rawValue:
-            saveEventButtonTapped()
             addEventButton.tag = Constants.addEventButtonState.plusSymbol.rawValue
+            saveEventButtonTapped()
         default:
             break
         }
@@ -131,29 +135,28 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     func adjustAndAnimateEventButtonContsraints() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
         
-        UIView.animate(withDuration: 1.2, delay: .nan, options: .curveLinear, animations: {
-            self.addEventButton.layer.cornerRadius = Constants.Size.size10
-            self.addEventButton.backgroundColor = Constants.Colour.lightOrange
-            self.addEventButton.setTitleColor(Constants.Colour.brickBrown, for: .normal)
-            
-            self.addEventButton.snp.remakeConstraints{make in
-                make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
-                make.leading.trailing.equalTo(eventsListView.view)
-                make.height.equalTo(Constants.Size.size40)
-            }
-            
-            self.addEventButton.setTitle(StringsContent.EventsList.saveEvent, for: .normal)
-        }) {[weak self] _ in
-            guard let self = self else {return}
-            self.changeEventViewVisability(hide: false)
-            print("do further - > open text insertion form")
-            // MARK: TODO: play with animation, perhaps there are better solutions to turn "+" into "save", for instance making the "+" convert to "save" smothly but rapidly from the middle
+        UIView.animateKeyframes(withDuration: 1.5, delay: 0, options: [], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                self.addEventButton.transform = CGAffineTransform(rotationAngle: .pi)
+                self.addEventButton.frame.origin.x += eventsListView.view.frame.width / 2
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+                self.addEventButton.frame = CGRect(x: eventsListView.view.frame.minX, y: eventsListView.view.frame.minY - Constants.Offset.offset45, width: eventsListView.view.frame.width, height: Constants.FontSize.font40)
+                self.addEventButton.layer.cornerRadius = Constants.Size.size10
+            })
+        }){ _ in
+            self.showEventView()
         }
-        addEventButton.tag = Constants.addEventButtonState.saveSign.rawValue
+        print("coor \(addEventButton.frame)")
     }
     
-    func changeEventViewVisability(hide: Bool) {
-        newEventView.isHidden = hide
+    
+    func showEventView() {
+        UIView.animate(withDuration: 1.0, animations: {
+            self.newEventView.layer.opacity = 0.0
+            self.newEventView.isHidden = false
+            self.newEventView.layer.opacity = 1
+        }, completion: nil)
     }
     
     func keyBoardControllerKeyBoardWillShow(keyBoardController: MainKeyBoardController, keyBoardFrame: CGRect) {
@@ -163,6 +166,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         
         //MARK: TODO: eliminate the bug: after entering smth into textview press return on the keyboard and then press textview: the textview will go up
         //MARK: TODO: eliminate bug, which happens from time to time: sometime before the first insertion of the text (after click on textview),there is extar space between keyboard and textview itself
+        //MARK: TODO: eliminate bug: ipen newevent, insert text, insert smile, presss time picker: newevent view does not drop closser to keyboard
         var offset: CGFloat = 0
 
         var previousKeyBoardOffset = previousKeyBoardOffsetStored ?? 0
@@ -240,7 +244,6 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     func saveEventButtonTapped() {
         print("savedEventTapped")
         dismissKeyBoard()
-        restoreConstraints()
         newEventView.retrieveInformationToSave()
         
         //MARK: TO-DO:
@@ -257,6 +260,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     @objc private func dismissKeyBoard() {
         view.endEditing(true)
         previousKeyBoardOffsetStored = nil
+        restoreConstraints()
     }
     
     func showCalendarDate(chosenDate: String) {
@@ -275,4 +279,39 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             }
         }
     }
+    
+    func hideEventView() {
+        UIView.animate(withDuration: 1.0, animations: {
+            self.newEventView.layer.anchorPoint = CGPoint(x: 1, y: -1)
+            self.newEventView.transform = CGAffineTransform(rotationAngle: -.pi/2)
+            
+        }){ _ in
+            self.restoreEventView()
+            self.restoreAddEventButton()
+        }
+    }
+    
+    func restoreAddEventButton() {
+        guard let eventsListView = eventsListView as? UIPageViewController else {return}
+
+        UIView.animateKeyframes(withDuration: 1.5, delay: 0, options: [], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                self.addEventButton.frame = CGRect(x: eventsListView.view.frame.midX, y: eventsListView.view.frame.minY - Constants.Offset.offset45, width: Constants.Size.size40, height: Constants.Size.size40)
+                self.addEventButton.layer.cornerRadius = Constants.Size.size20
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+                self.addEventButton.transform = CGAffineTransform(rotationAngle: -.pi)
+                self.addEventButton.frame.origin.x -= eventsListView.view.frame.width / 2
+                })
+        }, completion: nil)
+    }
+    
+    
+    func restoreEventView() {
+        self.newEventView.isHidden = true
+        self.newEventView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.newEventView.transform = CGAffineTransform(rotationAngle: 2 * .pi)
+        self.newEventView.refreshAll()
+    }
 }
+
