@@ -226,7 +226,7 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     @objc func eventDatePickerTapped() {
         print("date Picker Tapped")
-        datePickerTapped = true
+//        datePickerTapped = true
         //MARK: the idea is to inform ViewController, that the datepicker (not textview) had been tapped, before keyboard actions were launched.
     }
     
@@ -236,5 +236,10 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     func resetDatePickerTappedActivity() {
         datePickerTapped = false
+    }
+    
+    func refreshAll() {
+        eventTextField.text = StringsContent.EventsList.insertYourReminder
+        resetDatePickerTappedActivity()
     }
 }

@@ -11,6 +11,7 @@ import AsyncDisplayKit
 
 protocol MainEventsListViewControllerProtocol: class {
     func showCalendarDate(chosenDate: String)
+    func hideEventView()
 }
 
 protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol, CalendarExternalDelegate {

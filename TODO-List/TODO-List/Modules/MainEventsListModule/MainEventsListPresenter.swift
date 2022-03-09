@@ -57,6 +57,10 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
 //        interactor.itemSections[section]
 //    }
     
+//    func tableNode(_ tableNode: ASTableNode, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+//        <#code#>
+//    }
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeaderView = UIView(frame: CGRect(x: Constants.Offset.offset0, y: Constants.Offset.offset0, width: tableView.frame.width, height: Constants.Size.size30))
@@ -96,6 +100,7 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     }
     
     func saveTimeAndText(eventInfo: (String, String)) {
+        view?.hideEventView()
         interactor.saveTimeAndText(eventInfo: eventInfo) {
             interactor.saveNewEvent()
         }
