@@ -47,15 +47,15 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
     }
     
     @objc func insertNewEvent(_ notification: Notification) {
-        guard let data = notification.object as? ((Int, Int), Int) else {return}
+        //MARK: test emojeys insertion into realmdb
+        guard let ((sectionNumber, sectionRow), numberOfSection) = notification.object as? ((Int, Int), Int) else {return}
         
-        //MARK: TODO: give names to parameters, otherwise it is quite hard to understand, what stays for 0.0 or 0.1
-        print("data")
         tableNode.performBatch(animated: true, updates: {
-            if tableNode.numberOfSections < data.1 {
-                tableNode.insertSections(IndexSet.init(integer: data.0.0), with: .automatic)
+            if tableNode.numberOfSections < numberOfSection {
+                tableNode.insertSections(IndexSet.init(integer: sectionNumber), with: .automatic)
             }
-            tableNode.insertRows(at: [IndexPath(row: data.0.1, section: data.0.0)], with: .automatic)
+            tableNode.insertRows(at: [IndexPath(row: sectionRow, section: sectionNumber)], with: .automatic)
+            
         }, completion: nil)
     }
     
