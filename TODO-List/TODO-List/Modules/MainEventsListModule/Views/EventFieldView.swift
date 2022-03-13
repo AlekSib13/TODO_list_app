@@ -240,6 +240,7 @@ class EventFieldView: UIView, UITextViewDelegate {
     
     func refreshAll() {
         eventTextField.text = StringsContent.EventsList.insertYourReminder
+        eventTextField.textColor = Constants.Colour.brickBrownLighter035
         resetDatePickerTappedActivity()
     }
 }
