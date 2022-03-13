@@ -53,13 +53,7 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        interactor.itemSections[section]
-//    }
-    
-//    func tableNode(_ tableNode: ASTableNode, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
-//        <#code#>
-//    }
+
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -77,7 +71,6 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         
         dateLabel.snp.makeConstraints{make in
             make.leading.equalToSuperview().offset(Constants.Offset.offset15)
-//            make.top.bottom.equalToSuperview().offset(Constants.Offset.offset5)
             make.centerY.equalToSuperview()
         }
         
