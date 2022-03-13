@@ -28,9 +28,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     private let addEventButton: UIButton = {
 //       let addEventButton = UIButton()
-        let addEventButton = UIButton(frame: CGRect(x: 10.0, y: 280, width: 40, height: 40))
+        let addEventButton = UIButton(frame: CGRect(x: Constants.Offset.offset10, y: Constants.Offset.offset280, width: Constants.Offset.offset40, height: Constants.Offset.offset40))
         //MARK: TODO ->  test ui on earlier iphone versions (less, than X)
-        //MARK: TODO -> rewrite this part of ui, using CGRect, where possibile, otherwise there are bugs, when it comes to animation tools with snapkit
         addEventButton.backgroundColor = Constants.Colour.lightOrange
         addEventButton.setTitle(StringsContent.EventsList.addEvent, for: .normal)
         addEventButton.setTitleColor(Constants.Colour.lightYellow, for: .normal)
@@ -87,25 +86,13 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     func setUpConstraints() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
         eventsListView.view.snp.makeConstraints{make in
-            //MARK: TODO: Should be changed to screen proportions otherwise on the models with small screen the views may be situated closer to the bottom of the screen
             make.top.equalToSuperview().offset(Constants.Offset.offset325)
             make.left.equalToSuperview().offset(Constants.Offset.offset10)
             make.right.equalToSuperview().offset(Constants.Offset.offsetMinus10)
             make.bottom.equalToSuperview().offset(Constants.Offset.offsetMinus90)
         }
-                
-//        addEventButton.snp.makeConstraints{make in
-//            make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
-//            make.leading.equalTo(eventsListView.view)
-//            make.width.equalTo(Constants.Size.size40)
-//            make.height.equalTo(Constants.Size.size40)
-//        }
         
-        newEventView.snp.makeConstraints{make in
-            make.leading.trailing.equalTo(eventsListView.view)
-            make.top.equalTo(eventsListView.view)
-            make.height.equalTo(Constants.Size.size250)
-        }
+        newEventView.frame = CGRect(x: addEventButton.frame.minX, y: addEventButton.frame.maxY + Constants.Offset.offset5, width: UIScreen.main.bounds.width - 2 * addEventButton.frame.minX, height: Constants.Size.size250)
     }
     
     
@@ -147,7 +134,6 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         }){ _ in
             self.showEventView()
         }
-        print("coor \(addEventButton.frame)")
     }
     
     
@@ -167,37 +153,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         //MARK: TODO: eliminate the bug: after entering smth into textview press return on the keyboard and then press textview: the textview will go up
         //MARK: TODO: eliminate bug, which happens from time to time: sometime before the first insertion of the text (after click on textview),there is extar space between keyboard and textview itself
         //MARK: TODO: eliminate bug: ipen newevent, insert text, insert smile, presss time picker: newevent view does not drop closser to keyboard
-        var offset: CGFloat = 0
-
-        var previousKeyBoardOffset = previousKeyBoardOffsetStored ?? 0
         
-        if previousKeyBoardOffset == keyBoardFrame.minY {
-            return
-        }
-
-        //MARK: TODO: play more with keyboard constraints, test it
-        
-        if previousKeyBoardOffset == 0 {
-            if !newEventView.datePickerIsTapped() {
-                offset = (previousKeyBoardOffset - keyBoardFrame.minY) / 4.8} else {
-                    offset = (previousKeyBoardOffset - keyBoardFrame.minY) / 9.6
-                }
-        }
-        else if previousKeyBoardOffset < keyBoardFrame.minY {
-            if !newEventView.datePickerIsTapped() {
-                offset = (previousKeyBoardOffset - keyBoardFrame.minY) * 2.2} else {
-                    offset = (previousKeyBoardOffset - keyBoardFrame.minY) * 1.3
-                }
-        } else {
-            if !newEventView.datePickerIsTapped() {
-                offset = -(previousKeyBoardOffset - keyBoardFrame.minY) * 3.15} else {
-                    offset = -(previousKeyBoardOffset - keyBoardFrame.minY) * 2.3}
-                    newEventView.resetDatePickerTappedActivity()
-                }
-
-        previousKeyBoardOffsetStored = keyBoardFrame.minY
-
-        changeConstraints(verticalOffset: offset)
+        changeConstraints(verticalOffset: keyBoardFrame.minY - Constants.Offset.offset30)
     }
 
     
@@ -208,48 +165,22 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     
     func changeConstraints(verticalOffset: CGFloat) {
-        guard let eventsListView = eventsListView as? UIPageViewController else {return}
-
-        addEventButton.snp.remakeConstraints{make in
-            make.bottom.equalTo(eventsListView.view.snp.top).offset(verticalOffset)
-            make.leading.trailing.equalTo(eventsListView.view)
-            make.height.equalTo(Constants.Size.size40)
-        }
-
-        newEventView.snp.remakeConstraints{make in
-            make.leading.trailing.equalTo(eventsListView.view)
-            make.top.equalTo(eventsListView.view).offset(verticalOffset+5)
-            make.height.equalTo(Constants.Size.size250)
-        }
+        let value = newEventView.frame.maxY - verticalOffset
+        newEventView.frame.origin.y -= value
+        addEventButton.frame.origin.y -= value
     }
     
     
     func restoreConstraints() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
-
-        addEventButton.snp.remakeConstraints{make in
-            make.bottom.equalTo(eventsListView.view.snp.top).offset(Constants.Offset.offsetMinus5)
-            make.leading.trailing.equalTo(eventsListView.view)
-            make.height.equalTo(Constants.Size.size40)
-        }
-
-        newEventView.snp.remakeConstraints{make in
-            make.leading.trailing.equalTo(eventsListView.view)
-            make.top.equalTo(eventsListView.view)
-            make.height.equalTo(Constants.Size.size250)
-        }
+        addEventButton.frame.origin.y = Constants.Offset.offset280
+        newEventView.frame.origin.y = addEventButton.frame.maxY + Constants.Offset.offset5
     }
     
     
     func saveEventButtonTapped() {
-        print("savedEventTapped")
         dismissKeyBoard()
         newEventView.retrieveInformationToSave()
-        
-        //MARK: TO-DO:
-        // - extarct all of the data and save it
-        // - return eventView to initial constraints aand conceal it
-        // - return saveButton to iniial constraints and to initial state ("+ sign")
     }
     
     func hideKeyBoardWhenTappedAround() {
