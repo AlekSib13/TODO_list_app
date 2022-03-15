@@ -10,7 +10,6 @@ import UIKit
 import AsyncDisplayKit
 
 class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
-    
    
     weak var view: MainEventsListViewControllerProtocol?
     let interactor: MainEventsListInteractorProtocol
@@ -92,8 +91,10 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         router.openCalendarModule()
     }
     
-    func saveTimeAndText(eventInfo: (String, String)) {
+    func saveTimeAndText(eventInfo: (String, String)?) {
         view?.hideEventView()
+        
+        guard let eventInfo = eventInfo else {return}
         interactor.saveTimeAndText(eventInfo: eventInfo) {
             interactor.saveNewEvent()
         }

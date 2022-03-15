@@ -42,7 +42,7 @@ protocol MainEventsListPageViewControllerProtocol {}
 protocol NewEventHandlerDelegateProtocol {
     func saveTime(date: Date) // delete method
     func openCalendar()
-    func saveTimeAndText(eventInfo: (String, String))
+    func saveTimeAndText(eventInfo: (String, String)?)
 }
 
 protocol NewEventCalendardDelegateProtocol {
