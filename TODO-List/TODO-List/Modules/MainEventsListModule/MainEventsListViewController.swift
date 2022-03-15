@@ -21,7 +21,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     var keyBoardHight: CGFloat?
     var previousKeyBoardOffsetStored: CGFloat?
-    
+    var activateTapAroundGestureRecogniser: Bool = false
     
     
     //MARK: TODO - put views into stack
@@ -42,6 +42,13 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         //MARK: TODO: implement to each view, where tag is used:
 //        addEventButton.tag = Constants.addEventButtonState.plusSymbol.rawValue
         return addEventButton
+    }()
+    
+    let blankView: UIView = {
+        let blankView = UIView()
+        blankView.backgroundColor = Constants.Colour.sandYellow
+        
+        return blankView
     }()
     
     private let newEventView = EventFieldView()
@@ -68,8 +75,10 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         keyBoard.endListeningForKeyBoard()
     }
     
+    
     func configureView() {
         guard let eventsListView = eventsListView as? UIPageViewController else {return}
+        view.addSubview(blankView)
         view.addSubview(eventsListView.view)
         view.addSubview(addEventButton)
         view.addSubview(newEventView)
@@ -77,6 +86,9 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         newEventView.isHidden = true
         
         setDataSourceAndDelegates()
+        
+        let tapAround = UITapGestureRecognizer(target: self, action: #selector(aroundTapped))
+        blankView.addGestureRecognizer(tapAround)
     }
     
     func configureNavigationBar() {
@@ -90,6 +102,11 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             make.left.equalToSuperview().offset(Constants.Offset.offset10)
             make.right.equalToSuperview().offset(Constants.Offset.offsetMinus10)
             make.bottom.equalToSuperview().offset(Constants.Offset.offsetMinus90)
+        }
+        
+        blankView.snp.makeConstraints{make in
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(addEventButton.snp.top).offset(Constants.Offset.offsetMinus15)
         }
         
         newEventView.frame = CGRect(x: addEventButton.frame.minX, y: addEventButton.frame.maxY + Constants.Offset.offset5, width: UIScreen.main.bounds.width - 2 * addEventButton.frame.minX, height: Constants.Size.size250)
@@ -142,7 +159,8 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
             self.newEventView.layer.opacity = 0.0
             self.newEventView.isHidden = false
             self.newEventView.layer.opacity = 1
-        }, completion: nil)
+        }, completion: {_ in
+            self.activateTapAroundGestureRecogniser = true})
     }
     
     func keyBoardControllerKeyBoardWillShow(keyBoardController: MainKeyBoardController, keyBoardFrame: CGRect) {
@@ -179,6 +197,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
     
     
     func saveEventButtonTapped() {
+        activateTapAroundGestureRecogniser = false
         dismissKeyBoard()
         newEventView.retrieveInformationToSave()
     }
@@ -243,6 +262,19 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         self.newEventView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.newEventView.transform = CGAffineTransform(rotationAngle: 2 * .pi)
         self.newEventView.refreshAll()
+    }
+    
+    @objc func aroundTapped() {
+        if activateTapAroundGestureRecogniser {
+            dismissNewEvent()
+        }
+    }
+    
+    func dismissNewEvent() {
+        activateTapAroundGestureRecogniser = false
+        dismissKeyBoard()
+        addEventButton.tag = Constants.addEventButtonState.plusSymbol.rawValue
+        presenter?.saveTimeAndText(eventInfo: nil)
     }
 }
 
