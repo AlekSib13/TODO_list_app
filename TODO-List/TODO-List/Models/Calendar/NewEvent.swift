@@ -16,6 +16,7 @@ class NewEvent {
     var eventTime: String?
     var eventDate: String?
     var eventImportance: Int?
+//    var eventImportance: Bool?
     
     
     init(eventTime: String?, eventDate: String?, eventText: String?, eventImportance: Int?, id: Int?) {

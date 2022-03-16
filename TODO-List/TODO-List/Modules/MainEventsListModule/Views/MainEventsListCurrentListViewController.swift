@@ -17,6 +17,7 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
         tableNode.backgroundColor = Constants.Colour.lightYellow
         tableNode.view.contentInsetAdjustmentBehavior = .never
         tableNode.view.separatorInset = .zero
+        tableNode.isUserInteractionEnabled = true
         return tableNode
     }()
     
@@ -40,6 +41,8 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.eventsTableReadyForReload, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(insertNewEvent(_:)), name: Notification.Name.eventTableNewEventInsertion, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteEvent(_:)), name: Notification.Name.eventDeleted, object: nil)
     }
     
     @objc func reloadData() {
@@ -55,6 +58,18 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
                 tableNode.insertSections(IndexSet.init(integer: sectionNumber), with: .automatic)
             }
             tableNode.insertRows(at: [IndexPath(row: sectionRow, section: sectionNumber)], with: .automatic)
+            
+        }, completion: nil)
+    }
+    
+    @objc func deleteEvent(_ notification: Notification) {
+        guard let ((sectionNumber, sectionRow), numberOfSection) = notification.object as? ((Int, Int), Int) else {return}
+        
+        tableNode.performBatch(animated: true, updates: {
+            if tableNode.numberOfSections < numberOfSection {
+                tableNode.deleteSections(IndexSet.init(integer: sectionNumber), with: .automatic)
+            }
+            tableNode.deleteRows(at: [IndexPath(row: sectionRow, section: sectionNumber)], with: .automatic)
             
         }, completion: nil)
     }

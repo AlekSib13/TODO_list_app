@@ -119,4 +119,10 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
         
         NotificationCenter.default.post(name: Notification.Name.eventTableNewEventInsertion, object: dataToPass)
     }
+    
+    func deleteEvent(atIndex: (Int,Int)) {
+        let dataToPass = (atIndex: atIndex, numberOfSections: self.itemSections.count)
+        
+        NotificationCenter.default.post(name: Notification.Name.eventDeleted, object: dataToPass)
+    }
 }

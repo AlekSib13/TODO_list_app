@@ -67,7 +67,7 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         super.viewWillAppear(animated)
         configureNavigationBar()
         keyBoard.beginListeningForKeyBoard()
-        hideKeyBoardWhenTappedAround()
+//        hideKeyBoardWhenTappedAround()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -202,13 +202,20 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         newEventView.retrieveInformationToSave()
     }
     
-    func hideKeyBoardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
-        view.addGestureRecognizer(tap)
-    }
+//    func hideKeyBoardWhenTappedAround() {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+//        view.addGestureRecognizer(tap)
+//    }
     
-    @objc private func dismissKeyBoard() {
+//    @objc private func dismissKeyBoard() {
+//        view.endEditing(true)
+//        previousKeyBoardOffsetStored = nil
+//        restoreConstraints()
+//    }
+    
+    private func dismissKeyBoard() {
         view.endEditing(true)
+        //MARK: TODO deleted excess variables like below
         previousKeyBoardOffsetStored = nil
         restoreConstraints()
     }
@@ -275,6 +282,39 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         dismissKeyBoard()
         addEventButton.tag = Constants.addEventButtonState.plusSymbol.rawValue
         presenter?.saveTimeAndText(eventInfo: nil)
+    }
+    
+    let greensquare: UIView = {
+        let greensquare = UIView(frame: CGRect(x: 5, y: 5, width: 10, height: 10))
+        return greensquare
+    }()
+    
+    func showItemActionSheet(item: NewEvent) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.view.backgroundColor = Constants.Colour.lemonCreamYellow
+        actionSheet.view.tintColor = Constants.Colour.brickBrownLighter075
+        actionSheet.view.layer.cornerRadius = 20
+        
+        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.edit.rawValue, style: .default, handler: nil))
+        //MARK: TODO: add the method below, when mark/unmark tables are added
+//        actionSheet.addAction(UIAlertAction(title: "mark as done", style: .default, handler: nil))
+        //MARK: TODO: the commented method below is applied only if the table with "done items" is opened
+//        actionSheet.addAction(UIAlertAction(title: "mark as undone", style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.delete.rawValue, style: .default, handler: nil))
+        
+        
+        guard let important = item.eventImportance else {
+            self.present(actionSheet, animated: true, completion: nil)
+            
+            actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.cancel.rawValue, style: .default, handler: nil))
+            return
+        }
+        //MARK: TODO: change important property to Bool
+        important == 1 ? actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.markAsUnimportant.rawValue, style: .default, handler: nil)) : actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.markAsImportant.rawValue, style: .default, handler: nil))
+        
+        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.cancel.rawValue, style: .default, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
 }
 

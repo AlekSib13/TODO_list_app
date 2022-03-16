@@ -50,7 +50,30 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        let date = interactor.itemSections[indexPath.section]
+        let item = interactor.items.filter({($0.eventDate ?? "") == date})[indexPath.row]
+        //MARK: TODO: rename everywhere from NewEvent to Event
+        view?.showItemActionSheet(item: item)
     }
+    
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//
+//        let deletion = UIContextualAction.init(style: .destructive, title: "delete", handler: {_,_,_ in
+//            //MARK: stopped here -> should be: deletion from db + NotificationCenter.default.post ...
+//            guard let cell = tableView.cellForRow(at: indexPath), let aSTableNode = cell as? ASCellNode, let eventCell = aSTableNode as? EventListCell else {return}
+//            print("id from twooo: \(eventCell.item.id)")
+//
+//        })
+//
+//        let markImportant = UIContextualAction.init(style: .normal, title: "important", handler: {_,_,_ in })
+//
+//        let swipeActions = UISwipeActionsConfiguration.init(actions: [deletion, markImportant])
+//
+//        return swipeActions
+//    }
+
+    
+
     
 
     
