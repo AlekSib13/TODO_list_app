@@ -112,6 +112,7 @@ struct Constants {
         
         static let brickBrown = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 1.0)
         static let brickBrownLighter075 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.75)
+        static let brickBrownLighter065 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.65)
         static let brickBrownLighter05 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.5)
         static let brickBrownLighter035 = UIColor(red: 136/255, green: 69/255, blue: 53/255, alpha: 0.35)
         
@@ -160,5 +161,14 @@ struct Constants {
     enum addEventButtonState: Int {
         case plusSymbol = 0
         case saveSign = 1
+    }
+    
+    enum ActionSheet: String {
+        case edit = "edit"
+        case markAsDone = "mark as done"
+        case delete = "delete"
+        case cancel = "cancel"
+        case markAsImportant = "mark as important"
+        case markAsUnimportant = "mark as unimportant"
     }
 }
