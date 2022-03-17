@@ -22,10 +22,9 @@ class MainEventsListDBManager: MainEventsListDBManagerProtocol {
             let object = RMNewEvent()
             let realmObject = object.createDbObject(newEvent: newEvent)
             newEvent.id = realmObject.id
+            newEvent.eventDateUnix = realmObject.eventDateUnix
             do {try self.realmDB.write {
                 self.realmDB.add(realmObject, update: .modified)
-//                DispatchQueue.main.async {
-//                    completion(.success(newEvent))
                 }
             DispatchQueue.main.async {
                 completion(.success(newEvent))
@@ -46,7 +45,7 @@ class MainEventsListDBManager: MainEventsListDBManagerProtocol {
             let dateFormatter = TimeConverterHelper()
             //MARK: currently only events with due later today and later are considered, allow the user to search for passed events as well + implement searchfield
             let anchorStartDate = Int(Date().timeIntervalSince1970)
-            let realmObjects = self.realmDB.objects(RMNewEvent.self).filter("id >= \(anchorStartDate)").sorted(byKeyPath: "id", ascending: true)
+            let realmObjects = self.realmDB.objects(RMNewEvent.self).filter("eventDateUnix >= \(anchorStartDate)").sorted(byKeyPath: "eventDateUnix", ascending: true)
             if realmObjects.count == 0 {
                 DispatchQueue.main.async {
                     completion(nil)

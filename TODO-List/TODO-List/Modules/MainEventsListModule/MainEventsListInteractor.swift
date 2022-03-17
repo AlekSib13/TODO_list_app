@@ -29,7 +29,7 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
         getEvents()
     }
     
-    var newEvent = NewEvent(eventTime: nil, eventDate: nil, eventText: nil, eventImportance: nil, id: nil)
+    var newEvent = NewEvent(eventTime: nil, eventDate: nil, eventText: nil, eventImportance: nil)
     
     func saveTimeAndText(eventInfo: (String, String), completion: () -> ()) {
         newEvent.eventTime = eventInfo.0
@@ -45,13 +45,15 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
         manager.saveData(newEvent: newEvent) {[weak self] result in
             guard let self = self else {return}
             
-            let eventForInsertion = NewEvent(eventTime: result.eventTime, eventDate: result.eventDate, eventText: result.eventText, eventImportance: result.eventImportance, id: result.id)
+            let eventForInsertion = NewEvent(eventTime: result.eventTime, eventDate: result.eventDate, eventText: result.eventText, eventImportance: result.eventImportance, id: result.id, eventDateUnix: result.eventDateUnix)
             
-            let ids = self.items.compactMap{$0.id}
+            guard let dateOfInsertedEvent = eventForInsertion.eventDateUnix else {return}
+            
+            let dates = self.items.compactMap{$0.eventDateUnix}
             var itemIndex = 0
             
-            for id in ids {
-                if eventForInsertion.id ?? 0 <= id {
+            for date in dates {
+                if dateOfInsertedEvent <= date {
                     break
                 }
                 itemIndex += 1
@@ -61,7 +63,6 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
             
             guard let index = self.findNewEventIndexInSection(newEvent: eventForInsertion) else {return}
             
-//            self.insertNewEvent(atIndex: index)
             self.presenter?.insertNewEvent(atIndex: index)
         }
     }
@@ -122,12 +123,10 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
 //    }
     
     func deleteEvent(event: NewEvent) {
-        manager.deleteData(event: event){ event in
-            print ("event \(event) deleted")
-            guard let deletedEventId = event.id else {return}
-            
-
-            
+        manager.deleteData(event: event) {[weak self] event in
+            guard let self = self, let deletedEventId = event.id else {return}
+            self.items.removeAll(where: {($0.id ?? 0) == deletedEventId})
+            self.presenter?.eventDeleted()
         }
     }
    

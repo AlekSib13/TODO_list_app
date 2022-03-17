@@ -16,14 +16,16 @@ class NewEvent {
     var eventTime: String?
     var eventDate: String?
     var eventImportance: Int?
+    var eventDateUnix: Int?
 //    var eventImportance: Bool?
     
     
-    init(eventTime: String?, eventDate: String?, eventText: String?, eventImportance: Int?, id: Int?) {
+    init(eventTime: String?, eventDate: String?, eventText: String?, eventImportance: Int?, id: Int? = nil, eventDateUnix: Int? = nil) {
         self.eventTime = eventTime
         self.eventDate = eventDate
         self.eventText = eventText
         self.eventImportance = eventImportance
         self.id = id
+        self.eventDateUnix = eventDateUnix
     }
 }
