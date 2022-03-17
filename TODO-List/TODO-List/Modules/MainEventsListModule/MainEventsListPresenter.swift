@@ -10,17 +10,21 @@ import UIKit
 import AsyncDisplayKit
 
 class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
+    
    
     weak var view: MainEventsListViewControllerProtocol?
     let interactor: MainEventsListInteractorProtocol
     let router: MainEventsListRouterProtocol
     let timeConverter = TimeConverterHelper()
     
+    private var changebleRow: (Int, Int)?
+    
     init(view: MainEventsListViewControllerProtocol, interactor: MainEventsListInteractorProtocol, router: MainEventsListRouterProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
     }
+    
     
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -53,6 +57,7 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         let date = interactor.itemSections[indexPath.section]
         let item = interactor.items.filter({($0.eventDate ?? "") == date})[indexPath.row]
         //MARK: TODO: rename everywhere from NewEvent to Event
+        changebleRow = (indexPath.section, indexPath.row)
         view?.showItemActionSheet(item: item)
     }
     
@@ -136,4 +141,12 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         interactor.saveCalendarDate(chosenDate: chosenDate)
     }
     
+    func insertNewEvent(atIndex: (Int,Int)) {
+        let dataToPass = (atIndex: atIndex, numberOfSections: interactor.itemSections.count)
+        NotificationCenter.default.post(name: Notification.Name.eventTableNewEventInsertion, object: dataToPass)
+    }
+    
+    func deleteEvent(event: NewEvent) {
+        interactor.deleteEvent(event: event)
+    }
 }
