@@ -20,6 +20,7 @@ protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource,
     func showPlaceHolderNoData()
     func deleteEvent(event: NewEvent)
     func insertNewEvent(atIndex: (Int,Int))
+    func eventDeleted()
 }
 
 protocol MainEventsListInteractorProtocol: class {
