@@ -8,7 +8,7 @@
 import Foundation
 
 class MainEventsListInteractor:  MainEventsListInteractorProtocol {
-    
+
     var initialLoad = true
     
     var items = [NewEvent]() {
@@ -61,7 +61,8 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
             
             guard let index = self.findNewEventIndexInSection(newEvent: eventForInsertion) else {return}
             
-            self.insertNewEvent(atIndex: index)
+//            self.insertNewEvent(atIndex: index)
+            self.presenter?.insertNewEvent(atIndex: index)
         }
     }
     
@@ -114,15 +115,20 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
         NotificationCenter.default.post(name: Notification.Name.eventsTableReadyForReload, object: nil)
     }
     
-    func insertNewEvent(atIndex: (Int,Int)) {
-        let dataToPass = (atIndex: atIndex, numberOfSections: self.itemSections.count)
-        
-        NotificationCenter.default.post(name: Notification.Name.eventTableNewEventInsertion, object: dataToPass)
-    }
+//    func insertNewEvent(atIndex: (Int,Int)) {
+//        let dataToPass = (atIndex: atIndex, numberOfSections: self.itemSections.count)
+//        
+//        NotificationCenter.default.post(name: Notification.Name.eventTableNewEventInsertion, object: dataToPass)
+//    }
     
-    func deleteEvent(atIndex: (Int,Int)) {
-        let dataToPass = (atIndex: atIndex, numberOfSections: self.itemSections.count)
-        
-        NotificationCenter.default.post(name: Notification.Name.eventDeleted, object: dataToPass)
+    func deleteEvent(event: NewEvent) {
+        manager.deleteData(event: event){ event in
+            print ("event \(event) deleted")
+            guard let deletedEventId = event.id else {return}
+            
+
+            
+        }
     }
+   
 }

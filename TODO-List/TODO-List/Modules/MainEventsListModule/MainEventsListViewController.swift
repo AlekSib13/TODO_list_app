@@ -300,13 +300,15 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
 //        actionSheet.addAction(UIAlertAction(title: "mark as done", style: .default, handler: nil))
         //MARK: TODO: the commented method below is applied only if the table with "done items" is opened
 //        actionSheet.addAction(UIAlertAction(title: "mark as undone", style: .default, handler: nil))
-        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.delete.rawValue, style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.delete.rawValue, style: .default, handler: {_ in
+            self.presenter?.deleteEvent(event: item)
+        }))
         
         
         guard let important = item.eventImportance else {
             self.present(actionSheet, animated: true, completion: nil)
             
-            actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.cancel.rawValue, style: .default, handler: nil))
+            actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.cancel.rawValue, style: .default))
             return
         }
         //MARK: TODO: change important property to Bool

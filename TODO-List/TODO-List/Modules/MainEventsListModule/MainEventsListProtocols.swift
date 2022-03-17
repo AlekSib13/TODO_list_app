@@ -18,13 +18,15 @@ protocol MainEventsListViewControllerProtocol: class {
 protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol, CalendarExternalDelegate {
     
     func showPlaceHolderNoData()
+    func deleteEvent(event: NewEvent)
+    func insertNewEvent(atIndex: (Int,Int))
 }
 
 protocol MainEventsListInteractorProtocol: class {
     func saveTimeAndText(eventInfo: (String, String), completion: () -> ())
     func saveCalendarDate(chosenDate: String)
     func saveNewEvent()
-//    func deleteEvent
+    func deleteEvent(event: NewEvent)
     
     var items: [NewEvent] {get set}
     var itemSections: [String] {get set}

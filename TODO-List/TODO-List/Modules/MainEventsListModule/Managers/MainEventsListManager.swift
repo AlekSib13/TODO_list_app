@@ -12,12 +12,12 @@ protocol MainEventsListManagerProtocol {
     func saveData(newEvent: NewEvent, completion: @escaping (NewEvent) -> Void)
     //MARK: TODO: check async code, somewhere @escpaing is not required
     func getData(completion: @escaping ([NewEvent]) -> Void)
+    func deleteData(event: NewEvent, completion: @escaping (NewEvent) -> Void)
 }
 
 
 
 class MainEventsListManager: MainEventsListManagerProtocol {
-    
     
     let dbManager: MainEventsListDBManagerProtocol
     
@@ -32,10 +32,9 @@ class MainEventsListManager: MainEventsListManagerProtocol {
             case .success(let savedEvent):
             print("savedEvent: \(savedEvent)")
                 completion(newEvent)
-                
             case .failure(let error):
                 //MARK: TODO develop this part of code
-                print("error")
+                print("error \(error.localizedDescription)")
             }
         }
     }
@@ -43,6 +42,20 @@ class MainEventsListManager: MainEventsListManagerProtocol {
     func getData(completion: @escaping ([NewEvent]) -> Void) {
         dbManager.readEventsFromDB{result in
             completion(result ?? [NewEvent]())
+        }
+    }
+    
+    func deleteData(event: NewEvent, completion: @escaping (NewEvent) -> Void) {
+        //MARK: TODO: debug script to see if extra background threads are used
+        dbManager.deleteEventfromDB(event: event) {result in
+            switch result {
+            case .success(let eventDeleted):
+            print("Event deleted: \(eventDeleted)")
+                completion(eventDeleted)
+            case .failure(let error):
+                //MARK: TODO develop this part of code
+                print("error: \(error.localizedDescription)")
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ import RealmSwift
 
 protocol MainEventsListDBManagerProtocol: BaseRealm {
     func writeEventsToDB(newEvent: NewEvent, completion: @escaping (Result<NewEvent, NSError>) -> Void)
+    func deleteEventfromDB(event: NewEvent, completion: @escaping (Result<NewEvent, NSError>) -> Void)
     func readEventsFromDB(completion: @escaping ([NewEvent]?) -> Void)
 }
 
@@ -23,15 +24,16 @@ class MainEventsListDBManager: MainEventsListDBManagerProtocol {
             newEvent.id = realmObject.id
             do {try self.realmDB.write {
                 self.realmDB.add(realmObject, update: .modified)
-                DispatchQueue.main.async {
-                    completion(.success(newEvent))
+//                DispatchQueue.main.async {
+//                    completion(.success(newEvent))
                 }
+            DispatchQueue.main.async {
+                completion(.success(newEvent))
             }} catch {
-                let realmError = NSError(domain: RealmErrors.description, code: RealmErrors.lackOfDiskSpaceOrFileCorruption.rawValue, userInfo: [NSLocalizedDescriptionKey: RealmErrors.lackOfDiskSpaceOrFileCorruption.describeError()])
-                print(realmError.localizedDescription)
+                let couldNotWriteError = NSError(domain: RealmErrors.description, code: RealmErrors.lackOfDiskSpaceOrFileCorruption.rawValue, userInfo: [NSLocalizedDescriptionKey: RealmErrors.lackOfDiskSpaceOrFileCorruption.describeError()])
                 //MARK:TOD: write a pop up, check available space or file is coruppted, app reinstallation required
                 DispatchQueue.main.async {
-                    completion(.failure(realmError))
+                    completion(.failure(couldNotWriteError))
                 }
             }
         }
@@ -56,6 +58,37 @@ class MainEventsListDBManager: MainEventsListDBManagerProtocol {
                 }
                 DispatchQueue.main.async {
                     completion(eventsList)
+                }
+            }
+        }
+    }
+    
+    func deleteEventfromDB(event: NewEvent, completion: @escaping (Result<NewEvent, NSError>) -> Void) {
+        guard let id = event.id else {
+            let noIdError = NSError(domain: RealmErrors.description, code: RealmErrors.noPrimaryKeyEntityToMakeLinkToDbObject.rawValue, userInfo: [NSLocalizedDescriptionKey: RealmErrors.noPrimaryKeyEntityToMakeLinkToDbObject.describeError()])
+            completion(.failure(noIdError))
+            return
+        }
+        DispatchQueue.global(qos: .userInitiated).async {[weak self] in
+            guard let self = self else {return}
+            guard let realmObject = self.realmDB.object(ofType: RMNewEvent.self, forPrimaryKey: id) else {
+                let noObjectError = NSError(domain: RealmErrors.description, code: RealmErrors.noObjectInDbForId.rawValue, userInfo: [NSLocalizedDescriptionKey: RealmErrors.noObjectInDbForId.describeError()])
+                DispatchQueue.main.async {
+                    completion(.failure(noObjectError))
+                }
+                return
+            }
+            do {
+                try self.realmDB.write {
+                    self.realmDB.delete(realmObject)
+                }
+                DispatchQueue.main.async {
+                    completion(.success(event))
+                }
+            } catch {
+                let couldNotDeleteError = NSError(domain: RealmErrors.description, code: RealmErrors.couldNotDeleteObject.rawValue, userInfo: [NSLocalizedDescriptionKey: RealmErrors.couldNotDeleteObject.describeError()])
+                DispatchQueue.main.async {
+                    completion(.failure(couldNotDeleteError))
                 }
             }
         }
