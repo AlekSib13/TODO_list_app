@@ -19,6 +19,7 @@ protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource,
     
     func showPlaceHolderNoData()
     func deleteEvent(event: NewEvent)
+    func openEventForModification(event: NewEvent)
     func insertNewEvent(atIndex: (Int,Int))
     func eventDeleted()
 }
@@ -28,6 +29,7 @@ protocol MainEventsListInteractorProtocol: class {
     func saveCalendarDate(chosenDate: String)
     func saveNewEvent()
     func deleteEvent(event: NewEvent)
+    func modifyEvent(event: NewEvent)
     
     var items: [NewEvent] {get set}
     var itemSections: [String] {get set}

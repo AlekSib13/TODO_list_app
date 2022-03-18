@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import AsyncDisplayKit
 
+
 class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>,  MainEventsListCurrentListViewControllerProtocol  {
     
     let tableNode: ASTableNode = {
@@ -20,6 +21,7 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
         tableNode.isUserInteractionEnabled = true
         return tableNode
     }()
+    
     
     var pageIndex = 0
     

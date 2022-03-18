@@ -46,6 +46,7 @@ class MainEventsListDBManager: MainEventsListDBManagerProtocol {
             //MARK: currently only events with due later today and later are considered, allow the user to search for passed events as well + implement searchfield
             let anchorStartDate = Int(Date().timeIntervalSince1970)
             let realmObjects = self.realmDB.objects(RMNewEvent.self).filter("eventDateUnix >= \(anchorStartDate)").sorted(byKeyPath: "eventDateUnix", ascending: true)
+            
             if realmObjects.count == 0 {
                 DispatchQueue.main.async {
                     completion(nil)

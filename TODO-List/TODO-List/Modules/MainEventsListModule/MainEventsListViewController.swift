@@ -295,7 +295,10 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         actionSheet.view.tintColor = Constants.Colour.brickBrownLighter075
         actionSheet.view.layer.cornerRadius = 20
         
-        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.edit.rawValue, style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.edit.rawValue, style: .default, handler: {_ in
+            self.addEventButtonTapped()
+            self.presenter?.openEventForModification(event: item)
+        }))
         //MARK: TODO: add the method below, when mark/unmark tables are added
 //        actionSheet.addAction(UIAlertAction(title: "mark as done", style: .default, handler: nil))
         //MARK: TODO: the commented method below is applied only if the table with "done items" is opened

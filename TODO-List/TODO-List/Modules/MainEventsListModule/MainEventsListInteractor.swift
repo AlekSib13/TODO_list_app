@@ -42,7 +42,39 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
     }
     
     func saveNewEvent() {
-        manager.saveData(newEvent: newEvent) {[weak self] result in
+        handleEvent()
+//        manager.saveData(newEvent: newEvent) {[weak self] result in
+//            guard let self = self else {return}
+//
+//            let eventForInsertion = NewEvent(eventTime: result.eventTime, eventDate: result.eventDate, eventText: result.eventText, eventImportance: (result.eventImportance ?? 0), id: result.id, eventDateUnix: result.eventDateUnix)
+//
+//            guard let dateOfInsertedEvent = eventForInsertion.eventDateUnix else {return}
+//
+//            let dates = self.items.compactMap{$0.eventDateUnix}
+//            var itemIndex = 0
+//
+//            for date in dates {
+//                if dateOfInsertedEvent <= date {
+//                    break
+//                }
+//                itemIndex += 1
+//            }
+//
+//            self.items.insert(eventForInsertion, at: itemIndex)
+//
+//            guard let index = self.findNewEventIndexInSection(newEvent: eventForInsertion) else {return}
+//
+//            self.presenter?.insertNewEvent(atIndex: index)
+//        }
+    }
+    
+    func modifyEvent(event: NewEvent) {
+        handleEvent(event: event)
+    }
+    
+    
+    private func handleEvent(event: NewEvent? = nil) {
+        manager.saveData(newEvent: (event ?? newEvent)) {[weak self] result in
             guard let self = self else {return}
             
             let eventForInsertion = NewEvent(eventTime: result.eventTime, eventDate: result.eventDate, eventText: result.eventText, eventImportance: (result.eventImportance ?? 0), id: result.id, eventDateUnix: result.eventDateUnix)
@@ -66,6 +98,7 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
             self.presenter?.insertNewEvent(atIndex: index)
         }
     }
+    
     
     func getEvents() {
         manager.getData() {[weak self] result in
