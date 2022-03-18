@@ -45,7 +45,7 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
         manager.saveData(newEvent: newEvent) {[weak self] result in
             guard let self = self else {return}
             
-            let eventForInsertion = NewEvent(eventTime: result.eventTime, eventDate: result.eventDate, eventText: result.eventText, eventImportance: result.eventImportance, id: result.id, eventDateUnix: result.eventDateUnix)
+            let eventForInsertion = NewEvent(eventTime: result.eventTime, eventDate: result.eventDate, eventText: result.eventText, eventImportance: (result.eventImportance ?? 0), id: result.id, eventDateUnix: result.eventDateUnix)
             
             guard let dateOfInsertedEvent = eventForInsertion.eventDateUnix else {return}
             
@@ -116,11 +116,6 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
         NotificationCenter.default.post(name: Notification.Name.eventsTableReadyForReload, object: nil)
     }
     
-//    func insertNewEvent(atIndex: (Int,Int)) {
-//        let dataToPass = (atIndex: atIndex, numberOfSections: self.itemSections.count)
-//        
-//        NotificationCenter.default.post(name: Notification.Name.eventTableNewEventInsertion, object: dataToPass)
-//    }
     
     func deleteEvent(event: NewEvent) {
         manager.deleteData(event: event) {[weak self] event in
