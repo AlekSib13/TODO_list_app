@@ -11,6 +11,7 @@ import AsyncDisplayKit
 
 class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     
+    
     weak var view: MainEventsListViewControllerProtocol?
     let interactor: MainEventsListInteractorProtocol
     let router: MainEventsListRouterProtocol
@@ -132,5 +133,9 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         guard let changebleRow = changebleRow else {return}
         let dataToPass = (atIndex: changebleRow, numberOfSections: interactor.itemSections.count)
         NotificationCenter.default.post(name: Notification.Name.eventDeletion, object: dataToPass)
+    }
+    
+    func openEventForModification(event: NewEvent) {
+        
     }
 }
