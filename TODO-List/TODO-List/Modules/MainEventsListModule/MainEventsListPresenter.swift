@@ -11,7 +11,6 @@ import AsyncDisplayKit
 
 class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     
-   
     weak var view: MainEventsListViewControllerProtocol?
     let interactor: MainEventsListInteractorProtocol
     let router: MainEventsListRouterProtocol
@@ -61,28 +60,7 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         view?.showItemActionSheet(item: item)
     }
     
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//
-//        let deletion = UIContextualAction.init(style: .destructive, title: "delete", handler: {_,_,_ in
-//            //MARK: stopped here -> should be: deletion from db + NotificationCenter.default.post ...
-//            guard let cell = tableView.cellForRow(at: indexPath), let aSTableNode = cell as? ASCellNode, let eventCell = aSTableNode as? EventListCell else {return}
-//            print("id from twooo: \(eventCell.item.id)")
-//
-//        })
-//
-//        let markImportant = UIContextualAction.init(style: .normal, title: "important", handler: {_,_,_ in })
-//
-//        let swipeActions = UISwipeActionsConfiguration.init(actions: [deletion, markImportant])
-//
-//        return swipeActions
-//    }
 
-    
-
-    
-
-    
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeaderView = UIView(frame: CGRect(x: Constants.Offset.offset0, y: Constants.Offset.offset0, width: tableView.frame.width, height: Constants.Size.size30))
         
@@ -148,5 +126,11 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     
     func deleteEvent(event: NewEvent) {
         interactor.deleteEvent(event: event)
+    }
+    
+    func eventDeleted() {
+        guard let changebleRow = changebleRow else {return}
+        let dataToPass = (atIndex: changebleRow, numberOfSections: interactor.itemSections.count)
+        NotificationCenter.default.post(name: Notification.Name.eventDeletion, object: dataToPass)
     }
 }

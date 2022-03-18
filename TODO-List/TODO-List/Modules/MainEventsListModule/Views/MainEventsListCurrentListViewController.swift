@@ -42,7 +42,7 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
         
         NotificationCenter.default.addObserver(self, selector: #selector(insertNewEvent(_:)), name: Notification.Name.eventTableNewEventInsertion, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteEvent(_:)), name: Notification.Name.eventDeleted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteEvent(_:)), name: Notification.Name.eventDeletion, object: nil)
     }
     
     @objc func reloadData() {
@@ -66,7 +66,7 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
         guard let ((sectionNumber, sectionRow), numberOfSection) = notification.object as? ((Int, Int), Int) else {return}
         
         tableNode.performBatch(animated: true, updates: {
-            if tableNode.numberOfSections < numberOfSection {
+            if tableNode.numberOfSections > numberOfSection {
                 tableNode.deleteSections(IndexSet.init(integer: sectionNumber), with: .automatic)
             }
             tableNode.deleteRows(at: [IndexPath(row: sectionRow, section: sectionNumber)], with: .automatic)
@@ -78,5 +78,6 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
     deinit {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.eventsTableReadyForReload, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.eventTableNewEventInsertion, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.eventDeletion, object: nil)
     }
 }
