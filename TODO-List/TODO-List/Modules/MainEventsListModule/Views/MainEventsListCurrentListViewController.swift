@@ -76,6 +76,22 @@ class MainEventsListCurrentListViewController: ASDKViewController<ASDisplayNode>
         }, completion: nil)
     }
     
+    @objc func updateEvent(_ notification: Notification) {
+        guard let ((sectionNumber, sectionRow), numberOfSection) = notification.object as? ((Int, Int), Int) else {return}
+        
+        tableNode.performBatch(animated: true, updates: {
+            if tableNode.numberOfSections < numberOfSection {
+                
+            } else if tableNode.numberOfSections > numberOfSection{
+                
+            } else //and if the number of sections didn't change? + 1/ -1
+            {}
+
+
+
+        }, completion: nil)
+    }
+    
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.eventsTableReadyForReload, object: nil)

@@ -8,7 +8,7 @@
 import Foundation
 
 class MainEventsListInteractor:  MainEventsListInteractorProtocol {
-
+   
     var initialLoad = true
     
     var items = [NewEvent]() {
@@ -29,55 +29,42 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
         getEvents()
     }
     
-    var newEvent = NewEvent(eventTime: nil, eventDate: nil, eventText: nil, eventImportance: nil)
+    
+    var eventTemporaryStorage: [String: String?] = [:]
+    
+
     
     func saveTimeAndText(eventInfo: (String, String), completion: () -> ()) {
-        newEvent.eventTime = eventInfo.0
-        newEvent.eventText = eventInfo.1
+        eventTemporaryStorage["eventTime"] = eventInfo.0
+        eventTemporaryStorage["eventText"] = eventInfo.1
+        
         completion()
     }
     
     func saveCalendarDate(chosenDate: String) {
-        newEvent.eventDate = chosenDate
+        eventTemporaryStorage["eventDate"] = chosenDate
     }
     
     func saveNewEvent() {
         handleEvent()
-//        manager.saveData(newEvent: newEvent) {[weak self] result in
-//            guard let self = self else {return}
-//
-//            let eventForInsertion = NewEvent(eventTime: result.eventTime, eventDate: result.eventDate, eventText: result.eventText, eventImportance: (result.eventImportance ?? 0), id: result.id, eventDateUnix: result.eventDateUnix)
-//
-//            guard let dateOfInsertedEvent = eventForInsertion.eventDateUnix else {return}
-//
-//            let dates = self.items.compactMap{$0.eventDateUnix}
-//            var itemIndex = 0
-//
-//            for date in dates {
-//                if dateOfInsertedEvent <= date {
-//                    break
-//                }
-//                itemIndex += 1
-//            }
-//
-//            self.items.insert(eventForInsertion, at: itemIndex)
-//
-//            guard let index = self.findNewEventIndexInSection(newEvent: eventForInsertion) else {return}
-//
-//            self.presenter?.insertNewEvent(atIndex: index)
-//        }
     }
     
-    func modifyEvent(event: NewEvent) {
-        handleEvent(event: event)
+    func modifyEvent(eventId: Int?) {
+        handleEvent(eventId: eventId)
     }
     
     
-    private func handleEvent(event: NewEvent? = nil) {
-        manager.saveData(newEvent: (event ?? newEvent)) {[weak self] result in
+    
+    private func handleEvent(eventId: Int? = nil) {
+        
+        let storage = eventTemporaryStorage
+        let event = NewEvent(eventTime: storage["eventTime"] ?? "", eventDate: storage["eventDate"] ?? "", eventText: storage["eventText"] ?? "", eventImportance: nil, id: eventId)
+        
+        
+        manager.saveData(newEvent: event) {[weak self] eventForInsertion in
             guard let self = self else {return}
             
-            let eventForInsertion = NewEvent(eventTime: result.eventTime, eventDate: result.eventDate, eventText: result.eventText, eventImportance: (result.eventImportance ?? 0), id: result.id, eventDateUnix: result.eventDateUnix)
+//            self.clearTemporaryStorageId()
             
             guard let dateOfInsertedEvent = eventForInsertion.eventDateUnix else {return}
             
@@ -157,5 +144,8 @@ class MainEventsListInteractor:  MainEventsListInteractorProtocol {
             self.presenter?.eventDeleted()
         }
     }
-   
+    
+//    func clearTemporaryStorageId() {
+//        eventTemporaryStorage["id"] = nil
+//    }
 }

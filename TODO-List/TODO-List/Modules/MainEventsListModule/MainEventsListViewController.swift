@@ -289,7 +289,42 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         return greensquare
     }()
     
-    func showItemActionSheet(item: NewEvent) {
+//    func showItemActionSheet(item: NewEvent) {
+//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        actionSheet.view.backgroundColor = Constants.Colour.lemonCreamYellow
+//        actionSheet.view.tintColor = Constants.Colour.brickBrownLighter075
+//        actionSheet.view.layer.cornerRadius = 20
+//
+//        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.edit.rawValue, style: .default, handler: {_ in
+//            self.addEventButtonTapped()
+////            self.presenter?.openEventForModification(event: item)
+//            self.showModifiedEventData(event: item)
+//        }))
+//        //MARK: TODO: add the method below, when mark/unmark tables are added
+////        actionSheet.addAction(UIAlertAction(title: "mark as done", style: .default, handler: nil))
+//        //MARK: TODO: the commented method below is applied only if the table with "done items" is opened
+////        actionSheet.addAction(UIAlertAction(title: "mark as undone", style: .default, handler: nil))
+//        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.delete.rawValue, style: .default, handler: {_ in
+//            self.presenter?.deleteEvent(event: item)
+//        }))
+//
+//
+//        guard let important = item.eventImportance else {
+//            self.present(actionSheet, animated: true, completion: nil)
+//
+//            actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.cancel.rawValue, style: .default))
+//            return
+//        }
+//        //MARK: TODO: change important property to Bool
+//        important == 1 ? actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.markAsUnimportant.rawValue, style: .default, handler: nil)) : actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.markAsImportant.rawValue, style: .default, handler: nil))
+//
+//        actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.cancel.rawValue, style: .default, handler: nil))
+//
+//        self.present(actionSheet, animated: true, completion: nil)
+//    }
+    
+    
+    func showItemActionSheet(important: Int?) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.view.backgroundColor = Constants.Colour.lemonCreamYellow
         actionSheet.view.tintColor = Constants.Colour.brickBrownLighter075
@@ -297,18 +332,18 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         
         actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.edit.rawValue, style: .default, handler: {_ in
             self.addEventButtonTapped()
-            self.presenter?.openEventForModification(event: item)
+            self.presenter?.openEventForModification()
         }))
         //MARK: TODO: add the method below, when mark/unmark tables are added
 //        actionSheet.addAction(UIAlertAction(title: "mark as done", style: .default, handler: nil))
         //MARK: TODO: the commented method below is applied only if the table with "done items" is opened
 //        actionSheet.addAction(UIAlertAction(title: "mark as undone", style: .default, handler: nil))
         actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.delete.rawValue, style: .default, handler: {_ in
-            self.presenter?.deleteEvent(event: item)
+            self.presenter?.deleteEvent()
         }))
         
         
-        guard let important = item.eventImportance else {
+        guard let important = important else {
             self.present(actionSheet, animated: true, completion: nil)
             
             actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.cancel.rawValue, style: .default))
@@ -320,6 +355,10 @@ class MainEventsListViewController: BasicViewController, MainEventsListViewContr
         actionSheet.addAction(UIAlertAction(title: Constants.ActionSheet.cancel.rawValue, style: .default, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func showEvent(withData: (date: String?, time: String?, text: String?, importance: Int?)) {
+        newEventView.updateViews(withData: withData)
     }
 }
 
