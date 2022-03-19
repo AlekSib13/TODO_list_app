@@ -12,6 +12,7 @@ import SnapKit
 class EventFieldView: UIView, UITextViewDelegate {
     
     var delegate: NewEventHandlerDelegateProtocol?
+    let timeConverter = TimeConverterHelper()
     
     var datePickerTapped = false
     
@@ -213,7 +214,6 @@ class EventFieldView: UIView, UITextViewDelegate {
     }
     
     func retrieveInformationToSave() {
-        let timeConverter = TimeConverterHelper()        
         let timeAndText = (eventTime: timeConverter.convertTimeToLocal(date: eventDatePicker.date), eventText: eventTextField.text ?? "")
         delegate?.saveTimeAndText(eventInfo: timeAndText)
     }
@@ -242,5 +242,13 @@ class EventFieldView: UIView, UITextViewDelegate {
         eventTextField.text = StringsContent.EventsList.insertYourReminder
         eventTextField.textColor = Constants.Colour.brickBrownLighter035
         resetDatePickerTappedActivity()
+    }
+    
+    func updateViews(withData: (date: String?, time: String?, text: String?, importance: Int?)) {
+        eventTextField.text = withData.text
+        eventTextField.textColor = Constants.Colour.brickBrown
+
+        guard let date = withData.date, let time = withData.time, let fullDate = timeConverter.getFullDateFromDate(day: date + "T" + time) else {return}
+        eventDatePicker.setDate(fullDate, animated: true)
     }
 }

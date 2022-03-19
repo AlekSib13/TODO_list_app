@@ -12,14 +12,16 @@ import AsyncDisplayKit
 protocol MainEventsListViewControllerProtocol: class {
     func showCalendarDate(chosenDate: String)
     func hideEventView()
-    func showItemActionSheet(item: NewEvent)
+//    func showItemActionSheet(item: NewEvent)
+    func showItemActionSheet(important: Int?)
+    func showEvent(withData: (date: String?, time: String?, text: String?, importance: Int?))
 }
 
 protocol MainEventsListPresenterProtocol: class, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ASTableDataSource, ASTableDelegate, NewEventHandlerDelegateProtocol, NewEventCalendardDelegateProtocol, CalendarExternalDelegate {
     
     func showPlaceHolderNoData()
-    func deleteEvent(event: NewEvent)
-    func openEventForModification(event: NewEvent)
+    func deleteEvent()
+    func openEventForModification()
     func insertNewEvent(atIndex: (Int,Int))
     func eventDeleted()
 }
@@ -29,7 +31,8 @@ protocol MainEventsListInteractorProtocol: class {
     func saveCalendarDate(chosenDate: String)
     func saveNewEvent()
     func deleteEvent(event: NewEvent)
-    func modifyEvent(event: NewEvent)
+//    func modifyEvent(event: NewEvent?)
+    func modifyEvent(eventId: Int?)
     
     var items: [NewEvent] {get set}
     var itemSections: [String] {get set}
@@ -55,3 +58,4 @@ protocol NewEventHandlerDelegateProtocol {
 protocol NewEventCalendardDelegateProtocol {
     
 }
+

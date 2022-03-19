@@ -23,6 +23,7 @@ class MainEventsListDBManager: MainEventsListDBManagerProtocol {
             let realmObject = object.createDbObject(newEvent: newEvent)
             newEvent.id = realmObject.id
             newEvent.eventDateUnix = realmObject.eventDateUnix
+             
             do {try self.realmDB.write {
                 self.realmDB.add(realmObject, update: .modified)
                 }

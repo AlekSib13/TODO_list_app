@@ -26,7 +26,7 @@ class RMNewEvent: Object {
         
         let eventDate = dateFormater.getFullDateFromDate(day: ((newEvent.eventDate ?? "") + "T" + (newEvent.eventTime ?? ""))) ?? Date()
         
-        self.id = Int(Date().timeIntervalSince1970)
+        self.id = newEvent.id ?? Int(Date().timeIntervalSince1970)
         self.eventText = newEvent.eventText
         self.eventImportance = newEvent.eventImportance ?? 0
         self.eventDate = eventDate

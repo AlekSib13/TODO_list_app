@@ -18,6 +18,7 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
     let timeConverter = TimeConverterHelper()
     
     private var changebleRow: (Int, Int)?
+    private var changebleEvent: NewEvent?
     
     init(view: MainEventsListViewControllerProtocol, interactor: MainEventsListInteractorProtocol, router: MainEventsListRouterProtocol) {
         self.view = view
@@ -58,7 +59,9 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         let item = interactor.items.filter({($0.eventDate ?? "") == date})[indexPath.row]
         //MARK: TODO: rename everywhere from NewEvent to Event
         changebleRow = (indexPath.section, indexPath.row)
-        view?.showItemActionSheet(item: item)
+        changebleEvent = item
+//        view?.showItemActionSheet(item: item)
+        view?.showItemActionSheet(important: item.eventImportance)
     }
     
 
@@ -103,7 +106,9 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         
         guard let eventInfo = eventInfo else {return}
         interactor.saveTimeAndText(eventInfo: eventInfo) {
-            interactor.saveNewEvent()
+            changebleEvent == nil ? interactor.saveNewEvent() : interactor.modifyEvent(eventId: changebleEvent?.id)
+                //interactor.modifyEvent(event: changebleEvent)
+            changebleEvent = nil
         }
     }
     
@@ -125,7 +130,8 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         NotificationCenter.default.post(name: Notification.Name.eventTableNewEventInsertion, object: dataToPass)
     }
     
-    func deleteEvent(event: NewEvent) {
+    func deleteEvent() {
+        guard let event = changebleEvent else {return}
         interactor.deleteEvent(event: event)
     }
     
@@ -135,7 +141,10 @@ class MainEventsListPresenter: NSObject, MainEventsListPresenterProtocol {
         NotificationCenter.default.post(name: Notification.Name.eventDeletion, object: dataToPass)
     }
     
-    func openEventForModification(event: NewEvent) {
-        
+    func openEventForModification() {
+        guard let event = changebleEvent, let date = event.eventDate else {return}
+        let dataToShow = (date: event.eventDate, time: event.eventTime, text: event.eventText, importance: event.eventImportance)
+        view?.showEvent(withData: dataToShow)
+        saveCalendarDate(chosenDate: date)
     }
 }
